@@ -1,0 +1,172 @@
+.validation-form {
+    width: 100%;
+    margin-top: 60px;
+}
+
+.inputs {
+    display: flex;
+    justify-content: space-between;
+    direction: ltr;
+    padding: 0 25px;
+}
+
+.code-input {
+    height: 4.5rem;
+    width: 5rem;
+    font-size: 2rem;
+    text-align: center;
+    direction: ltr;
+}
+
+.code-input:focus {
+    outline: none;
+    border-bottom: 2px solid var(--link-color)!important;
+    caret-color: var(--link-color);
+}
+
+.resend {
+    font-size: 1.3rem;
+    display: inline;
+    margin-right: 3px;
+}
+
+.validate-btn {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.btn-front {       
+    font-size: 1.4rem;
+    padding: 12px 0;
+}
+
+.rotate-arrow {
+    display: inline;
+}
+
+.resend-sec {
+    color: var(--link-color);
+    cursor: pointer;
+    margin-bottom: 12px;
+    margin-right: 25px;
+}
+
+.change-number {
+    font-size: 1.3rem;
+    color: var(--link-color);
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.confirmation {
+    text-align: center;
+    padding: 0 25px;
+}
+
+.timer {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: rgb(84, 91, 102);
+    cursor: auto;
+    margin-right: 25px;
+    margin-bottom: 10.5px;
+}
+
+.timer > span {
+    font-size: 1.3rem;
+}
+
+.err-txt {
+    margin-right: 25px;
+    color: var(--error-color);
+    font-size: 1.2rem;
+}
+
+@media screen and (min-width: 480px) {
+    .code-input {
+        height: 4rem;
+        width: 4.4rem;
+        font-size: 1.6rem;
+    }
+
+    .change-number {
+        font-size: 1.2rem;
+    }
+
+    .resend {
+        font-size: 1.1rem;
+    }
+
+    .timer {
+        font-size: 1.1rem;
+    }
+    
+    .timer > span {
+        font-size: 1.1rem;
+    }
+    
+    .err-txt {
+        margin-right: 25px;
+        color: var(--error-color);
+        font-size: 1rem;
+    }
+
+    .btn-front {
+        font-size: 1.2rem;
+    }
+
+    .validation-form {
+        margin-top: 80px;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .validate-btn {
+        margin-top: 80px;
+    }
+
+    .confirmation {
+        padding: 0 30px;
+    }
+
+    .inputs {
+        padding: 0 30px;
+    }
+
+    .resend-sec {
+        margin-right: 30px;
+    }
+
+    .err-txt {
+        margin-right: 30px;
+    }
+
+    .validation-form {
+        margin-top: 60px;
+    }
+}
+
+@media screen and (min-width: 1007px) {
+    .confirmation {
+        padding: 0;
+    }
+
+    .inputs {
+        padding: 0;
+    }
+
+    .resend-sec {
+        margin-right: 0;
+    }
+
+    .timer {
+        margin-right: 0;
+    }
+
+    .err-txt {
+        margin-right: 0;
+    }
+}

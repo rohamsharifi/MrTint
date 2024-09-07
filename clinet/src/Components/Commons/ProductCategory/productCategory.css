@@ -1,0 +1,166 @@
+.product-category {
+    padding: 0 16px;
+    margin-top: 36px;
+}
+
+.category-head {
+    font-size: 1.8rem;
+    color: var(--header-color);
+    line-height: 0;
+}
+
+.categories-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.category {
+    width: 48%;
+    margin-top: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.category-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    aspect-ratio: 3 / 2;
+}
+
+.car-image {
+    background-image: url("../../../images/car-paint6.jfif");
+    background-position: 0 75%;
+}
+
+.house-image {
+    background-image: url("../../../images/wall-paint1.jpg");
+    background-position: center;
+}
+
+.tools-image {
+    background-image: url("../../../images/painting-tools1.jpg");
+    background-position: 50% -100%;
+}
+
+.wood-image {
+    background-image: url("../../../images/wood-paint1.jpg");
+}
+
+.spray-image {
+    background-image: url("../../../images/spray.jpg");
+}
+
+.gear-image {
+    background-image: url("../../../images/gear.jpg");
+}
+
+.arttools-image {
+    background-image: url("../../../images/arttools.jpg");
+    width: 48%;
+}
+
+.last-row-mobile {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.last-category-description {
+    width: 48%;
+    color: white;
+    background-color: hsla(202, 64%, 24%);
+    font-size: 1.3rem;
+    margin-top: 0;
+    padding: 8px 0;
+    text-align: center;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin-bottom: 0;
+}
+
+.description-div-mobile {
+    display: flex;
+    justify-content: center;
+}
+
+.category-description {
+    color: white;
+    background-color: hsla(202, 64%, 24%);
+    font-size: 1.3rem;
+    margin-top: 0;
+    padding: 8px 0;
+    text-align: center;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin-bottom: 0;
+}
+
+.categories-tablet-first {
+    display: none;
+}
+
+.categories-tablet-second {
+    display: none;
+}
+
+@media screen and (min-width: 480px) {
+    .category-head {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 680px) {
+    .categories-mobile {
+        display: none;
+    }
+
+    .last-row-mobile {
+        display: none;
+    }
+
+    .description-div-mobile {
+        display: none;
+    }
+
+    .categories-tablet-first {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .category-image {
+        aspect-ratio: 2 / 1;
+    }
+
+    .category {
+        width: 24%;
+        margin-right: 12px;
+    }
+
+    .car-image {
+        background-position: -10% 80%;
+    }
+
+    .tools-image {
+        background-position: 50% -10%;
+    }
+
+    .categories-tablet-second {
+        display: flex;
+        justify-content: center;
+    }
+
+    .arttools-image {
+        background-position: 50% 10%;
+        width: 100%;
+    }
+    .spray-image {
+        background-position: 50% 0;
+    }
+    
+    .gear-image {
+        background-position: 50% 60%;
+    }
+}

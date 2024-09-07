@@ -1,0 +1,52 @@
+.signup-form {
+    margin-top: 60px;
+}
+
+.phone-input {
+    width: 100%;
+    padding: 10px 8px;
+    display: block;
+    letter-spacing: 1px;
+    font-size: 1.3rem;
+}
+
+.phone-input:focus {
+    border-bottom: 2px solid var(--link-color)!important;
+    caret-color: var(--link-color);
+}
+
+.phone-input::placeholder {
+    letter-spacing: 0;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 28px;
+    padding: 0;
+}
+   
+.btn-front {       
+    font-size: 1.4rem;
+    letter-spacing: 0;
+    padding: 12px 0;
+}
+   
+
+.login-link {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+@media screen and (min-width: 480px) {
+    .phone-input {
+        font-size: 1.2rem;
+    }
+    
+    .phone-input::placeholder {
+        font-size: 1.2rem;
+    }
+}

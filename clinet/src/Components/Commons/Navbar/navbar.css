@@ -1,0 +1,147 @@
+nav {
+    background-color: var(--secondary-color);
+    padding: 0 15px;
+}
+
+.nav-section {
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ham-menu {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    transition: width 1s;
+}
+
+.bars {
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+.search-box {
+    margin-right: 24px;
+    position: relative;
+    width: 100%;
+}
+
+.magnifying-glass {
+    color: rgb(139, 139, 139);
+    font-size: 1.8rem;
+    position: absolute;
+    right: 0.7rem;
+    top: 8px;
+    cursor: pointer;
+}
+
+.search-input {
+    box-shadow: 0 0 4px 1px rgb(41, 41, 41);
+    font-size: 1.3rem;
+    height: auto;
+    padding: 8px 30px 8px 8px;
+    width: 100%;
+}
+
+.search-input:focus {
+    border-bottom: 2px solid var(--link-color);
+    caret-color: var(--link-color);
+}
+
+
+.signin-button {
+    font-size: 1.4rem;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    padding: 8px 18px;
+    color: white;
+    box-shadow: 0 0 4px 1px rgb(41, 41, 41);
+    display: inline;
+}
+
+.menu {
+    display: none;
+}
+
+.menu-list {
+    margin-top: 0;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    margin-right: 4px;
+}
+
+.menu-link {
+    text-decoration: none;
+}
+
+.menu-item {
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin-left: 32px;
+    padding-bottom: 8px;
+}
+
+.home-item {
+    border-bottom: 3px solid white;
+}
+
+@media screen and (min-width: 480px) {
+    .search-input {
+        font-size: 1.2rem;
+    }
+
+    .magnifying-glass {
+        font-size: 1.6rem;
+        top: 0.7rem;
+    }
+
+    .bars {
+        font-size: 2.4rem;
+    }
+
+    .signin-button {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .search-input {
+        padding: 10px 30px 10px 8px;
+    }
+
+    .magnifying-glass {
+        top: 10px
+    }
+
+    .bars {
+        display: none;
+    }
+
+    .search-box {
+        margin-right: 0;
+    }
+
+    .ham-menu {
+        transition: none;
+        width: 400px!important;
+    }
+
+    .signin-button {
+        display: inline!important;
+    }
+
+    .menu {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 1007px) {
+    .ham-menu {
+        width: 500px!important;
+    }
+}

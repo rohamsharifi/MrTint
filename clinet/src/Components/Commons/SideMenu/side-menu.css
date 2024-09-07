@@ -1,0 +1,60 @@
+.sidenav {
+    background-color: white;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    height: 100dvh;
+    box-shadow: -2px 0 8px rgb(143, 143, 143);
+    width: 200px;
+    transition: all 0.5s;
+}
+
+.xmark {
+    font-size: 2.2rem;
+    color: rgb(78, 64, 64);
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    cursor: pointer;
+}
+
+.xmark:hover {
+    color: var(--error-color);
+}
+
+.nav-list {
+    list-style-type: none;
+    margin-top: 32px;
+    position: absolute;
+    padding: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.nav-item {
+    font-size: 1.4rem;
+    padding: 12px 8px;
+}
+
+.active {
+    color: var(--link-color);
+}
+
+@media screen and (min-width: 480px) {
+    .nav-item {
+        font-size: 1.2rem;
+    }
+
+    .xmark {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .sidenav {
+        display: none;
+    }
+}
