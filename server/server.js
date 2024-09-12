@@ -19,6 +19,14 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
+const carSchema = new mongoose.Schema({
+  company: String,
+  type: String,
+  order: Number,
+});
+
+const Car = mongoose.model("Car", carSchema);
+
 async function createUser(newUser) {
   const user = new User(newUser);
 
@@ -26,23 +34,23 @@ async function createUser(newUser) {
   console.log(result);
 }
 
-async function getProducts() {
-  return await Product.find();
+async function getCars() {
+  return await Car.find();
 }
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/api/products", (req, res) => {
+app.get("/api/carlist", (req, res) => {
   (async () => {
-    const products = await getProducts();
-    res.json({ products });
+    const cars = await getCars();
+    res.json({ cars });
   })();
 });
 
 app.use("/api/createuser", (req, res) => {
-  res.send("creating product...");
+  res.send("creating user...");
   createUser(req.body);
 });
 

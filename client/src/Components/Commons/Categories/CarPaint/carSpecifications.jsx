@@ -1,45 +1,101 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 import "./carSpecifications.css";
 
 const CarSpecifications = () => {
-  let [listRight, setListRight] = useState("-200px");
+  let [companyListRight, setCompanyListRight] = useState("-200px");
+  let [typeListRight, setTypeListRight] = useState("-200px");
   let [carInputValue, setCarInputValue] = useState("");
+  let [carTypeInputValue, setCarTypeInputValue] = useState("");
+  let [carCompanies, setCarCompanies] = useState([]);
+  let [cars, setCars] = useState([]);
 
-  const cars = [
-    { name: "پراید", id: 0 },
-    { name: "پژو پرشیا", id: 1 },
-    { name: "پژو ۲۰۶", id: 2 },
-    { name: "کوییک", id: 3 },
-    { name: "دنا", id: 4 },
-    { name: "تیبا", id: 5 },
-    { name: "شاهین", id: 6 },
-    { name: "سمند", id: 7 },
-  ];
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/carlist")
+      .then((response) => {
+        let testCars = response.data.cars;
+        let newCars = [response.data.cars[0]];
+        let previousCar = newCars[0].company;
+        testCars.map((car) => {
+          if (car.company !== previousCar) {
+            newCars = [...newCars, car];
+            previousCar = car.company;
+          }
+        });
+        setCarCompanies(newCars);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/carlist")
+      .then((response) => {
+        setCars(response.data.cars);
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
   const handleFocusBrandInput = () => {
-    setListRight("33px");
+    setCompanyListRight("33px");
   };
 
   const handleBlurBrandInput = () => {
-    setListRight("-200px");
+    setCompanyListRight("-200px");
   };
 
   const handleClickList = (car) => {
-    setCarInputValue(car.name);
-    setListRight("-200px");
+    setCarInputValue(car.company);
+    setCompanyListRight("-200px");
   };
 
   const handleClickEmptyList = () => {
     setCarInputValue("");
-    setListRight("-200px");
+    setCompanyListRight("-200px");
   };
 
-  const emptyList = () => {
-    const listArray = cars.filter((car) => car.name.startsWith(carInputValue));
+  const handleFocusTypeInput = () => {
+    setTypeListRight("33px");
+  };
+
+  const handleBlurTypeInput = () => {
+    setTypeListRight("-200px");
+  };
+
+  const handleClickTypeList = (car) => {
+    setCarTypeInputValue(car.type);
+    setTypeListRight("-200px");
+  };
+
+  const handleClickEmptyTypeList = () => {
+    setCarInputValue("");
+    setTypeListRight("-200px");
+  };
+
+  const emptyCompanyList = () => {
+    const listArray = carCompanies.filter((car) =>
+      car.company.startsWith(carInputValue)
+    );
     if (listArray.length === 0) {
       return (
-        <li className="car-brand" onClick={handleClickEmptyList}>
+        <li className="car-brand" onClick={handleClickEmptyList} key={0}>
+          موردی یافت نشد!
+        </li>
+      );
+    }
+  };
+
+  const emptyTypeList = () => {
+    const listArray = cars.filter((car) =>
+      car.type.startsWith(carTypeInputValue)
+    );
+    if (listArray.length === 0) {
+      return (
+        <li className="car-brand" onClick={handleClickEmptyTypeList} key={0}>
           موردی یافت نشد!
         </li>
       );
@@ -67,19 +123,46 @@ const CarSpecifications = () => {
           value={carInputValue}
           onChange={(e) => setCarInputValue(e.target.value)}
         />
-        <ul className="car-brands" style={{ right: listRight }}>
-          {cars.map((car) => {
-            return car.name.startsWith(carInputValue) ? (
+        <ul className="car-brands" style={{ right: companyListRight }}>
+          {carCompanies.map((car) => {
+            return car.company.startsWith(carInputValue) ? (
               <li
                 className="car-brand"
-                key={car.id}
+                key={car._id}
                 onClick={() => handleClickList(car)}
               >
-                {car.name}
+                {car.company}
               </li>
             ) : null;
           })}
-          {emptyList()}
+          {emptyCompanyList()}
+        </ul>
+        <label htmlFor="" className="car-type-label">
+          مدل ماشین:
+        </label>
+        <input
+          type="text"
+          className="car-type-input"
+          spellCheck="false"
+          value={carTypeInputValue}
+          onFocus={handleFocusTypeInput}
+          onBlur={handleBlurTypeInput}
+          onChange={(e) => setCarTypeInputValue(e.target.value)}
+        />
+        <ul className="car-types" style={{ right: typeListRight }}>
+          {cars.map((car) => {
+            return car.company === carInputValue &&
+              car.type.startsWith(carTypeInputValue) ? (
+              <li
+                key={car._id}
+                className="car-brand"
+                onClick={() => handleClickTypeList(car)}
+              >
+                {car.type}
+              </li>
+            ) : null;
+          })}
+          {emptyTypeList()}
         </ul>
         <label htmlFor="" className="color-code-label">
           کد رنگ ماشین:
