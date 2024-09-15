@@ -10,6 +10,7 @@ const CarSpecifications = () => {
   let [carTypeInputValue, setCarTypeInputValue] = useState("");
   let [carCompanies, setCarCompanies] = useState([]);
   let [cars, setCars] = useState([]);
+  let [isCompanyEmpty, setIsCompanyEmpty] = useState(false);
 
   useEffect(() => {
     axios
@@ -40,6 +41,8 @@ const CarSpecifications = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  //  CAR BRAND INPUT HANDLERS
+
   const handleFocusBrandInput = () => {
     setCompanyListRight("33px");
   };
@@ -50,6 +53,7 @@ const CarSpecifications = () => {
 
   const handleClickList = (car) => {
     setCarInputValue(car.company);
+    setIsCompanyEmpty(false);
     setCompanyListRight("-200px");
   };
 
@@ -58,8 +62,24 @@ const CarSpecifications = () => {
     setCompanyListRight("-200px");
   };
 
+  const handleChangeCarBrandInput = (value) => {
+    setCarInputValue(value);
+    const listArray = carCompanies.filter((car) => car.company === value);
+    if (listArray.length !== 0 && value !== "") {
+      setIsCompanyEmpty(false);
+    }
+  };
+
+  //  CAR TYPE INPUT HANDLERS
+
   const handleFocusTypeInput = () => {
     setTypeListRight("33px");
+    const listArray = carCompanies.filter(
+      (car) => car.company === carInputValue
+    );
+    if (listArray.length === 0 || carInputValue === "") {
+      setIsCompanyEmpty(true);
+    }
   };
 
   const handleBlurTypeInput = () => {
@@ -72,7 +92,7 @@ const CarSpecifications = () => {
   };
 
   const handleClickEmptyTypeList = () => {
-    setCarInputValue("");
+    setCarTypeInputValue("");
     setTypeListRight("-200px");
   };
 
@@ -83,19 +103,6 @@ const CarSpecifications = () => {
     if (listArray.length === 0) {
       return (
         <li className="car-brand" onClick={handleClickEmptyList} key={0}>
-          موردی یافت نشد!
-        </li>
-      );
-    }
-  };
-
-  const emptyTypeList = () => {
-    const listArray = cars.filter((car) =>
-      car.type.startsWith(carTypeInputValue)
-    );
-    if (listArray.length === 0) {
-      return (
-        <li className="car-brand" onClick={handleClickEmptyTypeList} key={0}>
           موردی یافت نشد!
         </li>
       );
@@ -121,7 +128,7 @@ const CarSpecifications = () => {
           onFocus={handleFocusBrandInput}
           onBlur={handleBlurBrandInput}
           value={carInputValue}
-          onChange={(e) => setCarInputValue(e.target.value)}
+          onChange={(e) => handleChangeCarBrandInput(e.target.value)}
         />
         <ul className="car-brands" style={{ right: companyListRight }}>
           {carCompanies.map((car) => {
@@ -137,6 +144,9 @@ const CarSpecifications = () => {
           })}
           {emptyCompanyList()}
         </ul>
+        {isCompanyEmpty && (
+          <p className="error-text">لطفا برند ماشین خود را انتخاب کنید</p>
+        )}
         <label htmlFor="" className="car-type-label">
           مدل ماشین:
         </label>
@@ -162,7 +172,15 @@ const CarSpecifications = () => {
               </li>
             ) : null;
           })}
-          {emptyTypeList()}
+          {isCompanyEmpty && (
+            <li
+              className="car-brand"
+              onClick={handleClickEmptyTypeList}
+              key={0}
+            >
+              موردی یافت نشد!
+            </li>
+          )}
         </ul>
         <label htmlFor="" className="color-code-label">
           کد رنگ ماشین:
