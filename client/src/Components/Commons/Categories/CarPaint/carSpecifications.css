@@ -99,6 +99,17 @@
     cursor: pointer;
 }
 
+.car-brand-active {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    border-bottom: 1px solid rgb(212, 214, 214);
+    padding: 12px 8px;
+    cursor: pointer;
+    background-color: hsl(202, 64%, 24%, 0.1);
+}
+
+
+
 .car-brand:hover {
     background-color: hsl(202, 64%, 24%, 0.1);
 }

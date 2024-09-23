@@ -11,6 +11,23 @@ const CarSpecifications = () => {
   let [carCompanies, setCarCompanies] = useState([]);
   let [cars, setCars] = useState([]);
   let [isCompanyEmpty, setIsCompanyEmpty] = useState(false);
+  let [brandListCounter, setBrandListCounter] = useState(0);
+  let [typeListCounter, setTypeListCounter] = useState(0);
+  let [persianCodes, setPersianCodes] = useState([
+    1575, 1576, 1662, 1578, 1579, 1580, 1670, 1581, 1582, 1583, 1584, 1585,
+    1586, 1688, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1601, 1602,
+    1705, 1711, 1604, 1605, 1606, 1607, 1608, 1740,
+  ]);
+  let [allowedCodes, setAllowedCodes] = useState([
+    1575, 1576, 1662, 1578, 1579, 1580, 1670, 1581, 1582, 1583, 1584, 1585,
+    1586, 1688, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1601, 1602,
+    1705, 1711, 1604, 1605, 1606, 1607, 1608, 1740, 48, 49, 50, 51, 52, 53, 54,
+    55, 56, 57, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
+    81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104,
+    105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119,
+    120, 121, 122,
+  ]);
+  let [isTypeEmpty, setIsTypeEmpty] = useState(false);
 
   useEffect(() => {
     axios
@@ -63,6 +80,11 @@ const CarSpecifications = () => {
   };
 
   const handleChangeCarBrandInput = (value) => {
+    setCompanyListRight("33px");
+    setCarTypeInputValue("");
+    if (!persianCodes.includes(value.charCodeAt(value.length - 1))) {
+      value = value.substring(0, value.length - 1);
+    }
     setCarInputValue(value);
     const listArray = carCompanies.filter((car) => car.company === value);
     if (listArray.length !== 0 && value !== "") {
@@ -70,15 +92,73 @@ const CarSpecifications = () => {
     }
   };
 
+  const handleKeyCarBrandInput = (key) => {
+    let newInputValue = carInputValue;
+    let newCarBrands = [];
+    if (persianCodes.includes(key.charCodeAt(0))) {
+      newInputValue = newInputValue + key;
+      setBrandListCounter(0);
+    }
+    if (key === "Backspace") {
+      newInputValue = newInputValue.substring(0, newInputValue.length - 1);
+      setBrandListCounter(0);
+    }
+    if (newInputValue === "") {
+      newCarBrands = carCompanies;
+    } else {
+      newCarBrands = carCompanies.filter((car) =>
+        car.company.startsWith(newInputValue)
+      );
+    }
+    if (key === "ArrowDown") {
+      if (brandListCounter < newCarBrands.length - 1) {
+        setBrandListCounter(brandListCounter + 1);
+        const element = document.getElementById(
+          newCarBrands[brandListCounter + 1]._id
+        );
+        if (element) {
+          element.parentNode.scrollTop = element.offsetTop - 80;
+        }
+      }
+    }
+    if (key === "ArrowUp") {
+      if (brandListCounter > 0) {
+        setBrandListCounter(brandListCounter - 1);
+        const element = document.getElementById(
+          newCarBrands[brandListCounter - 1]._id
+        );
+        if (element) {
+          element.parentNode.scrollTop = element.offsetTop - 80;
+        }
+      }
+    }
+    if (key === "Enter") {
+      if (newCarBrands.length > 0) {
+        setCarInputValue(newCarBrands[brandListCounter].company);
+        setIsCompanyEmpty(false);
+      } else {
+        setIsCompanyEmpty(true);
+        setCarInputValue("");
+      }
+      setCompanyListRight("-200px");
+    }
+  };
+
   //  CAR TYPE INPUT HANDLERS
 
   const handleFocusTypeInput = () => {
     setTypeListRight("33px");
-    const listArray = carCompanies.filter(
-      (car) => car.company === carInputValue
+    const carTypes = cars.filter((car) => car.company === carInputValue);
+    const exactCarTypes = carTypes.filter(
+      (car) => car.type === carTypeInputValue
     );
-    if (listArray.length === 0 || carInputValue === "") {
+    if (carTypes.length === 0 || carInputValue === "") {
       setIsCompanyEmpty(true);
+      setIsTypeEmpty(true);
+    } else if (carTypeInputValue !== "" && exactCarTypes.length === 0) {
+      setIsTypeEmpty(true);
+    } else {
+      setIsTypeEmpty(false);
     }
   };
 
@@ -89,6 +169,81 @@ const CarSpecifications = () => {
   const handleClickTypeList = (car) => {
     setCarTypeInputValue(car.type);
     setTypeListRight("-200px");
+  };
+
+  const handleChangeCarTypeInput = (value) => {
+    if (!allowedCodes.includes(value.charCodeAt(value.length - 1))) {
+      value = value.substring(0, value.length - 1);
+    }
+    setCarTypeInputValue(value);
+    const carTypes = carCompanies.filter((car) => car.type.startsWith(value));
+    if (carTypes.length === 0) {
+      setIsTypeEmpty(true);
+    } else {
+      setIsTypeEmpty(false);
+    }
+  };
+
+  const handleKeyCarTypeInput = (key) => {
+    console.log(key.charCodeAt(0));
+    let newInputValue = carTypeInputValue;
+    let newCarTypes = [];
+    if (
+      key !== "ArrowDown" &&
+      key !== "ArrowUp" &&
+      key !== "Enter" &&
+      key !== "Backspace"
+    ) {
+      if (allowedCodes.includes(key.charCodeAt(0))) {
+        newInputValue = newInputValue + key;
+        setTypeListCounter(0);
+      }
+    }
+    if (key === "Backspace") {
+      newInputValue = newInputValue.substring(0, newInputValue.length - 1);
+      setTypeListCounter(0);
+    }
+    if (newInputValue === "") {
+      newCarTypes = cars.filter((car) => car.company === carInputValue);
+    } else {
+      newCarTypes = cars.filter(
+        (car) =>
+          car.company === carInputValue && car.type.startsWith(newInputValue)
+      );
+    }
+    if (key === "ArrowDown") {
+      if (typeListCounter < newCarTypes.length - 1) {
+        setTypeListCounter(typeListCounter + 1);
+        const element = document.getElementById(
+          newCarTypes[typeListCounter + 1]._id
+        );
+        if (element) {
+          element.parentNode.scrollTop = element.offsetTop - 80;
+        }
+      }
+    }
+    if (key === "ArrowUp") {
+      if (typeListCounter > 0) {
+        setTypeListCounter(typeListCounter - 1);
+        const element = document.getElementById(
+          newCarTypes[typeListCounter - 1]._id
+        );
+        if (element) {
+          element.parentNode.scrollTop = element.offsetTop - 80;
+        }
+      }
+    }
+    if (key === "Enter") {
+      if (newCarTypes.length > 0) {
+        setTypeListCounter(0);
+        setCarTypeInputValue(newCarTypes[typeListCounter].type);
+        setIsTypeEmpty(false);
+      } else {
+        setIsTypeEmpty(true);
+        setCarTypeInputValue("");
+      }
+      setTypeListRight("-200px");
+    }
   };
 
   const handleClickEmptyTypeList = () => {
@@ -107,6 +262,63 @@ const CarSpecifications = () => {
         </li>
       );
     }
+  };
+
+  const renderBrandList = () => {
+    let classname = "";
+    let newCarCompanies = carCompanies.filter((car) =>
+      car.company.startsWith(carInputValue)
+    );
+    return newCarCompanies.map((car, i) => {
+      if (i === brandListCounter) {
+        classname = "car-brand-active";
+      } else {
+        classname = "car-brand";
+      }
+      return (
+        <li
+          className={classname}
+          key={car._id}
+          id={car._id}
+          onClick={() => handleClickList(car)}
+        >
+          {car.company}
+        </li>
+      );
+    });
+  };
+
+  const renderTypeList = () => {
+    let classname = "";
+    const carTypes = cars.filter(
+      (car) =>
+        car.company === carInputValue && car.type.startsWith(carTypeInputValue)
+    );
+    return carTypes.map((car, i) => {
+      if (i === typeListCounter) {
+        classname = "car-brand-active";
+      } else {
+        classname = "car-brand";
+      }
+      return (
+        <li
+          key={car._id}
+          id={car._id}
+          className={classname}
+          onClick={() => handleClickTypeList(car)}
+        >
+          {car.type}
+        </li>
+      );
+    });
+  };
+
+  const emptyTypeList = () => {
+    return (
+      <li className="car-brand" onClick={handleClickEmptyTypeList} key={0}>
+        موردی یافت نشد!
+      </li>
+    );
   };
 
   return (
@@ -129,19 +341,10 @@ const CarSpecifications = () => {
           onBlur={handleBlurBrandInput}
           value={carInputValue}
           onChange={(e) => handleChangeCarBrandInput(e.target.value)}
+          onKeyDown={(e) => handleKeyCarBrandInput(e.key)}
         />
         <ul className="car-brands" style={{ right: companyListRight }}>
-          {carCompanies.map((car) => {
-            return car.company.startsWith(carInputValue) ? (
-              <li
-                className="car-brand"
-                key={car._id}
-                onClick={() => handleClickList(car)}
-              >
-                {car.company}
-              </li>
-            ) : null;
-          })}
+          {renderBrandList()}
           {emptyCompanyList()}
         </ul>
         {isCompanyEmpty && (
@@ -157,30 +360,12 @@ const CarSpecifications = () => {
           value={carTypeInputValue}
           onFocus={handleFocusTypeInput}
           onBlur={handleBlurTypeInput}
-          onChange={(e) => setCarTypeInputValue(e.target.value)}
+          onChange={(e) => handleChangeCarTypeInput(e.target.value)}
+          onKeyDown={(e) => handleKeyCarTypeInput(e.key)}
         />
         <ul className="car-types" style={{ right: typeListRight }}>
-          {cars.map((car) => {
-            return car.company === carInputValue &&
-              car.type.startsWith(carTypeInputValue) ? (
-              <li
-                key={car._id}
-                className="car-brand"
-                onClick={() => handleClickTypeList(car)}
-              >
-                {car.type}
-              </li>
-            ) : null;
-          })}
-          {isCompanyEmpty && (
-            <li
-              className="car-brand"
-              onClick={handleClickEmptyTypeList}
-              key={0}
-            >
-              موردی یافت نشد!
-            </li>
-          )}
+          {renderTypeList()}
+          {isTypeEmpty && emptyTypeList()}
         </ul>
         <label htmlFor="" className="color-code-label">
           کد رنگ ماشین:
