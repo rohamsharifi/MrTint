@@ -27,21 +27,14 @@
     color: rgb(32, 37, 41);
 }
 
-.car-type-label {
+.car-type-label, .color-code-label, .color-amount-label{
     font-size: 1.3rem;
     color: rgb(32, 37, 41);
     margin-top: 16px;
     display: inline-block;
 }
 
-.color-code-label {
-    font-size: 1.3rem;
-    color: rgb(32, 37, 41);
-    margin-top: 16px;
-    display: inline-block;
-}
-
-.car-brand-input, .color-code-input, .car-type-input {
+.car-brand-input, .color-code-input, .car-type-input, .color-amount-input {
     display: block;
     width: 100%;
     margin-top: 6px;
@@ -51,12 +44,7 @@
     box-shadow: 0 -1px 4px rgb(204, 204, 204);
 }
 
-.car-brand-input:focus {
-    border-bottom: 2px solid var(--link-color)!important;
-    caret-color: var(--link-color);
-}
-
-.car-type-input:focus {
+.car-brand-input:focus, .car-type-input:focus, .color-code-input:focus, .color-amount-input:focus {
     border-bottom: 2px solid var(--link-color)!important;
     caret-color: var(--link-color);
 }

@@ -28,6 +28,7 @@ const CarSpecifications = () => {
     120, 121, 122,
   ]);
   let [isTypeEmpty, setIsTypeEmpty] = useState(false);
+  let [amountInputValue, setAmountInputValue] = useState(100);
 
   useEffect(() => {
     axios
@@ -371,6 +372,15 @@ const CarSpecifications = () => {
           کد رنگ ماشین:
         </label>
         <input type="text" className="color-code-input" spellCheck="false" />
+        <label htmlFor="" className="color-amount-label">
+          مقدار رنگ:
+        </label>
+        <input
+          type="number"
+          className="color-amount-input"
+          spellCheck="false"
+          value={amountInputValue}
+        />
       </form>
     </section>
   );
