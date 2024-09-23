@@ -13,6 +13,8 @@
 
 html {
   font-size: 62.5%;
+  scrollbar-color: rgb(159, 161, 161) white;
+  scrollbar-width: thin;
 }
 
 @font-face {
@@ -45,6 +47,7 @@ code {
   background-color: rgb(159, 161, 161);
   border-radius: 4px;
 }
+
 
 input {
     outline: none;
