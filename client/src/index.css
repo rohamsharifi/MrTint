@@ -8,13 +8,12 @@
   --secondary-color: hsl(202, 64%, 24%);
   --secondary-disable-color: rgb(0, 131, 192, 0.6);
   --error-color: rgb(207, 7, 7); 
+  --error-color-disabled: rgb(207, 7, 7, 0.17);
   --header-color: rgb(32, 35, 39); 
 }
 
 html {
   font-size: 62.5%;
-  scrollbar-color: rgb(159, 161, 161) white;
-  scrollbar-width: thin;
 }
 
 @font-face {

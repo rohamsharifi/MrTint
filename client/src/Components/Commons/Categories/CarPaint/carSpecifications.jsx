@@ -13,12 +13,12 @@ const CarSpecifications = () => {
   let [isCompanyEmpty, setIsCompanyEmpty] = useState(false);
   let [brandListCounter, setBrandListCounter] = useState(0);
   let [typeListCounter, setTypeListCounter] = useState(0);
-  let [persianCodes, setPersianCodes] = useState([
+  const [persianCodes, setPersianCodes] = useState([
     1575, 1576, 1662, 1578, 1579, 1580, 1670, 1581, 1582, 1583, 1584, 1585,
     1586, 1688, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1601, 1602,
     1705, 1711, 1604, 1605, 1606, 1607, 1608, 1740,
   ]);
-  let [allowedCodes, setAllowedCodes] = useState([
+  const [allowedCodes, setAllowedCodes] = useState([
     1575, 1576, 1662, 1578, 1579, 1580, 1670, 1581, 1582, 1583, 1584, 1585,
     1586, 1688, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1601, 1602,
     1705, 1711, 1604, 1605, 1606, 1607, 1608, 1740, 48, 49, 50, 51, 52, 53, 54,
@@ -28,7 +28,20 @@ const CarSpecifications = () => {
     120, 121, 122,
   ]);
   let [isTypeEmpty, setIsTypeEmpty] = useState(false);
-  let [amountInputValue, setAmountInputValue] = useState(100);
+  let [eAmountInputValue, setEAmountInputValue] = useState(50);
+  let [pAmountInputValue, setPAmountInputValue] = useState("۵۰");
+  const [persianNumbers, setPersianNumbers] = useState([
+    "۰",
+    "۱",
+    "۲",
+    "۳",
+    "۴",
+    "۵",
+    "۶",
+    "۷",
+    "۸",
+    "۹",
+  ]);
 
   useEffect(() => {
     axios
@@ -322,6 +335,76 @@ const CarSpecifications = () => {
     );
   };
 
+  const handleIncreaseAmount = () => {
+    setEAmountInputValue(eAmountInputValue + 50);
+    handleAmountToPersian(eAmountInputValue + 50);
+  };
+
+  const handleDecreaseAmount = () => {
+    if (eAmountInputValue >= 100) {
+      setEAmountInputValue(eAmountInputValue - 50);
+      handleAmountToPersian(eAmountInputValue - 50);
+    }
+  };
+
+  const handleAmountToPersian = (amount) => {
+    let persianAmount = "";
+    let strAmount = amount.toString();
+    let arrAmount = strAmount.split("");
+    arrAmount.map((str) => {
+      let int = Number(str);
+      persianAmount = persianAmount + persianNumbers[int];
+    });
+    setPAmountInputValue(persianAmount);
+  };
+
+  const handleChangeAmount = (value) => {
+    let key = value.charCodeAt(value.length - 1);
+    if ((key < 48 || key > 57) && (key < 1776 || key > 1785)) {
+      value = value.substring(0, value.length - 1);
+    }
+    switchToPersian(value);
+  };
+
+  const switchToPersian = (number) => {
+    let englishNumber = "";
+    const arrNumber = number.split("");
+    arrNumber.map((n) => {
+      const key = n.charCodeAt(0);
+      if (key >= 48 && key <= 57) {
+        englishNumber = englishNumber + n;
+      } else {
+        englishNumber = englishNumber + persianNumbers.indexOf(n).toString();
+      }
+    });
+    setEAmountInputValue(Number(englishNumber));
+    setPAmountInputValue(switchEngNumberToPersian(Number(englishNumber)));
+  };
+
+  const handleBlurAmount = () => {
+    if (eAmountInputValue % 50 !== 0) {
+      const surplus = eAmountInputValue % 50;
+      setEAmountInputValue(eAmountInputValue - surplus + 50);
+      setPAmountInputValue(
+        switchEngNumberToPersian(eAmountInputValue - surplus + 50)
+      );
+    }
+    if (eAmountInputValue < 50) {
+      setEAmountInputValue(50);
+      setPAmountInputValue("۵۰");
+    }
+  };
+
+  const switchEngNumberToPersian = (eng) => {
+    let strEng = eng.toString();
+    let arrEng = strEng.split("");
+    let strPer = "";
+    arrEng.map((n) => {
+      strPer += persianNumbers[Number(n)];
+    });
+    return strPer;
+  };
+
   return (
     <section className="car-specifications-section">
       <header>
@@ -373,14 +456,40 @@ const CarSpecifications = () => {
         </label>
         <input type="text" className="color-code-input" spellCheck="false" />
         <label htmlFor="" className="color-amount-label">
-          مقدار رنگ:
+          مقدار رنگ (گرم) :
         </label>
-        <input
-          type="number"
-          className="color-amount-input"
-          spellCheck="false"
-          value={amountInputValue}
-        />
+        <div className="color-amount-div">
+          <input
+            type="tel"
+            className="color-amount-input"
+            spellCheck="false"
+            value={pAmountInputValue}
+            onChange={(e) => handleChangeAmount(e.target.value)}
+            onBlur={handleBlurAmount}
+          />
+          <div
+            className="color-amount-btn increase-btn"
+            onClick={handleIncreaseAmount}
+          >
+            <img
+              src={require("../../../../images/plus.png")}
+              alt="increase"
+              className="plus-img"
+              draggable="false"
+            />
+          </div>
+          <div
+            className="color-amount-btn decrease-btn"
+            onClick={handleDecreaseAmount}
+          >
+            <img
+              src={require("../../../../images/minus.png")}
+              alt="decrease"
+              className="minus-img"
+              draggable="false"
+            />
+          </div>
+        </div>
       </form>
     </section>
   );

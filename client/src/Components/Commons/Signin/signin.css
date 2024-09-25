@@ -72,8 +72,8 @@
     margin-top: 8px;
     font-size: 1.2rem;
     margin-bottom: 8px;
-    padding: 8px 8px;
-    background-color: rgb(207, 7, 7, 0.17);
+    padding: 8px;
+    background-color: var(--error-color-disabled);
     border: 1px solid var(--error-color);
     border-radius: 8px;
 }
