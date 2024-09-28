@@ -1,0 +1,35 @@
+.car-paint-tabs {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 12px;
+}
+
+.tab-btn {
+    border: 1px solid rgb(212, 214, 214);
+    font-size: 1.3rem;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 8px 0;
+    top: 1px;
+    z-index: 3;
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 48%;
+    aspect-ratio: 4 / 1;
+}
+
+.color-bottle-image {
+    width: 12.5%;
+}
+
+.color-pen-image {
+    width: 10.5%;
+}
+
+.active-tab {
+    border-bottom: 1px solid #F6F8F9;
+    background-color: #F6F8F9;
+}

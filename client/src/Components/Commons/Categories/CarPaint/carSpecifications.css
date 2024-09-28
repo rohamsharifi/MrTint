@@ -15,22 +15,17 @@
 }
 
 .car-specifications-form {
-    margin-top: 20px;
     background-color: hsl(202, 64%, 24%, 0.04);
     border-radius: 8px;
     border: 1px solid rgb(212, 214, 214);
-    padding: 12px 16px;
+    padding: 0 16px 12px 16px;
+    z-index: 0;
 }
 
-.car-brand-label {
+.car-brand-label, .car-type-label, .color-code-label, .color-amount-label{
     font-size: 1.3rem;
     color: rgb(32, 37, 41);
-}
-
-.car-type-label, .color-code-label, .color-amount-label{
-    font-size: 1.3rem;
-    color: rgb(32, 37, 41);
-    margin-top: 16px;
+    margin-top: 24px;
     display: inline-block;
 }
 
@@ -83,8 +78,8 @@
 }
 
 .plus-img, .minus-img {
-    width: 50%;
-    height: 50%;
+    width: 48%;
+    height: 48%;
     user-select: none;
 }
 
@@ -114,6 +109,7 @@
     border: 1px solid rgb(212, 214, 214);
     overflow-y: auto;
     transition: all 250ms;
+    z-index: 2;
 }
 
 .car-types {
@@ -129,6 +125,7 @@
     border: 1px solid rgb(212, 214, 214);
     overflow-y: auto;
     transition: all 250ms;
+    z-index: 2;
 }
 
 .car-brand {

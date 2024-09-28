@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import "./carSpecifications.css";
+import CarPaintForm from "./carPaintForm";
+import CarPaintHeader from "./carPaintHeader";
+import CarPaintTabs from "./carPaintTabs";
 
 const CarSpecifications = () => {
   let [companyListRight, setCompanyListRight] = useState("-200px");
@@ -42,6 +45,10 @@ const CarSpecifications = () => {
     "۸",
     "۹",
   ]);
+  let [paintTabClass, setPaintTabClass] = useState(
+    "tab-btn tab-make-paint active-tab"
+  );
+  let [penTabClass, setPenTabClass] = useState("tab-btn tab-smart-pen");
 
   useEffect(() => {
     axios
@@ -278,30 +285,6 @@ const CarSpecifications = () => {
     }
   };
 
-  const renderBrandList = () => {
-    let classname = "";
-    let newCarCompanies = carCompanies.filter((car) =>
-      car.company.startsWith(carInputValue)
-    );
-    return newCarCompanies.map((car, i) => {
-      if (i === brandListCounter) {
-        classname = "car-brand-active";
-      } else {
-        classname = "car-brand";
-      }
-      return (
-        <li
-          className={classname}
-          key={car._id}
-          id={car._id}
-          onClick={() => handleClickList(car)}
-        >
-          {car.company}
-        </li>
-      );
-    });
-  };
-
   const renderTypeList = () => {
     let classname = "";
     const carTypes = cars.filter(
@@ -405,92 +388,57 @@ const CarSpecifications = () => {
     return strPer;
   };
 
+  const clickPaintTab = () => {
+    setPaintTabClass("tab-btn tab-make-paint active-tab");
+    setPenTabClass("tab-btn tab-smart-pen");
+  };
+
+  const clickPenTab = () => {
+    setPaintTabClass("tab-btn tab-make-paint");
+    setPenTabClass("tab-btn tab-smart-pen active-tab");
+  };
+
   return (
     <section className="car-specifications-section">
-      <header>
-        <h2 className="car-specifications-title">ساخت رنگ ماشین شما</h2>
-        <p className="car-specifications-description">
-          با وارد کردن اطلاعات زیر، رنگ ماشین شما ساخته و برای شما ارسال می‌شود
-        </p>
-      </header>
-      <form action="" className="car-specifications-form">
-        <label htmlFor="" className="car-brand-label">
-          برند ماشین:
-        </label>
-        <input
-          type="text"
-          className="car-brand-input"
-          spellCheck="false"
-          onFocus={handleFocusBrandInput}
-          onBlur={handleBlurBrandInput}
-          value={carInputValue}
-          onChange={(e) => handleChangeCarBrandInput(e.target.value)}
-          onKeyDown={(e) => handleKeyCarBrandInput(e.key)}
-        />
-        <ul className="car-brands" style={{ right: companyListRight }}>
-          {renderBrandList()}
-          {emptyCompanyList()}
-        </ul>
-        {isCompanyEmpty && (
-          <p className="error-text">لطفا برند ماشین خود را انتخاب کنید</p>
-        )}
-        <label htmlFor="" className="car-type-label">
-          مدل ماشین:
-        </label>
-        <input
-          type="text"
-          className="car-type-input"
-          spellCheck="false"
-          value={carTypeInputValue}
-          onFocus={handleFocusTypeInput}
-          onBlur={handleBlurTypeInput}
-          onChange={(e) => handleChangeCarTypeInput(e.target.value)}
-          onKeyDown={(e) => handleKeyCarTypeInput(e.key)}
-        />
-        <ul className="car-types" style={{ right: typeListRight }}>
-          {renderTypeList()}
-          {isTypeEmpty && emptyTypeList()}
-        </ul>
-        <label htmlFor="" className="color-code-label">
-          کد رنگ ماشین:
-        </label>
-        <input type="text" className="color-code-input" spellCheck="false" />
-        <label htmlFor="" className="color-amount-label">
-          مقدار رنگ (گرم) :
-        </label>
-        <div className="color-amount-div">
-          <input
-            type="tel"
-            className="color-amount-input"
-            spellCheck="false"
-            value={pAmountInputValue}
-            onChange={(e) => handleChangeAmount(e.target.value)}
-            onBlur={handleBlurAmount}
-          />
-          <div
-            className="color-amount-btn increase-btn"
-            onClick={handleIncreaseAmount}
-          >
-            <img
-              src={require("../../../../images/plus.png")}
-              alt="increase"
-              className="plus-img"
-              draggable="false"
-            />
-          </div>
-          <div
-            className="color-amount-btn decrease-btn"
-            onClick={handleDecreaseAmount}
-          >
-            <img
-              src={require("../../../../images/minus.png")}
-              alt="decrease"
-              className="minus-img"
-              draggable="false"
-            />
-          </div>
-        </div>
-      </form>
+      {/* CAR PAINT HEADER */}
+      <CarPaintHeader />
+
+      {/* CAR PAINT TABS */}
+      <CarPaintTabs
+        paintTabClass={paintTabClass}
+        penTabClass={penTabClass}
+        clickPaintTab={clickPaintTab}
+        clickPenTab={clickPenTab}
+      />
+
+      {/* CAR PAINT FORM */}
+      <CarPaintForm
+        handleFocusBrandInput={handleFocusBrandInput}
+        handleBlurBrandInput={handleBlurBrandInput}
+        carInputValue={carInputValue}
+        handleChangeCarBrandInput={handleChangeCarBrandInput}
+        handleKeyCarBrandInput={handleKeyCarBrandInput}
+        companyListRight={companyListRight}
+        emptyCompanyList={emptyCompanyList}
+        isCompanyEmpty={isCompanyEmpty}
+        carTypeInputValue={carTypeInputValue}
+        handleFocusTypeInput={handleFocusTypeInput}
+        handleBlurTypeInput={handleBlurTypeInput}
+        handleChangeCarTypeInput={handleChangeCarTypeInput}
+        handleKeyCarTypeInput={handleKeyCarTypeInput}
+        typeListRight={typeListRight}
+        renderTypeList={renderTypeList}
+        isTypeEmpty={isTypeEmpty}
+        emptyTypeList={emptyTypeList}
+        pAmountInputValue={pAmountInputValue}
+        handleChangeAmount={handleChangeAmount}
+        handleBlurAmount={handleBlurAmount}
+        handleIncreaseAmount={handleIncreaseAmount}
+        handleDecreaseAmount={handleDecreaseAmount}
+        carCompanies={carCompanies}
+        brandListCounter={brandListCounter}
+        handleClickList={handleClickList}
+      />
     </section>
   );
 };
