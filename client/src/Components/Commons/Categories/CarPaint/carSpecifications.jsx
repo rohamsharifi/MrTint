@@ -16,12 +16,12 @@ const CarSpecifications = () => {
   let [isCompanyEmpty, setIsCompanyEmpty] = useState(false);
   let [brandListCounter, setBrandListCounter] = useState(0);
   let [typeListCounter, setTypeListCounter] = useState(0);
-  const [persianCodes, setPersianCodes] = useState([
+  const persianCodes = [
     1575, 1576, 1662, 1578, 1579, 1580, 1670, 1581, 1582, 1583, 1584, 1585,
     1586, 1688, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1601, 1602,
     1705, 1711, 1604, 1605, 1606, 1607, 1608, 1740,
-  ]);
-  const [allowedCodes, setAllowedCodes] = useState([
+  ];
+  const allowedCodes = [
     1575, 1576, 1662, 1578, 1579, 1580, 1670, 1581, 1582, 1583, 1584, 1585,
     1586, 1688, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1601, 1602,
     1705, 1711, 1604, 1605, 1606, 1607, 1608, 1740, 48, 49, 50, 51, 52, 53, 54,
@@ -29,26 +29,19 @@ const CarSpecifications = () => {
     81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104,
     105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119,
     120, 121, 122,
-  ]);
+  ];
   let [isTypeEmpty, setIsTypeEmpty] = useState(false);
   let [eAmountInputValue, setEAmountInputValue] = useState(50);
   let [pAmountInputValue, setPAmountInputValue] = useState("۵۰");
-  const [persianNumbers, setPersianNumbers] = useState([
-    "۰",
-    "۱",
-    "۲",
-    "۳",
-    "۴",
-    "۵",
-    "۶",
-    "۷",
-    "۸",
-    "۹",
-  ]);
+  const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
   let [paintTabClass, setPaintTabClass] = useState(
     "tab-btn tab-make-paint active-tab"
   );
   let [penTabClass, setPenTabClass] = useState("tab-btn tab-smart-pen");
+  const colorTypes = ["فوری", "روغنی", "۲۱"];
+  let [colorTypeListCounter, setColorTypeListCounter] = useState(0);
+  let [colorTypeListRight, setColorTypeListRight] = useState("-200px");
+  let [colorTypeValue, setColorTypeValue] = useState("فوری");
 
   useEffect(() => {
     axios
@@ -398,6 +391,42 @@ const CarSpecifications = () => {
     setPenTabClass("tab-btn tab-smart-pen active-tab");
   };
 
+  const handleKeyColorType = (key) => {
+    if (key === "ArrowUp" && colorTypeListCounter > 0) {
+      setColorTypeListCounter(colorTypeListCounter - 1);
+    }
+    if (key === "ArrowDown" && colorTypeListCounter < colorTypes.length - 1) {
+      setColorTypeListCounter(colorTypeListCounter + 1);
+    }
+    if (key === "Enter") {
+      setColorTypeValue(colorTypes[colorTypeListCounter]);
+    }
+  };
+
+  const handleFocusColorType = () => {
+    setColorTypeListRight("33px");
+  };
+
+  const handleBlurColorType = () => {
+    setColorTypeListRight("-200px");
+  };
+
+  const renderColorTypeList = () => {
+    let classname = "";
+    return colorTypes.map((type, i) => {
+      if (i === colorTypeListCounter) {
+        classname = "color-type-active";
+      } else {
+        classname = "color-type";
+      }
+      return (
+        <li key={i} id={i} className={classname}>
+          {type}
+        </li>
+      );
+    });
+  };
+
   return (
     <section className="car-specifications-section">
       {/* CAR PAINT HEADER */}
@@ -438,6 +467,12 @@ const CarSpecifications = () => {
         carCompanies={carCompanies}
         brandListCounter={brandListCounter}
         handleClickList={handleClickList}
+        handleKeyColorType={handleKeyColorType}
+        handleFocusColorType={handleFocusColorType}
+        handleBlurColorType={handleBlurColorType}
+        renderColorTypeList={renderColorTypeList}
+        colorTypeListRight={colorTypeListRight}
+        colorTypeValue={colorTypeValue}
       />
     </section>
   );

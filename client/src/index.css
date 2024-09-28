@@ -75,6 +75,22 @@ input::placeholder {
   color: rgb(100, 100, 100);
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+select::-ms-expand {
+  display: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+}
+
+ul {
+  list-style-type: none;
+  overflow-y: auto;
+}
+
 button {
     position: relative;
     border: none;

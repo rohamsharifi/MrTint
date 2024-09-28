@@ -24,6 +24,12 @@ const CarPaintForm = ({
   carCompanies,
   brandListCounter,
   handleClickList,
+  handleKeyColorType,
+  handleFocusColorType,
+  handleBlurColorType,
+  renderColorTypeList,
+  colorTypeListRight,
+  colorTypeValue,
 }) => {
   const renderBrandList = () => {
     let classname = "";
@@ -72,10 +78,11 @@ const CarPaintForm = ({
       {isCompanyEmpty && (
         <p className="error-text">لطفا برند ماشین خود را انتخاب کنید</p>
       )}
-      <label htmlFor="" className="car-type-label">
+      <label htmlFor="types" className="car-type-label">
         مدل ماشین:
       </label>
       <input
+        id="types"
         type="text"
         className="car-type-input"
         spellCheck="false"
@@ -89,15 +96,37 @@ const CarPaintForm = ({
         {renderTypeList()}
         {isTypeEmpty && emptyTypeList()}
       </ul>
-      <label htmlFor="" className="color-code-label">
+      <label htmlFor="color-code" className="color-code-label">
         کد رنگ ماشین:
       </label>
-      <input type="text" className="color-code-input" spellCheck="false" />
-      <label htmlFor="" className="color-amount-label">
-        مقدار رنگ (گرم) :
+      <input
+        id="color-code"
+        type="text"
+        className="color-code-input"
+        spellCheck="false"
+      />
+      <label htmlFor="color-types" className="color-types-label">
+        نوع رنگ:
+      </label>
+      <input
+        id="color-types"
+        type="text"
+        className="color-types"
+        spellCheck="false"
+        value={colorTypeValue}
+        onKeyDown={(e) => handleKeyColorType(e.key)}
+        onFocus={handleFocusColorType}
+        onBlur={handleBlurColorType}
+      />
+      <ul className="color-types-list" style={{ right: colorTypeListRight }}>
+        {renderColorTypeList()}
+      </ul>
+      <label htmlFor="color-amount" className="color-amount-label">
+        مقدار رنگ (گرم):
       </label>
       <div className="color-amount-div">
         <input
+          id="color-amount"
           type="tel"
           className="color-amount-input"
           spellCheck="false"
