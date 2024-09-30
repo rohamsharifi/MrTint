@@ -5,12 +5,14 @@
 
 .car-specifications-title {
     font-size: 1.8rem;
+    font-family: NooraBold;
     color: var(--header-color);
     line-height: 0;
 }
 
 .car-specifications-description {
     color: var(--text-color);
+    font-family: NooraRegular;
     font-size: 1.4rem;
 }
 
@@ -63,7 +65,8 @@
 
 .color-amount-input {
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
+    font-family: NooraBold;
     direction: ltr;
 }
 
@@ -212,6 +215,11 @@
     .plus-icon, .minus-icon {
         font-size: 1.6rem;
         color: white;
+    }
+
+    .color-amount-input {
+        font-size: 1.5rem;
+        padding: 8px 0;
     }
 }
 

@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: digikalaRegular;
+  font-family: NooraRegular;
   direction: rtl;
   --primary-color: hsl(19, 42%, 44%);
   --link-color: rgb(0, 131, 192);
@@ -10,6 +10,7 @@
   --error-color: rgb(207, 7, 7); 
   --error-color-disabled: rgb(207, 7, 7, 0.17);
   --header-color: rgb(32, 35, 39); 
+  user-select: none;
 }
 
 html {
@@ -17,8 +18,24 @@ html {
 }
 
 @font-face {
-  font-family: digikalaRegular;
-  src: url(../public/font/iranyekanwebregular.e31c09af.woff2);
+	font-family: NooraLight;
+	font-style: normal;
+	font-weight: 300;
+	src:  url(../public/font/Noora-Light.woff2)
+}
+
+@font-face {
+  font-family: NooraRegular;
+	font-style: normal;
+	font-weight: normal;
+  src:  url(../public/font/Noora-Regular.woff2)
+}
+
+@font-face {
+  font-family: NooraBold;
+	font-style: normal;
+	font-weight: bold;
+  src:  url(../public/font/Noora-Bold.woff2)
 }
 
 body {
@@ -56,7 +73,7 @@ input {
     border-radius: 8px;
     transition: border-bottom 500ms;
     text-decoration: none;
-    font-family: digikalaRegular;
+    font-family: NooraRegular;
     color: var(--text-color);
 }
 
