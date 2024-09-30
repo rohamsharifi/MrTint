@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import "./navbar.css";
 
 const Navbar = ({ handleOpenSidenav }) => {
-  let [buttonDisplay, setButtinDisplay] = useState("inline");
+  let [buttonDisplay, setButtinDisplay] = useState("flex");
   let [divWidth, setDivWidth] = useState("200px");
 
   const handleFocus = () => {
@@ -17,7 +17,7 @@ const Navbar = ({ handleOpenSidenav }) => {
 
   const handleBlur = ({}) => {
     setDivWidth("200px");
-    setTimeout(() => setButtinDisplay("inline"), 540);
+    setTimeout(() => setButtinDisplay("flex"), 540);
   };
 
   return (
@@ -45,7 +45,7 @@ const Navbar = ({ handleOpenSidenav }) => {
         </div>
         <Link to="/signin" style={{ textDecoration: "none" }}>
           <button className="signin-button" style={{ display: buttonDisplay }}>
-            ورود یا ثبت‌نام
+            ورود / ثبت‌نام
           </button>
         </Link>
       </section>

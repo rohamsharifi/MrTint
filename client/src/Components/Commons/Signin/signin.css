@@ -74,6 +74,10 @@
     margin-bottom: 8px;
     padding: 8px;
     background-color: var(--error-color-disabled);
+    background-image: url(../../../images/info.png);
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: right 6px top 7px;
     border: 1px solid var(--error-color);
     border-radius: 8px;
 }

@@ -5,6 +5,7 @@ import "./carSpecifications.css";
 import CarPaintForm from "./carPaintForm";
 import CarPaintHeader from "./carPaintHeader";
 import CarPaintTabs from "./carPaintTabs";
+import SmartPenForm from "./smartPenForm";
 
 const CarSpecifications = () => {
   let [companyListRight, setCompanyListRight] = useState("-200px");
@@ -156,6 +157,30 @@ const CarSpecifications = () => {
       }
       setCompanyListRight("-200px");
     }
+  };
+
+  const renderBrandList = () => {
+    let classname = "";
+    let newCarCompanies = carCompanies.filter((car) =>
+      car.company.startsWith(carInputValue)
+    );
+    return newCarCompanies.map((car, i) => {
+      if (i === brandListCounter) {
+        classname = "car-brand-active";
+      } else {
+        classname = "car-brand";
+      }
+      return (
+        <li
+          className={classname}
+          key={car._id}
+          id={car._id}
+          onClick={() => handleClickList(car)}
+        >
+          {car.company}
+        </li>
+      );
+    });
   };
 
   //  CAR TYPE INPUT HANDLERS
@@ -441,39 +466,82 @@ const CarSpecifications = () => {
       />
 
       {/* CAR PAINT FORM */}
-      <CarPaintForm
-        handleFocusBrandInput={handleFocusBrandInput}
-        handleBlurBrandInput={handleBlurBrandInput}
-        carInputValue={carInputValue}
-        handleChangeCarBrandInput={handleChangeCarBrandInput}
-        handleKeyCarBrandInput={handleKeyCarBrandInput}
-        companyListRight={companyListRight}
-        emptyCompanyList={emptyCompanyList}
-        isCompanyEmpty={isCompanyEmpty}
-        carTypeInputValue={carTypeInputValue}
-        handleFocusTypeInput={handleFocusTypeInput}
-        handleBlurTypeInput={handleBlurTypeInput}
-        handleChangeCarTypeInput={handleChangeCarTypeInput}
-        handleKeyCarTypeInput={handleKeyCarTypeInput}
-        typeListRight={typeListRight}
-        renderTypeList={renderTypeList}
-        isTypeEmpty={isTypeEmpty}
-        emptyTypeList={emptyTypeList}
-        pAmountInputValue={pAmountInputValue}
-        handleChangeAmount={handleChangeAmount}
-        handleBlurAmount={handleBlurAmount}
-        handleIncreaseAmount={handleIncreaseAmount}
-        handleDecreaseAmount={handleDecreaseAmount}
-        carCompanies={carCompanies}
-        brandListCounter={brandListCounter}
-        handleClickList={handleClickList}
-        handleKeyColorType={handleKeyColorType}
-        handleFocusColorType={handleFocusColorType}
-        handleBlurColorType={handleBlurColorType}
-        renderColorTypeList={renderColorTypeList}
-        colorTypeListRight={colorTypeListRight}
-        colorTypeValue={colorTypeValue}
-      />
+
+      {paintTabClass.includes("active-tab") && (
+        <CarPaintForm
+          handleFocusBrandInput={handleFocusBrandInput}
+          handleBlurBrandInput={handleBlurBrandInput}
+          carInputValue={carInputValue}
+          handleChangeCarBrandInput={handleChangeCarBrandInput}
+          handleKeyCarBrandInput={handleKeyCarBrandInput}
+          companyListRight={companyListRight}
+          emptyCompanyList={emptyCompanyList}
+          isCompanyEmpty={isCompanyEmpty}
+          carTypeInputValue={carTypeInputValue}
+          handleFocusTypeInput={handleFocusTypeInput}
+          handleBlurTypeInput={handleBlurTypeInput}
+          handleChangeCarTypeInput={handleChangeCarTypeInput}
+          handleKeyCarTypeInput={handleKeyCarTypeInput}
+          typeListRight={typeListRight}
+          renderTypeList={renderTypeList}
+          isTypeEmpty={isTypeEmpty}
+          emptyTypeList={emptyTypeList}
+          pAmountInputValue={pAmountInputValue}
+          handleChangeAmount={handleChangeAmount}
+          handleBlurAmount={handleBlurAmount}
+          handleIncreaseAmount={handleIncreaseAmount}
+          handleDecreaseAmount={handleDecreaseAmount}
+          carCompanies={carCompanies}
+          brandListCounter={brandListCounter}
+          handleClickList={handleClickList}
+          handleKeyColorType={handleKeyColorType}
+          handleFocusColorType={handleFocusColorType}
+          handleBlurColorType={handleBlurColorType}
+          renderColorTypeList={renderColorTypeList}
+          colorTypeListRight={colorTypeListRight}
+          colorTypeValue={colorTypeValue}
+          renderBrandList={renderBrandList}
+        />
+      )}
+
+      {/* SMART PEN FORM */}
+
+      {penTabClass.includes("active-tab") && (
+        <SmartPenForm
+          handleFocusBrandInput={handleFocusBrandInput}
+          handleBlurBrandInput={handleBlurBrandInput}
+          carInputValue={carInputValue}
+          handleChangeCarBrandInput={handleChangeCarBrandInput}
+          handleKeyCarBrandInput={handleKeyCarBrandInput}
+          companyListRight={companyListRight}
+          emptyCompanyList={emptyCompanyList}
+          isCompanyEmpty={isCompanyEmpty}
+          carTypeInputValue={carTypeInputValue}
+          handleFocusTypeInput={handleFocusTypeInput}
+          handleBlurTypeInput={handleBlurTypeInput}
+          handleChangeCarTypeInput={handleChangeCarTypeInput}
+          handleKeyCarTypeInput={handleKeyCarTypeInput}
+          typeListRight={typeListRight}
+          renderTypeList={renderTypeList}
+          isTypeEmpty={isTypeEmpty}
+          emptyTypeList={emptyTypeList}
+          pAmountInputValue={pAmountInputValue}
+          handleChangeAmount={handleChangeAmount}
+          handleBlurAmount={handleBlurAmount}
+          handleIncreaseAmount={handleIncreaseAmount}
+          handleDecreaseAmount={handleDecreaseAmount}
+          carCompanies={carCompanies}
+          brandListCounter={brandListCounter}
+          handleClickList={handleClickList}
+          handleKeyColorType={handleKeyColorType}
+          handleFocusColorType={handleFocusColorType}
+          handleBlurColorType={handleBlurColorType}
+          renderColorTypeList={renderColorTypeList}
+          colorTypeListRight={colorTypeListRight}
+          colorTypeValue={colorTypeValue}
+          renderBrandList={renderBrandList}
+        />
+      )}
     </section>
   );
 };

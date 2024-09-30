@@ -60,6 +60,25 @@ input {
     color: var(--text-color);
 }
 
+input:focus {
+    border-bottom: 2px solid var(--link-color)!important;
+    caret-color: var(--link-color);
+}
+
+textarea {
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  resize: none;
+  font-family: digikalaRegular;
+  color: var(--text-color);
+}
+
+textarea:focus {
+  caret-color: var(--link-color);
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
