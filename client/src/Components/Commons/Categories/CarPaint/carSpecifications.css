@@ -12,7 +12,6 @@
 
 .car-specifications-description {
     color: var(--text-color);
-    font-family: NooraRegular;
     font-size: 1.4rem;
 }
 
@@ -24,7 +23,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
     z-index: 0;
 }
 
@@ -46,10 +44,7 @@
     padding: 10px 8px;
     font-size: 1.4rem;
     box-shadow: 0 -1px 4px rgb(204, 204, 204);
-}
-
-.color-code-input {
-    font-size: 1.6rem;
+    font-family: NooraMedium;
 }
 
 .color-types {
@@ -66,7 +61,7 @@
 .color-amount-input {
     text-align: center;
     font-size: 1.7rem;
-    font-family: NooraBold;
+    font-family: NooraSemiBold;
     direction: ltr;
 }
 
@@ -137,6 +132,11 @@
     border: 1px solid rgb(212, 214, 214);
     transition: all 250ms;
     z-index: 2;
+    right: -250px;
+}
+
+.car-brands-active {
+    right: 33px;
 }
 
 .color-types-list {
@@ -166,6 +166,11 @@
     overflow-y: auto;
     transition: all 250ms;
     z-index: 2;
+    right: -250px;
+}
+
+.car-types-active {
+    right: 33px;
 }
 
 .car-brand, .color-type {
@@ -206,10 +211,6 @@
 
     .car-specifications-inputs {
         font-size: 1.2rem;
-    }
-
-    .color-code-input {
-        font-size: 1.4rem;
     }  
     
     .plus-icon, .minus-icon {
@@ -226,5 +227,9 @@
 @media screen and (min-width: 640px) {
     .input-container {
         width: 48%;
+    }
+    
+    .car-types-active {
+        right: 565px;
     }
 }

@@ -17,7 +17,7 @@ const SmartPenForm = (props) => {
           onKeyDown={(e) => props.handleKeyCarBrandInput(e.key)}
           autoComplete="off"
         />
-        <ul className="car-brands" style={{ right: props.companyListRight }}>
+        <ul className={props.brandListClassname}>
           {props.renderBrandList()}
           {props.emptyCompanyList()}
         </ul>
@@ -41,7 +41,7 @@ const SmartPenForm = (props) => {
           onKeyDown={(e) => props.handleKeyCarTypeInput(e.key)}
           autoComplete="off"
         />
-        <ul className="car-types" style={{ right: props.typeListRight }}>
+        <ul className={props.typeListClassname}>
           {props.renderTypeList()}
           {props.isTypeEmpty && props.emptyTypeList()}
         </ul>

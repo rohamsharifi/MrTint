@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: NooraRegular;
+  font-family: NooraMedium;
   direction: rtl;
   --primary-color: hsl(19, 42%, 44%);
   --link-color: rgb(0, 131, 192);
@@ -18,17 +18,17 @@ html {
 }
 
 @font-face {
-	font-family: NooraLight;
+	font-family: NooraMedium;
 	font-style: normal;
-	font-weight: 300;
-	src:  url(../public/font/Noora-Light.woff2)
+	font-weight: medium;
+	src:  url(../public/font/Noora-Medium.woff2)
 }
 
 @font-face {
-  font-family: NooraRegular;
+  font-family: NooraSemiBold;
 	font-style: normal;
-	font-weight: normal;
-  src:  url(../public/font/Noora-Regular.woff2)
+	font-weight: 600;
+  src:  url(../public/font/Noora-SemiBold.woff2)
 }
 
 @font-face {
@@ -73,7 +73,7 @@ input {
     border-radius: 8px;
     transition: border-bottom 500ms;
     text-decoration: none;
-    font-family: NooraRegular;
+    font-family: NooraMedium;
     color: var(--text-color);
 }
 

@@ -8,8 +8,8 @@ import CarPaintTabs from "./carPaintTabs";
 import SmartPenForm from "./smartPenForm";
 
 const CarSpecifications = () => {
-  let [companyListRight, setCompanyListRight] = useState("-200px");
-  let [typeListRight, setTypeListRight] = useState("-200px");
+  let [brandListClassname, setBrandListClassname] = useState("car-brands");
+  let [typeListClassname, setTypeListClassname] = useState("car-types");
   let [carInputValue, setCarInputValue] = useState("");
   let [carTypeInputValue, setCarTypeInputValue] = useState("");
   let [carCompanies, setCarCompanies] = useState([]);
@@ -29,7 +29,7 @@ const CarSpecifications = () => {
     55, 56, 57, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
     81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104,
     105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119,
-    120, 121, 122,
+    120, 121, 122, 32,
   ];
   let [isTypeEmpty, setIsTypeEmpty] = useState(false);
   let [eAmountInputValue, setEAmountInputValue] = useState(50);
@@ -76,26 +76,39 @@ const CarSpecifications = () => {
   //  CAR BRAND INPUT HANDLERS
 
   const handleFocusBrandInput = () => {
-    setCompanyListRight("33px");
+    let newCarBrands = [];
+    setBrandListClassname("car-brands car-brands-active");
+    if (carInputValue === "") {
+      newCarBrands = carCompanies;
+    } else {
+      newCarBrands = carCompanies.filter((car) =>
+        car.company.startsWith(carInputValue)
+      );
+    }
+    const element = document.getElementById(newCarBrands[0]._id);
+    if (element) {
+      element.parentNode.scrollTop = element.offsetTop;
+    }
   };
 
   const handleBlurBrandInput = () => {
-    setCompanyListRight("-200px");
+    setBrandListClassname("car-brands");
+    setBrandListCounter(0);
   };
 
   const handleClickList = (car) => {
     setCarInputValue(car.company);
     setIsCompanyEmpty(false);
-    setCompanyListRight("-200px");
+    setBrandListClassname("car-brands");
   };
 
   const handleClickEmptyList = () => {
     setCarInputValue("");
-    setCompanyListRight("-200px");
+    setBrandListClassname("car-brands");
   };
 
   const handleChangeCarBrandInput = (value) => {
-    setCompanyListRight("33px");
+    setBrandListClassname("car-brands car-brands-active");
     setCarTypeInputValue("");
     if (!persianCodes.includes(value.charCodeAt(value.length - 1))) {
       value = value.substring(0, value.length - 1);
@@ -155,7 +168,7 @@ const CarSpecifications = () => {
         setIsCompanyEmpty(true);
         setCarInputValue("");
       }
-      setCompanyListRight("-200px");
+      setBrandListClassname("car-brands");
     }
   };
 
@@ -186,7 +199,7 @@ const CarSpecifications = () => {
   //  CAR TYPE INPUT HANDLERS
 
   const handleFocusTypeInput = () => {
-    setTypeListRight("33px");
+    setTypeListClassname("car-types car-types-active");
     const carTypes = cars.filter((car) => car.company === carInputValue);
     const exactCarTypes = carTypes.filter(
       (car) => car.type === carTypeInputValue
@@ -202,12 +215,14 @@ const CarSpecifications = () => {
   };
 
   const handleBlurTypeInput = () => {
-    setTypeListRight("-200px");
+    setTypeListClassname("car-types");
+    setTypeListCounter(0);
   };
 
-  const handleClickTypeList = (car) => {
-    setCarTypeInputValue(car.type);
-    setTypeListRight("-200px");
+  const handleClickTypeList = (type) => {
+    console.log("salam");
+    setCarTypeInputValue(type);
+    setTypeListClassname("car-types");
   };
 
   const handleChangeCarTypeInput = (value) => {
@@ -224,7 +239,6 @@ const CarSpecifications = () => {
   };
 
   const handleKeyCarTypeInput = (key) => {
-    console.log(key.charCodeAt(0));
     let newInputValue = carTypeInputValue;
     let newCarTypes = [];
     if (
@@ -281,13 +295,13 @@ const CarSpecifications = () => {
         setIsTypeEmpty(true);
         setCarTypeInputValue("");
       }
-      setTypeListRight("-200px");
+      setTypeListClassname("car-types");
     }
   };
 
   const handleClickEmptyTypeList = () => {
     setCarTypeInputValue("");
-    setTypeListRight("-200px");
+    setTypeListClassname("car-types");
   };
 
   const emptyCompanyList = () => {
@@ -320,7 +334,7 @@ const CarSpecifications = () => {
           key={car._id}
           id={car._id}
           className={classname}
-          onClick={() => handleClickTypeList(car)}
+          onClick={(car) => handleClickTypeList(car.type)}
         >
           {car.type}
         </li>
@@ -474,7 +488,7 @@ const CarSpecifications = () => {
           carInputValue={carInputValue}
           handleChangeCarBrandInput={handleChangeCarBrandInput}
           handleKeyCarBrandInput={handleKeyCarBrandInput}
-          companyListRight={companyListRight}
+          brandListClassname={brandListClassname}
           emptyCompanyList={emptyCompanyList}
           isCompanyEmpty={isCompanyEmpty}
           carTypeInputValue={carTypeInputValue}
@@ -482,7 +496,7 @@ const CarSpecifications = () => {
           handleBlurTypeInput={handleBlurTypeInput}
           handleChangeCarTypeInput={handleChangeCarTypeInput}
           handleKeyCarTypeInput={handleKeyCarTypeInput}
-          typeListRight={typeListRight}
+          typeListClassname={typeListClassname}
           renderTypeList={renderTypeList}
           isTypeEmpty={isTypeEmpty}
           emptyTypeList={emptyTypeList}
@@ -513,7 +527,7 @@ const CarSpecifications = () => {
           carInputValue={carInputValue}
           handleChangeCarBrandInput={handleChangeCarBrandInput}
           handleKeyCarBrandInput={handleKeyCarBrandInput}
-          companyListRight={companyListRight}
+          brandListClassname={brandListClassname}
           emptyCompanyList={emptyCompanyList}
           isCompanyEmpty={isCompanyEmpty}
           carTypeInputValue={carTypeInputValue}
@@ -521,7 +535,7 @@ const CarSpecifications = () => {
           handleBlurTypeInput={handleBlurTypeInput}
           handleChangeCarTypeInput={handleChangeCarTypeInput}
           handleKeyCarTypeInput={handleKeyCarTypeInput}
-          typeListRight={typeListRight}
+          typeListClassname={typeListClassname}
           renderTypeList={renderTypeList}
           isTypeEmpty={isTypeEmpty}
           emptyTypeList={emptyTypeList}
