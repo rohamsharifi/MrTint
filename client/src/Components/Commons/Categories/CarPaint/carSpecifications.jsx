@@ -12,7 +12,7 @@ const CarSpecifications = () => {
   let [typeListClassname, setTypeListClassname] = useState("car-types");
   let [carInputValue, setCarInputValue] = useState("");
   let [carTypeInputValue, setCarTypeInputValue] = useState("");
-  let [carCompanies, setCarCompanies] = useState([]);
+  let [carBrands, setCarBrands] = useState([]);
   let [cars, setCars] = useState([]);
   let [isCompanyEmpty, setIsCompanyEmpty] = useState(false);
   let [brandListCounter, setBrandListCounter] = useState(0);
@@ -41,7 +41,8 @@ const CarSpecifications = () => {
   let [penTabClass, setPenTabClass] = useState("tab-btn tab-smart-pen");
   const colorTypes = ["فوری", "روغنی", "۲۱"];
   let [colorTypeListCounter, setColorTypeListCounter] = useState(0);
-  let [colorTypeListRight, setColorTypeListRight] = useState("-200px");
+  let [colorTypeListClassname, setColorTypeListClassname] =
+    useState("color-types-list");
   let [colorTypeValue, setColorTypeValue] = useState("فوری");
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const CarSpecifications = () => {
             previousCar = car.company;
           }
         });
-        setCarCompanies(newCars);
+        setCarBrands(newCars);
       })
       .catch((e) => {
         console.log(e);
@@ -76,35 +77,34 @@ const CarSpecifications = () => {
   //  CAR BRAND INPUT HANDLERS
 
   const handleFocusBrandInput = () => {
-    let newCarBrands = [];
+    const newCarBrands = carBrands.filter((car) =>
+      car.company.startsWith(carInputValue)
+    );
+    setBrandListCounter(0);
+    if (newCarBrands.length > 0) {
+      const element = document.getElementById(newCarBrands[0]._id);
+      if (element) {
+        element.parentNode.scrollTop = element.offsetTop;
+      }
+    }
     setBrandListClassname("car-brands car-brands-active");
-    if (carInputValue === "") {
-      newCarBrands = carCompanies;
-    } else {
-      newCarBrands = carCompanies.filter((car) =>
-        car.company.startsWith(carInputValue)
-      );
-    }
-    const element = document.getElementById(newCarBrands[0]._id);
-    if (element) {
-      element.parentNode.scrollTop = element.offsetTop;
-    }
   };
 
   const handleBlurBrandInput = () => {
-    setBrandListClassname("car-brands");
-    setBrandListCounter(0);
+    setTimeout(() => setBrandListClassname("car-brands"), 50);
+    const carTypes = cars.filter(
+      (car) =>
+        car.company === carInputValue && car.type.startsWith(carTypeInputValue)
+    );
+    if (carTypes.length > 0) {
+      setIsCompanyEmpty(false);
+    }
   };
 
   const handleClickList = (car) => {
     setCarInputValue(car.company);
+    setBrandListClassname("car-brands");
     setIsCompanyEmpty(false);
-    setBrandListClassname("car-brands");
-  };
-
-  const handleClickEmptyList = () => {
-    setCarInputValue("");
-    setBrandListClassname("car-brands");
   };
 
   const handleChangeCarBrandInput = (value) => {
@@ -112,32 +112,17 @@ const CarSpecifications = () => {
     setCarTypeInputValue("");
     if (!persianCodes.includes(value.charCodeAt(value.length - 1))) {
       value = value.substring(0, value.length - 1);
+    } else {
+      setBrandListCounter(0);
     }
     setCarInputValue(value);
-    const listArray = carCompanies.filter((car) => car.company === value);
-    if (listArray.length !== 0 && value !== "") {
-      setIsCompanyEmpty(false);
-    }
   };
 
-  const handleKeyCarBrandInput = (key) => {
-    let newInputValue = carInputValue;
-    let newCarBrands = [];
-    if (persianCodes.includes(key.charCodeAt(0))) {
-      newInputValue = newInputValue + key;
-      setBrandListCounter(0);
-    }
-    if (key === "Backspace") {
-      newInputValue = newInputValue.substring(0, newInputValue.length - 1);
-      setBrandListCounter(0);
-    }
-    if (newInputValue === "") {
-      newCarBrands = carCompanies;
-    } else {
-      newCarBrands = carCompanies.filter((car) =>
-        car.company.startsWith(newInputValue)
-      );
-    }
+  const handleKeyCarBrandInput = (e) => {
+    const key = e.key;
+    const newCarBrands = carBrands.filter((car) =>
+      car.company.startsWith(carInputValue)
+    );
     if (key === "ArrowDown") {
       if (brandListCounter < newCarBrands.length - 1) {
         setBrandListCounter(brandListCounter + 1);
@@ -150,6 +135,7 @@ const CarSpecifications = () => {
       }
     }
     if (key === "ArrowUp") {
+      e.preventDefault();
       if (brandListCounter > 0) {
         setBrandListCounter(brandListCounter - 1);
         const element = document.getElementById(
@@ -163,37 +149,49 @@ const CarSpecifications = () => {
     if (key === "Enter") {
       if (newCarBrands.length > 0) {
         setCarInputValue(newCarBrands[brandListCounter].company);
-        setIsCompanyEmpty(false);
       } else {
-        setIsCompanyEmpty(true);
         setCarInputValue("");
       }
       setBrandListClassname("car-brands");
+      setIsCompanyEmpty(false);
     }
   };
 
   const renderBrandList = () => {
     let classname = "";
-    let newCarCompanies = carCompanies.filter((car) =>
+    const newBrands = carBrands.filter((car) =>
       car.company.startsWith(carInputValue)
     );
-    return newCarCompanies.map((car, i) => {
-      if (i === brandListCounter) {
-        classname = "car-brand-active";
-      } else {
-        classname = "car-brand";
-      }
+    if (newBrands.length > 0) {
+      return newBrands.map((car, i) => {
+        if (i === brandListCounter) {
+          classname = "car-brand-active";
+        } else {
+          classname = "car-brand";
+        }
+        return (
+          <li
+            className={classname}
+            key={car._id}
+            id={car._id}
+            onClick={() => handleClickList(car)}
+          >
+            {car.company}
+          </li>
+        );
+      });
+    } else {
       return (
         <li
-          className={classname}
-          key={car._id}
-          id={car._id}
-          onClick={() => handleClickList(car)}
+          className="car-brand"
+          key="0"
+          id="0"
+          onClick={() => setCarInputValue("")}
         >
-          {car.company}
+          موردی یافت نشد!
         </li>
       );
-    });
+    }
   };
 
   //  CAR TYPE INPUT HANDLERS
@@ -201,28 +199,24 @@ const CarSpecifications = () => {
   const handleFocusTypeInput = () => {
     setTypeListClassname("car-types car-types-active");
     const carTypes = cars.filter((car) => car.company === carInputValue);
-    const exactCarTypes = carTypes.filter(
-      (car) => car.type === carTypeInputValue
-    );
-    if (carTypes.length === 0 || carInputValue === "") {
+    if (carTypes.length === 0) {
       setIsCompanyEmpty(true);
-      setIsTypeEmpty(true);
-    } else if (carTypeInputValue !== "" && exactCarTypes.length === 0) {
-      setIsTypeEmpty(true);
     } else {
-      setIsTypeEmpty(false);
+      setIsCompanyEmpty(false);
+    }
+    setTypeListCounter(0);
+    const element = document.getElementById(carTypes[0]._id + "t");
+    if (element) {
+      element.parentNode.scrollTop = element.offsetTop - 80;
     }
   };
 
   const handleBlurTypeInput = () => {
-    setTypeListClassname("car-types");
-    setTypeListCounter(0);
+    setTimeout(() => setTypeListClassname("car-types"), 50);
   };
 
   const handleClickTypeList = (type) => {
-    console.log("salam");
     setCarTypeInputValue(type);
-    setTypeListClassname("car-types");
   };
 
   const handleChangeCarTypeInput = (value) => {
@@ -230,45 +224,19 @@ const CarSpecifications = () => {
       value = value.substring(0, value.length - 1);
     }
     setCarTypeInputValue(value);
-    const carTypes = carCompanies.filter((car) => car.type.startsWith(value));
-    if (carTypes.length === 0) {
-      setIsTypeEmpty(true);
-    } else {
-      setIsTypeEmpty(false);
-    }
+    setTypeListClassname("car-types car-types-active");
   };
 
   const handleKeyCarTypeInput = (key) => {
-    let newInputValue = carTypeInputValue;
-    let newCarTypes = [];
-    if (
-      key !== "ArrowDown" &&
-      key !== "ArrowUp" &&
-      key !== "Enter" &&
-      key !== "Backspace"
-    ) {
-      if (allowedCodes.includes(key.charCodeAt(0))) {
-        newInputValue = newInputValue + key;
-        setTypeListCounter(0);
-      }
-    }
-    if (key === "Backspace") {
-      newInputValue = newInputValue.substring(0, newInputValue.length - 1);
-      setTypeListCounter(0);
-    }
-    if (newInputValue === "") {
-      newCarTypes = cars.filter((car) => car.company === carInputValue);
-    } else {
-      newCarTypes = cars.filter(
-        (car) =>
-          car.company === carInputValue && car.type.startsWith(newInputValue)
-      );
-    }
+    const carTypes = cars.filter(
+      (car) =>
+        car.company === carInputValue && car.type.startsWith(carTypeInputValue)
+    );
     if (key === "ArrowDown") {
-      if (typeListCounter < newCarTypes.length - 1) {
+      if (typeListCounter < carTypes.length - 1) {
         setTypeListCounter(typeListCounter + 1);
         const element = document.getElementById(
-          newCarTypes[typeListCounter + 1]._id
+          carTypes[typeListCounter + 1]._id + "t"
         );
         if (element) {
           element.parentNode.scrollTop = element.offsetTop - 80;
@@ -279,7 +247,7 @@ const CarSpecifications = () => {
       if (typeListCounter > 0) {
         setTypeListCounter(typeListCounter - 1);
         const element = document.getElementById(
-          newCarTypes[typeListCounter - 1]._id
+          carTypes[typeListCounter - 1]._id + "t"
         );
         if (element) {
           element.parentNode.scrollTop = element.offsetTop - 80;
@@ -287,33 +255,13 @@ const CarSpecifications = () => {
       }
     }
     if (key === "Enter") {
-      if (newCarTypes.length > 0) {
+      if (carTypes.length > 0) {
         setTypeListCounter(0);
-        setCarTypeInputValue(newCarTypes[typeListCounter].type);
-        setIsTypeEmpty(false);
+        setCarTypeInputValue(carTypes[typeListCounter].type);
       } else {
-        setIsTypeEmpty(true);
         setCarTypeInputValue("");
       }
       setTypeListClassname("car-types");
-    }
-  };
-
-  const handleClickEmptyTypeList = () => {
-    setCarTypeInputValue("");
-    setTypeListClassname("car-types");
-  };
-
-  const emptyCompanyList = () => {
-    const listArray = carCompanies.filter((car) =>
-      car.company.startsWith(carInputValue)
-    );
-    if (listArray.length === 0) {
-      return (
-        <li className="car-brand" onClick={handleClickEmptyList} key={0}>
-          موردی یافت نشد!
-        </li>
-      );
     }
   };
 
@@ -323,31 +271,36 @@ const CarSpecifications = () => {
       (car) =>
         car.company === carInputValue && car.type.startsWith(carTypeInputValue)
     );
-    return carTypes.map((car, i) => {
-      if (i === typeListCounter) {
-        classname = "car-brand-active";
-      } else {
-        classname = "car-brand";
-      }
+    if (carTypes.length === 0) {
       return (
         <li
-          key={car._id}
-          id={car._id}
-          className={classname}
-          onClick={(car) => handleClickTypeList(car.type)}
+          key="0"
+          id="0"
+          className="car-brand"
+          onClick={() => setCarTypeInputValue("")}
         >
-          {car.type}
+          موردی یافت نشد!
         </li>
       );
-    });
-  };
-
-  const emptyTypeList = () => {
-    return (
-      <li className="car-brand" onClick={handleClickEmptyTypeList} key={0}>
-        موردی یافت نشد!
-      </li>
-    );
+    } else {
+      return carTypes.map((car, i) => {
+        if (i === typeListCounter) {
+          classname = "car-brand-active";
+        } else {
+          classname = "car-brand";
+        }
+        return (
+          <li
+            key={car._id}
+            id={car._id + "t"}
+            className={classname}
+            onClick={() => handleClickTypeList(car.type)}
+          >
+            {car.type}
+          </li>
+        );
+      });
+    }
   };
 
   const handleIncreaseAmount = () => {
@@ -443,11 +396,11 @@ const CarSpecifications = () => {
   };
 
   const handleFocusColorType = () => {
-    setColorTypeListRight("33px");
+    setColorTypeListClassname("color-types-list color-types-list-active");
   };
 
   const handleBlurColorType = () => {
-    setColorTypeListRight("-200px");
+    setColorTypeListClassname("color-types-list");
   };
 
   const renderColorTypeList = () => {
@@ -489,7 +442,6 @@ const CarSpecifications = () => {
           handleChangeCarBrandInput={handleChangeCarBrandInput}
           handleKeyCarBrandInput={handleKeyCarBrandInput}
           brandListClassname={brandListClassname}
-          emptyCompanyList={emptyCompanyList}
           isCompanyEmpty={isCompanyEmpty}
           carTypeInputValue={carTypeInputValue}
           handleFocusTypeInput={handleFocusTypeInput}
@@ -499,20 +451,17 @@ const CarSpecifications = () => {
           typeListClassname={typeListClassname}
           renderTypeList={renderTypeList}
           isTypeEmpty={isTypeEmpty}
-          emptyTypeList={emptyTypeList}
           pAmountInputValue={pAmountInputValue}
           handleChangeAmount={handleChangeAmount}
           handleBlurAmount={handleBlurAmount}
           handleIncreaseAmount={handleIncreaseAmount}
           handleDecreaseAmount={handleDecreaseAmount}
-          carCompanies={carCompanies}
-          brandListCounter={brandListCounter}
           handleClickList={handleClickList}
           handleKeyColorType={handleKeyColorType}
           handleFocusColorType={handleFocusColorType}
           handleBlurColorType={handleBlurColorType}
           renderColorTypeList={renderColorTypeList}
-          colorTypeListRight={colorTypeListRight}
+          colorTypeListClassname={colorTypeListClassname}
           colorTypeValue={colorTypeValue}
           renderBrandList={renderBrandList}
         />
@@ -528,7 +477,6 @@ const CarSpecifications = () => {
           handleChangeCarBrandInput={handleChangeCarBrandInput}
           handleKeyCarBrandInput={handleKeyCarBrandInput}
           brandListClassname={brandListClassname}
-          emptyCompanyList={emptyCompanyList}
           isCompanyEmpty={isCompanyEmpty}
           carTypeInputValue={carTypeInputValue}
           handleFocusTypeInput={handleFocusTypeInput}
@@ -538,20 +486,17 @@ const CarSpecifications = () => {
           typeListClassname={typeListClassname}
           renderTypeList={renderTypeList}
           isTypeEmpty={isTypeEmpty}
-          emptyTypeList={emptyTypeList}
           pAmountInputValue={pAmountInputValue}
           handleChangeAmount={handleChangeAmount}
           handleBlurAmount={handleBlurAmount}
           handleIncreaseAmount={handleIncreaseAmount}
           handleDecreaseAmount={handleDecreaseAmount}
-          carCompanies={carCompanies}
-          brandListCounter={brandListCounter}
           handleClickList={handleClickList}
           handleKeyColorType={handleKeyColorType}
           handleFocusColorType={handleFocusColorType}
           handleBlurColorType={handleBlurColorType}
           renderColorTypeList={renderColorTypeList}
-          colorTypeListRight={colorTypeListRight}
+          colorTypeListClassname={colorTypeListClassname}
           colorTypeValue={colorTypeValue}
           renderBrandList={renderBrandList}
         />

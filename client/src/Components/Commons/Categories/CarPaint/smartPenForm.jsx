@@ -17,10 +17,7 @@ const SmartPenForm = (props) => {
           onKeyDown={(e) => props.handleKeyCarBrandInput(e.key)}
           autoComplete="off"
         />
-        <ul className={props.brandListClassname}>
-          {props.renderBrandList()}
-          {props.emptyCompanyList()}
-        </ul>
+        <ul className={props.brandListClassname}>{props.renderBrandList()}</ul>
         {props.isCompanyEmpty && (
           <p className="error-text">لطفا برند ماشین خود را انتخاب کنید</p>
         )}
@@ -41,10 +38,7 @@ const SmartPenForm = (props) => {
           onKeyDown={(e) => props.handleKeyCarTypeInput(e.key)}
           autoComplete="off"
         />
-        <ul className={props.typeListClassname}>
-          {props.renderTypeList()}
-          {props.isTypeEmpty && props.emptyTypeList()}
-        </ul>
+        <ul className={props.typeListClassname}>{props.renderTypeList()}</ul>
       </div>
       <div className="input-container">
         <label htmlFor="color-code" className="car-specifications-labels">

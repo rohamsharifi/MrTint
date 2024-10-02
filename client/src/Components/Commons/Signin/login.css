@@ -17,7 +17,6 @@
     letter-spacing: 1px;
     font-size: 1.3rem;
     margin-top: 12px;
-    font-family: "Trebuchet MS", "sans-serif";
 }
 
 .phone-input:focus {
@@ -36,7 +35,6 @@
 
 .password-input::placeholder {
     letter-spacing: 0;
-    font-family: digikalaRegular;
 }
 
 .submit-btn {

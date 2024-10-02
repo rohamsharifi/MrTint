@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: NooraMedium;
+  font-family: NumeralMedium;
   direction: rtl;
   --primary-color: hsl(19, 42%, 44%);
   --link-color: rgb(0, 131, 192);
@@ -38,6 +38,13 @@ html {
   src:  url(../public/font/Noora-Bold.woff2)
 }
 
+@font-face {
+  font-family: NumeralMedium;
+  font-style: normal;
+  font-weight: medium;
+  src: url(../public/font/Noora-FD-Medium.woff2);
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -73,7 +80,7 @@ input {
     border-radius: 8px;
     transition: border-bottom 500ms;
     text-decoration: none;
-    font-family: NooraMedium;
+    font-family: NumeralMedium;
     color: var(--text-color);
 }
 
@@ -88,7 +95,7 @@ textarea {
   border-radius: 8px;
   text-decoration: none;
   resize: none;
-  font-family: digikalaRegular;
+  font-family: NumeralMedium;
   color: var(--text-color);
 }
 

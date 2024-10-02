@@ -17,13 +17,10 @@ const CarPaintForm = (props) => {
           onBlur={props.handleBlurBrandInput}
           value={props.carInputValue}
           onChange={(e) => props.handleChangeCarBrandInput(e.target.value)}
-          onKeyDown={(e) => props.handleKeyCarBrandInput(e.key)}
+          onKeyDown={(e) => props.handleKeyCarBrandInput(e)}
           autoComplete="off"
         />
-        <ul className={props.brandListClassname}>
-          {props.renderBrandList()}
-          {props.emptyCompanyList()}
-        </ul>
+        <ul className={props.brandListClassname}>{props.renderBrandList()}</ul>
         {props.isCompanyEmpty && (
           <p className="error-text">لطفا برند ماشین خود را انتخاب کنید</p>
         )}
@@ -44,10 +41,7 @@ const CarPaintForm = (props) => {
           onKeyDown={(e) => props.handleKeyCarTypeInput(e.key)}
           autoComplete="off"
         />
-        <ul className={props.typeListClassname}>
-          {props.renderTypeList()}
-          {props.isTypeEmpty && props.emptyTypeList()}
-        </ul>
+        <ul className={props.typeListClassname}>{props.renderTypeList()}</ul>
       </div>
       <div className="input-container">
         <label htmlFor="color-code" className="car-specifications-labels">
@@ -74,12 +68,7 @@ const CarPaintForm = (props) => {
           onFocus={props.handleFocusColorType}
           onBlur={props.handleBlurColorType}
         />
-        <ul
-          className="color-types-list"
-          style={{ right: props.colorTypeListRight }}
-        >
-          {props.renderColorTypeList()}
-        </ul>
+        <ul className="color-types-list">{props.renderColorTypeList()}</ul>
       </div>
       <div className="input-container">
         <label htmlFor="color-amount" className="car-specifications-labels">

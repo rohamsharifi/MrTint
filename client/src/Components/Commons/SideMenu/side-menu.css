@@ -1,7 +1,7 @@
 .sidenav {
     background-color: white;
-    position: absolute;
-    z-index: 1;
+    position: fixed;
+    z-index: 4;
     top: 0;
     height: 100dvh;
     box-shadow: -2px 0 8px rgb(143, 143, 143);
@@ -25,6 +25,7 @@
 .nav-list {
     list-style-type: none;
     margin-top: 32px;
+    margin-right: 8px;
     position: absolute;
     padding: 0;
 }
@@ -35,7 +36,7 @@
 }
 
 .nav-item {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     padding: 12px 8px;
 }
 
