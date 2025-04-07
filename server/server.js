@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 mongoose
-  .connect("mongodb://localhost/mrtint")
+  .connect("mongodb://localhost/MrTint")
   .then(() => console.log("connected to mongodb..."))
   .catch((err) => console.log("could not connect", err));
 
@@ -42,7 +42,7 @@ app.get("/api/products", (req, res) => {
 });
 
 app.use("/api/createuser", (req, res) => {
-  res.send("creating product...");
+  res.send("creating user...");
   createUser(req.body);
 });
 
