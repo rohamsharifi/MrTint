@@ -13,14 +13,8 @@ const Login = () => {
   let [isValid, setIsValid] = useState(true);
   let [telValue, setTelValue] = useState("");
   let [borderColor, setBorderColor] = useState("#c8c8c8");
-  let [password, setPassword] = useState("");
-  let [emptyPassword, setEmptyPassword] = useState(false);
-  let [eyeDisplay, setEyeDisplay] = useState("none");
-  let [eyeSlashDisplay, setEyeSlashDisplay] = useState("inline");
-  let [inputType, setInputType] = useState("password");
   let [phoneExist, setPhoneExist] = useState(true);
   let [isDisabled, setIsDisabled] = useState(true);
-  let [correctPassword, setCorrectPassword] = useState(true);
 
   const navigate = useNavigate();
   const data = { phoneNumber: telValue };
@@ -80,9 +74,6 @@ const Login = () => {
         perTel[1] === "۸" &&
         perTel[2] === "۹")
     ) {
-      if (password !== "") {
-        setIsDisabled(false);
-      }
       setEmptyTel(false);
       setIsValid(true);
     } else {
@@ -118,37 +109,6 @@ const Login = () => {
     }
   };
 
-  const handleChangePassword = (password) => {
-    setPassword(password);
-    setEmptyPassword(false);
-    setCorrectPassword(true);
-    if (password !== "" && isValid === true && telValue !== "") {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  };
-
-  const handleBlurPassword = () => {
-    if (password === "") {
-      setEmptyPassword(true);
-    } else {
-      setEmptyPassword(false);
-    }
-  };
-
-  const eyeSlashClick = () => {
-    setEyeSlashDisplay("none");
-    setEyeDisplay("inline");
-    setInputType("text");
-  };
-
-  const eyeClick = () => {
-    setEyeSlashDisplay("inline");
-    setEyeDisplay("none");
-    setInputType("password");
-  };
-
   const handleButtonClick = (e) => {
     e.preventDefault();
     axios
@@ -158,12 +118,6 @@ const Login = () => {
           setPhoneExist(false);
         } else {
           setPhoneExist(true);
-          if (password === response.data.user[0].password) {
-            setCorrectPassword(true);
-            navigate("/", { state: data });
-          } else {
-            setCorrectPassword(false);
-          }
         }
       })
       .catch((e) => {
@@ -213,36 +167,7 @@ const Login = () => {
                   کنید.
                 </p>
               )}
-              <div className="input-icon-div">
-                <img
-                  src={require("../../../images/eye.png")}
-                  alt="vision"
-                  className="set-password-input-icon"
-                  style={{ display: eyeDisplay }}
-                  onClick={eyeClick}
-                />
-                <img
-                  src={require("../../../images/eyeslash.png")}
-                  alt="vision"
-                  className="set-password-input-icon"
-                  style={{ display: eyeSlashDisplay }}
-                  onClick={eyeSlashClick}
-                />
-                <input
-                  type={inputType}
-                  placeholder="رمز عبور"
-                  className="password-input"
-                  onChange={(e) => handleChangePassword(e.target.value)}
-                  onBlur={handleBlurPassword}
-                  value={password}
-                />
-              </div>
-              {emptyPassword && (
-                <p className="error-text">لطفا رمز عبور خود را وارد کنید.</p>
-              )}
-              {!correctPassword && (
-                <p className="error-text">رمز عبور اشتباه است</p>
-              )}
+
               <button
                 type="submit"
                 className="submit-btn"

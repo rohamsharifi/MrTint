@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import GetNumber from "./getNumber";
 import Authenticate from "./authenticate";
-import SetPassword from "./setPassword";
 import axios from "axios";
 
 import "./signup.css";
@@ -151,10 +150,6 @@ const Signup = () => {
           telValue={telValue}
           toSetPassword={toSetPassword}
         />
-      ) : null}
-
-      {componentName === "set-password" ? (
-        <SetPassword telValue={telValue} toGetNumber={toGetNumber} />
       ) : null}
     </div>
   );
