@@ -25,17 +25,12 @@ const Signup = () => {
   const toAuthenticate = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/checknumber", { phone: telValue })
+      .post("http://localhost:5000/login", { phone_number: telValue })
       .then((response) => {
-        if (response.data.user.length === 1) {
-          setPhoneExist(true);
-        } else {
-          setPhoneExist(false);
-          setComponentName("authenticate");
-        }
+        setComponentName("authenticate");
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
