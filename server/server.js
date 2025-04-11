@@ -41,12 +41,6 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-User.sync({ force: true }).then(() => {
-    console.log("user created successfully: ");
-}).catch((err) => {
-    console.log("Error saving the user: ", err)
-});
-
 
 app.post('/login', async (req, res) => {
     const { phone_number } = req.body;
