@@ -17,44 +17,18 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
   const inputRef3 = useRef(null);
   const inputRef4 = useRef(null);
   const inputRefs = [inputRef0, inputRef1, inputRef2, inputRef3, inputRef4];
-  let [code0, setCode0] = useState("");
-  let [code1, setCode1] = useState("");
-  let [code2, setCode2] = useState("");
-  let [code3, setCode3] = useState("");
-  let [code4, setCode4] = useState("");
+  let [firstDigit, setfirstDigit] = useState("");
+  let [secondDigit, setSecondDigit] = useState("");
+  let [thirdDigit, setThirdDigit] = useState("");
+  let [fourthDigit, setFourthDigit] = useState("");
+  let [fifthDigit, setFifthdigit] = useState("");
   let [timerDisplay, setTimerDisplay] = useState("inline-block");
   let [k, setK] = useState(false);
-  let [sentCode, setSentCode] = useState("");
   let [codeErr, setCodeErr] = useState(true);
   let [resendDisplay, setResendDisplay] = useState("none");
   let [borderColor, setBorderColor] = useState("#c8c8c8");
 
   const date = useRef(Date.now() + 90000);
-
-  const generateCode = () => {
-    axios
-      .get("http://localhost:5000/verification-code")
-      .then((response) => {
-        let code = response.data.code;
-        code = Math.trunc(code);
-        code = code.toString();
-        let a = "";
-        let b = "";
-        for (let i = 0; i < 5; i++) {
-          a = toPersian(code[0]);
-          b = b + a;
-          code = code.substring(1);
-        }
-        setSentCode(b);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  useEffect(() => {
-    generateCode();
-  }, []);
 
   const toPersian = (num) => {
     switch (num) {
@@ -102,19 +76,19 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
     if (key === "Backspace") {
       switch (id) {
         case 0:
-          setCode0("");
+          setfirstDigit("");
           break;
         case 1:
-          setCode1("");
+          setSecondDigit("");
           break;
         case 2:
-          setCode2("");
+          setThirdDigit("");
           break;
         case 3:
-          setCode3("");
+          setFourthDigit("");
           break;
         case 4:
-          setCode4("");
+          setFifthdigit("");
       }
       inputRefs[id].current.blur();
       if (id > 0) {
@@ -124,27 +98,24 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
   };
   const handleChange = (value, id) => {
     const code = value.charCodeAt(0);
-    let perCode = "";
-    let codeArray = [];
 
     if ((code >= 48 && code <= 57) || (code >= 1776 && code <= 1785)) {
-      perCode = toPersian(value[0]);
 
       switch (id) {
         case 0:
-          setCode0(perCode);
+          setfirstDigit(value[0]);
           break;
         case 1:
-          setCode1(perCode);
+          setSecondDigit(value[0]);
           break;
         case 2:
-          setCode2(perCode);
+          setThirdDigit(value[0]);
           break;
         case 3:
-          setCode3(perCode);
+          setFourthDigit(value[0]);
           break;
         case 4:
-          setCode4(perCode);
+          setFifthdigit(value[0]);
       }
       inputRefs[id].current.blur();
       if (id < 4) {
@@ -153,19 +124,19 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
     } else {
       switch (id) {
         case 0:
-          if (value !== "") setCode0("");
+          if (value !== "") setfirstDigit("");
           break;
         case 1:
-          if (value !== "") setCode1("");
+          if (value !== "") setSecondDigit("");
           break;
         case 2:
-          if (value !== "") setCode2("");
+          if (value !== "") setThirdDigit("");
           break;
         case 3:
-          if (value !== "") setCode3("");
+          if (value !== "") setFourthDigit("");
           break;
         case 4:
-          if (value !== "") setCode4("");
+          if (value !== "") setFifthdigit("");
       }
     }
   };
@@ -216,35 +187,29 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
     setTimerDisplay("inline-block");
     setBorderColor("#c8c8c8");
     setCodeErr(true);
-    setCode0("");
-    setCode1("");
-    setCode2("");
-    setCode3("");
-    setCode4("");
-    generateCode();
+    setfirstDigit("");
+    setSecondDigit("");
+    setThirdDigit("");
+    setFourthDigit("");
+    setFifthdigit("");
   };
 
   const handleAthenticate = () => {
-    if (
-      code0 === sentCode[0] &&
-      code1 === sentCode[1] &&
-      code2 === sentCode[2] &&
-      code3 === sentCode[3] &&
-      code4 === sentCode[4]
-    ) {
-      setCodeErr(true);
-      setBorderColor("#c8c8c8");
-      toSetPassword();
-    } else {
-      setCodeErr(false);
-      setBorderColor("var(--error-color)");
-    }
+    let fullCode = "";
+    fullCode = firstDigit + secondDigit + thirdDigit + fourthDigit + fifthDigit;
+    axios
+      .post("http://localhost:5000/login/verification", { phone_number: telValue, code: fullCode })
+      .then((response) => {
+        console.log(response.status);
+      })
+      .catch((err) => {
+        console.log('Error:', err.response ? err.response.data.message : err);
+      });
   };
 
   return (
     <div>
       <div className="main-page">
-        {console.log(sentCode)}
         <div className="signin-section">
           <div>
             <div onClick={toGetNumber} className="arrow-link">
@@ -281,7 +246,7 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
                   inputmode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
-                  value={code0}
+                  value={firstDigit}
                   onChange={(e) => handleChange(e.target.value, 0)}
                   onKeyDown={(e) => handleKeyDown(e.key, 0)}
                   ref={inputRefs[0]}
@@ -293,7 +258,7 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
                   inputmode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
-                  value={code1}
+                  value={secondDigit}
                   onChange={(e) => handleChange(e.target.value, 1)}
                   onKeyDown={(e) => handleKeyDown(e.key, 1)}
                   style={{ borderBottomColor: borderColor }}
@@ -305,7 +270,7 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
                   inputmode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
-                  value={code2}
+                  value={thirdDigit}
                   onChange={(e) => handleChange(e.target.value, 2)}
                   onKeyDown={(e) => handleKeyDown(e.key, 2)}
                   style={{ borderBottomColor: borderColor }}
@@ -317,7 +282,7 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
                   inputmode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
-                  value={code3}
+                  value={fourthDigit}
                   onChange={(e) => handleChange(e.target.value, 3)}
                   onKeyDown={(e) => handleKeyDown(e.key, 3)}
                   style={{ borderBottomColor: borderColor }}
@@ -329,7 +294,7 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
                   inputmode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
-                  value={code4}
+                  value={fifthDigit}
                   onChange={(e) => handleChange(e.target.value, 4)}
                   onKeyDown={(e) => handleKeyDown(e.key, 4)}
                   style={{ borderBottomColor: borderColor }}

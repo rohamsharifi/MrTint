@@ -15,7 +15,7 @@ const Navbar = ({ handleOpenSidenav }) => {
     setDivWidth("100%");
   };
 
-  const handleBlur = ({}) => {
+  const handleBlur = ({ }) => {
     setDivWidth("200px");
     setTimeout(() => setButtinDisplay("inline"), 540);
   };
@@ -43,7 +43,7 @@ const Navbar = ({ handleOpenSidenav }) => {
             />
           </div>
         </div>
-        <Link to="/signin" style={{ textDecoration: "none" }}>
+        <Link to="/login" style={{ textDecoration: "none" }}>
           <button className="signin-button" style={{ display: buttonDisplay }}>
             ورود یا ثبت‌نام
           </button>

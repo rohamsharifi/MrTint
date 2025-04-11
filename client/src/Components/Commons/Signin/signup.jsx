@@ -5,6 +5,9 @@ import axios from "axios";
 
 import "./signup.css";
 
+axios.defaults.withCredentials = true;
+
+
 const Signup = () => {
   let [componentName, setComponentName] = useState("getNumber");
   let [telValue, setTelValue] = useState("");
@@ -27,6 +30,7 @@ const Signup = () => {
     axios
       .post("http://localhost:5000/login", { phone_number: telValue })
       .then((response) => {
+        console.log(response.data.code)
         setComponentName("authenticate");
       })
       .catch((err) => {
