@@ -43,55 +43,55 @@ const Signup = () => {
     value = value.split("");
     value = value.filter(
       (index) =>
-        (index.charCodeAt(0) >= 48 && index.charCodeAt(0) <= 57) ||
-        (index.charCodeAt(0) >= 1776 && index.charCodeAt(0) <= 1785)
+        (index.charCodeAt(0) >= 48 && index.charCodeAt(0) <= 57)
+      //  (index.charCodeAt(0) >= 1776 && index.charCodeAt(0) <= 1785)
     );
+    // for (let i = 0; i < value.length; i++) {
+    //   if (value[i].charCodeAt(0) >= 48 && value[i].charCodeAt(0) <= 57) {
+    //     switch (value[i]) {
+    //       case "0":
+    //         value[i] = "۰";
+    //         break;
+    //       case "1":
+    //         value[i] = "۱";
+    //         break;
+    //       case "2":
+    //         value[i] = "۲";
+    //         break;
+    //       case "3":
+    //         value[i] = "۳";
+    //         break;
+    //       case "4":
+    //         value[i] = "۴";
+    //         break;
+    //       case "5":
+    //         value[i] = "۵";
+    //         break;
+    //       case "6":
+    //         value[i] = "۶";
+    //         break;
+    //       case "7":
+    //         value[i] = "۷";
+    //         break;
+    //       case "8":
+    //         value[i] = "۸";
+    //         break;
+    //       case "9":
+    //         value[i] = "۹";
+    //     }
+    //   }
+    // }
+    let phoneNumber = "";
     for (let i = 0; i < value.length; i++) {
-      if (value[i].charCodeAt(0) >= 48 && value[i].charCodeAt(0) <= 57) {
-        switch (value[i]) {
-          case "0":
-            value[i] = "۰";
-            break;
-          case "1":
-            value[i] = "۱";
-            break;
-          case "2":
-            value[i] = "۲";
-            break;
-          case "3":
-            value[i] = "۳";
-            break;
-          case "4":
-            value[i] = "۴";
-            break;
-          case "5":
-            value[i] = "۵";
-            break;
-          case "6":
-            value[i] = "۶";
-            break;
-          case "7":
-            value[i] = "۷";
-            break;
-          case "8":
-            value[i] = "۸";
-            break;
-          case "9":
-            value[i] = "۹";
-        }
-      }
+      phoneNumber += value[i];
     }
-    let perTel = "";
-    for (let i = 0; i < value.length; i++) {
-      perTel = perTel + value[i];
-    }
-    setTelValue(perTel);
+    setTelValue(phoneNumber);
     if (
-      (perTel.length === 11 && perTel[0] === "۰" && perTel[1] === "۹") ||
-      (perTel.length === 12 &&
-        perTel[0] === "۹" &&
-        perTel[1] === "۸" &&
-        perTel[2] === "۹")
+      (phoneNumber.length === 11 && phoneNumber[0] === "0" && phoneNumber[1] === "9") ||
+      (phoneNumber.length === 12 &&
+        phoneNumber[0] === "9" &&
+        phoneNumber[1] === "8" &&
+        phoneNumber[2] === "9")
     ) {
       setIsDisabled(false);
       setEmptyTel(false);
@@ -112,12 +112,12 @@ const Signup = () => {
       setBorderColor("#c8c8c8");
       if (
         (telValue.length === 11 &&
-          telValue[0] === "۰" &&
-          telValue[1] === "۹") ||
+          telValue[0] === "0" &&
+          telValue[1] === "9") ||
         (telValue.length === 12 &&
-          telValue[0] === "۹" &&
-          telValue[1] === "۸" &&
-          telValue[2] === "۹")
+          telValue[0] === "9" &&
+          telValue[1] === "8" &&
+          telValue[2] === "9")
       ) {
         setIsValid(true);
         setBorderColor("#c8c8c8");

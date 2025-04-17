@@ -45,6 +45,7 @@
 }
 
 .title {
+    font-family: nooraSemiBold;
     font-size: 1.8rem;
     display: inline-block;
     margin-top: 10px;
