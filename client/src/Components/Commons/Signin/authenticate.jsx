@@ -243,7 +243,7 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
               <div className="inputs">
                 <input
                   type="tel"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
                   value={firstDigit}
@@ -255,50 +255,46 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
                 />
                 <input
                   type="tel"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
                   value={secondDigit}
                   onChange={(e) => handleChange(e.target.value, 1)}
                   onKeyDown={(e) => handleKeyDown(e.key, 1)}
                   style={{ borderBottomColor: borderColor }}
-                  inputProps={{ inputMode: "numeric" }}
                   ref={inputRefs[1]}
                 />
                 <input
                   type="tel"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
                   value={thirdDigit}
                   onChange={(e) => handleChange(e.target.value, 2)}
                   onKeyDown={(e) => handleKeyDown(e.key, 2)}
                   style={{ borderBottomColor: borderColor }}
-                  inputProps={{ inputMode: "numeric" }}
                   ref={inputRefs[2]}
                 />
                 <input
                   type="tel"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
                   value={fourthDigit}
                   onChange={(e) => handleChange(e.target.value, 3)}
                   onKeyDown={(e) => handleKeyDown(e.key, 3)}
                   style={{ borderBottomColor: borderColor }}
-                  inputProps={{ inputMode: "numeric" }}
                   ref={inputRefs[3]}
                 />
                 <input
                   type="tel"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   pattern="[0-9]*"
                   className="code-input"
                   value={fifthDigit}
                   onChange={(e) => handleChange(e.target.value, 4)}
                   onKeyDown={(e) => handleKeyDown(e.key, 4)}
                   style={{ borderBottomColor: borderColor }}
-                  inputProps={{ inputMode: "numeric" }}
                   ref={inputRefs[4]}
                 />
               </div>
