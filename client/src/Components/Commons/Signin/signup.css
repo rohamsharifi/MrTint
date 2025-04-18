@@ -8,15 +8,19 @@
     display: block;
     letter-spacing: 1px;
     font-size: 1.3rem;
+    direction: ltr;
+    text-align: left;
 }
 
 .phone-input:focus {
-    border-bottom: 2px solid var(--link-color)!important;
+    border-bottom: 2px solid var(--link-color) !important;
     caret-color: var(--link-color);
 }
 
 .phone-input::placeholder {
     letter-spacing: 0;
+    direction: rtl !important;
+    text-align: right;
 }
 
 .btn-link {
@@ -28,13 +32,13 @@
     margin-top: 28px;
     padding: 0;
 }
-   
-.btn-front {       
+
+.btn-front {
     font-size: 1.4rem;
     letter-spacing: 0;
     padding: 12px 0;
 }
-   
+
 
 .login-link {
     color: var(--link-color);
@@ -45,7 +49,7 @@
     .phone-input {
         font-size: 1.2rem;
     }
-    
+
     .phone-input::placeholder {
         font-size: 1.2rem;
     }

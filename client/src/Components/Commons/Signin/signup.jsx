@@ -44,43 +44,7 @@ const Signup = () => {
     value = value.filter(
       (index) =>
         (index.charCodeAt(0) >= 48 && index.charCodeAt(0) <= 57)
-      //  (index.charCodeAt(0) >= 1776 && index.charCodeAt(0) <= 1785)
     );
-    // for (let i = 0; i < value.length; i++) {
-    //   if (value[i].charCodeAt(0) >= 48 && value[i].charCodeAt(0) <= 57) {
-    //     switch (value[i]) {
-    //       case "0":
-    //         value[i] = "۰";
-    //         break;
-    //       case "1":
-    //         value[i] = "۱";
-    //         break;
-    //       case "2":
-    //         value[i] = "۲";
-    //         break;
-    //       case "3":
-    //         value[i] = "۳";
-    //         break;
-    //       case "4":
-    //         value[i] = "۴";
-    //         break;
-    //       case "5":
-    //         value[i] = "۵";
-    //         break;
-    //       case "6":
-    //         value[i] = "۶";
-    //         break;
-    //       case "7":
-    //         value[i] = "۷";
-    //         break;
-    //       case "8":
-    //         value[i] = "۸";
-    //         break;
-    //       case "9":
-    //         value[i] = "۹";
-    //     }
-    //   }
-    // }
     let phoneNumber = "";
     for (let i = 0; i < value.length; i++) {
       phoneNumber += value[i];

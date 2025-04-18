@@ -21,11 +21,11 @@ const GetNumber = ({
       <div className="main-page">
         <div className="signin-section">
           <div>
-            <Link to="/signin" className="arrow-link">
+            <Link to="/" className="arrow-link">
               <FontAwesomeIcon icon={faArrowRight} className="arrow" />
             </Link>
             <header className="header">
-              <h1 className="mrtint">MRTINT</h1>
+              <h1 className="mrtint">MR.TINT</h1>
               <h2 className="title">ثبت‌‌نام در مسترتینت</h2>
               <p className="description">
                 برای ثبت‌نام شماره موبایل خود را وارد کنید

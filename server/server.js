@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize, DataTypes, Op } = require("sequelize");
 const express = require('express');
 const dotenv = require("dotenv");
 const cors = require('cors');
@@ -49,7 +49,6 @@ const VerificationCode = sequelize.define("VerificationCode", {
     phone_number: {
         type: DataTypes.STRING(11),
         allowNull: false,
-        unique: true
     },
     code: {
         type: DataTypes.STRING,
@@ -59,6 +58,11 @@ const VerificationCode = sequelize.define("VerificationCode", {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: () => new Date(Date.now() + 90 * 1000)
+    },
+    isUsed: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 },
     {
@@ -66,7 +70,7 @@ const VerificationCode = sequelize.define("VerificationCode", {
     }
 );
 
-VerificationCode.sync({ alter: true });
+VerificationCode.sync({ alter: true, force: true });
 
 
 const app = express();
@@ -81,6 +85,17 @@ app.use(express.json());
 
 app.post('/login', async (req, res) => {
     const { phone_number } = req.body;
+    const userCodeExist = await VerificationCode.findOne({
+        where: {
+            phone_number,
+            isUsed: false,
+            expiresAt: { [Op.gt]: new Date() }
+        }
+    });
+    if (userCodeExist) {
+        userCodeExist.isUsed = true;
+        await userCodeExist.save();
+    };
     const verificationCode = Math.floor(10000 + Math.random() * 90000).toString();
     await VerificationCode.create({
         phone_number: phone_number,
@@ -98,10 +113,18 @@ app.post('/login/verification', async (req, res) => {
         await User.create({ phone_number });
     }
 
-    const record = await VerificationCode.findOne({ where: { phone_number } });
+    const record = await VerificationCode.findOne({
+        where:
+        {
+            phone_number,
+            isUsed: false,
+            expiresAt: { [Op.gt]: new Date() }
+
+        }
+    });
     const storedCode = record.code;
     if (!storedCode) {
-        res.status(400).json({ message: 'Verification code not exist!' });
+        res.status(400).json({ message: 'Verification code not expired' });
     }
 
     if (code === storedCode.toString()) {

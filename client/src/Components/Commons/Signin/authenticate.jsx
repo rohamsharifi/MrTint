@@ -30,41 +30,6 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
 
   const date = useRef(Date.now() + 90000);
 
-  const toPersian = (num) => {
-    switch (num) {
-      case "0":
-      case "۰":
-        return "۰";
-      case "1":
-      case "۱":
-        return "۱";
-      case "2":
-      case "۲":
-        return "۲";
-      case "3":
-      case "۳":
-        return "۳";
-      case "4":
-      case "۴":
-        return "۴";
-      case "5":
-      case "۵":
-        return "۵";
-      case "6":
-      case "۶":
-        return "۶";
-      case "7":
-      case "۷":
-        return "۷";
-      case "8":
-      case "۸":
-        return "۸";
-      case "9":
-      case "۹":
-        return "۹";
-    }
-  };
-
   const handleKeyDown = (key, id) => {
     if (key === "Enter") {
       inputRefs[id].current.blur();
@@ -146,17 +111,17 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
       setResendDisplay("none");
       seconds = seconds.toString();
       if (minutes === 1) {
-        minutes = "۱";
+        minutes = "1";
       } else {
-        minutes = "۰";
+        minutes = "0";
       }
 
       if (seconds > 9) {
-        let num = toPersian(seconds[1]);
+        let num = seconds[1];
         seconds = seconds.slice(0, -1);
         seconds = seconds + num;
 
-        num = toPersian(seconds[0]);
+        num = seconds[0];
         seconds = seconds.slice(1);
         seconds = num + seconds;
 
@@ -167,7 +132,6 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
           </span>
         );
       } else {
-        seconds = toPersian(seconds);
         return (
           <span className="timer" style={{ display: timerDisplay }}>
             ۰{minutes}:۰{seconds}&nbsp;
@@ -200,10 +164,13 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
     axios
       .post("http://localhost:5000/login/verification", { phone_number: telValue, code: fullCode })
       .then((response) => {
-        console.log(response.status);
+        if (response.status === 200) {
+          console.log("Logged in!")
+        }
       })
       .catch((err) => {
         console.log('Error:', err.response ? err.response.data.message : err);
+        console.log("couldn't login")
       });
   };
 
