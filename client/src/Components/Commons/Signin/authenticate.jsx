@@ -10,7 +10,7 @@ import axios from "axios";
 import "./signin.css";
 import "./authenticate.css";
 
-const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
+const Authenticate = ({ toGetNumber, telValue }) => {
   const inputRef0 = useRef(null);
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
@@ -134,7 +134,7 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
       } else {
         return (
           <span className="timer" style={{ display: timerDisplay }}>
-            ۰{minutes}:۰{seconds}&nbsp;
+            0{minutes}:0{seconds}&nbsp;
             <span style={{ letterSpacing: "0" }}>تا ارسال مجدد کد تایید</span>
           </span>
         );
@@ -147,10 +147,17 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
 
   const handleResendCode = () => {
     date.current = Date.now() + 90000;
+    axios
+      .post("http://localhost:5000/login", { phone_number: telValue })
+      .then((response) => {
+        console.log(response.data.code)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setK(true);
     setTimerDisplay("inline-block");
     setBorderColor("#c8c8c8");
-    setCodeErr(true);
     setfirstDigit("");
     setSecondDigit("");
     setThirdDigit("");
@@ -165,12 +172,12 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
       .post("http://localhost:5000/login/verification", { phone_number: telValue, code: fullCode })
       .then((response) => {
         if (response.status === 200) {
-          console.log("Logged in!")
+          console.log("Logged in!");
+          setCodeErr(true);
         }
       })
-      .catch((err) => {
-        console.log('Error:', err.response ? err.response.data.message : err);
-        console.log("couldn't login")
+      .catch(() => {
+        setCodeErr(false);
       });
   };
 
@@ -266,7 +273,7 @@ const Authenticate = ({ toGetNumber, telValue, toSetPassword }) => {
                 />
               </div>
               {!codeErr && (
-                <p className="err-txt">کد تایید وارد شده صحیح نمی‌باشد.</p>
+                <p className="err-txt">کد تایید وارد شده صحیح نمی‌باشد. لطفا دوباره امتحان کنید.</p>
               )}
             </form>
           </div>

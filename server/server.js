@@ -57,7 +57,7 @@ const VerificationCode = sequelize.define("VerificationCode", {
     expiresAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: () => new Date(Date.now() + 90 * 1000)
+        defaultValue: () => new Date(Date.now() + 5 * 60 * 1000)
     },
     isUsed: {
         type: DataTypes.BOOLEAN,
@@ -70,7 +70,7 @@ const VerificationCode = sequelize.define("VerificationCode", {
     }
 );
 
-VerificationCode.sync({ alter: true, force: true });
+VerificationCode.sync({ alter: true });
 
 
 const app = express();
@@ -122,17 +122,20 @@ app.post('/login/verification', async (req, res) => {
 
         }
     });
-    const storedCode = record.code;
-    if (!storedCode) {
+    if (!record) {
         res.status(400).json({ message: 'Verification code not expired' });
-    }
+    } else {
+        const storedCode = record.code;
 
-    if (code === storedCode.toString()) {
-        // const token = jwt.sign({ phone_number }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ message: 'Verified successfully' });
-    }
-    else {
-        res.status(400).json({ message: 'Invalid verification code' });
+        if (code === storedCode.toString()) {
+            // const token = jwt.sign({ phone_number }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            record.isUsed = true;
+            await record.save();
+            res.status(200).json({ message: 'Verified successfully' });
+        }
+        else {
+            res.status(400).json({ message: 'Invalid verification code' });
+        }
     }
 });
 

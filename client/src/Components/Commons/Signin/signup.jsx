@@ -43,7 +43,8 @@ const Signup = () => {
     value = value.split("");
     value = value.filter(
       (index) =>
-        (index.charCodeAt(0) >= 48 && index.charCodeAt(0) <= 57)
+        (index.charCodeAt(0) >= 48 && index.charCodeAt(0) <= 57) ||
+        (index.charCodeAt(0) >= 1776 && index.charCodeAt(0) <= 1785)
     );
     let phoneNumber = "";
     for (let i = 0; i < value.length; i++) {

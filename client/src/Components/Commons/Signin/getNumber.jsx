@@ -74,14 +74,6 @@ const GetNumber = ({
               ورود شما به معنای پذیرش شرایط مسترتینت و قوانین حریم‌ خصوصی است
             </p>
           </div>
-          <div className="footer-text">
-            <p>
-              قبلا ثبت‌نام کردید؟{" "}
-              <Link className="login-link" to="/signin">
-                وارد شوید
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
