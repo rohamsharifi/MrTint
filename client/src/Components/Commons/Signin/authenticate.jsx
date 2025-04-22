@@ -171,10 +171,11 @@ const Authenticate = ({ toGetNumber, telValue }) => {
     axios
       .post("http://localhost:5000/login/verification", { phone_number: telValue, code: fullCode })
       .then((response) => {
-        if (response.status === 200) {
-          console.log("Logged in!");
-          setCodeErr(true);
-        }
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+        console.log("Token saved!");
+        setCodeErr(true);
+
       })
       .catch(() => {
         setCodeErr(false);

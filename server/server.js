@@ -1,4 +1,5 @@
 const { Sequelize, DataTypes, Op } = require("sequelize");
+const jwt = require("jsonwebtoken");
 const express = require('express');
 const dotenv = require("dotenv");
 const cors = require('cors');
@@ -128,10 +129,10 @@ app.post('/login/verification', async (req, res) => {
         const storedCode = record.code;
 
         if (code === storedCode.toString()) {
-            // const token = jwt.sign({ phone_number }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ phone_number }, process.env.JWT_SECRET, { expiresIn: '1h' });
             record.isUsed = true;
             await record.save();
-            res.status(200).json({ message: 'Verified successfully' });
+            res.status(200).json({ token });
         }
         else {
             res.status(400).json({ message: 'Invalid verification code' });
