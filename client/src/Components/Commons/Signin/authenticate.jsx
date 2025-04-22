@@ -1,10 +1,9 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Countdown from "react-countdown";
 import { useState } from "react";
 import { useRef } from "react";
-import Countdown from "react-countdown";
-import { useEffect } from "react";
 import axios from "axios";
 
 import "./signin.css";
@@ -173,7 +172,7 @@ const Authenticate = ({ toGetNumber, telValue }) => {
       .then((response) => {
         const { token } = response.data;
         localStorage.setItem("token", token);
-        console.log("Token saved!");
+        window.location.href = '/';
         setCodeErr(true);
 
       })

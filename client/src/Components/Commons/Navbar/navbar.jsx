@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,12 @@ import "./navbar.css";
 const Navbar = ({ handleOpenSidenav }) => {
   let [buttonDisplay, setButtinDisplay] = useState("inline");
   let [divWidth, setDivWidth] = useState("200px");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
 
   const handleFocus = () => {
     setButtinDisplay("none");
@@ -43,11 +49,19 @@ const Navbar = ({ handleOpenSidenav }) => {
             />
           </div>
         </div>
-        <Link to="/login" style={{ textDecoration: "none" }}>
-          <button className="signin-button" style={{ display: buttonDisplay }}>
-            ورود یا ثبت‌نام
-          </button>
-        </Link>
+        {false ? (
+          <Link to="/profile" style={{ textDecoration: "none" }}>
+            <button className="signin-button" style={{ display: buttonDisplay }}>
+              پروفایل
+            </button>
+          </Link>
+        ) : (
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <button className="signin-button" style={{ display: buttonDisplay }}>
+              ورود یا ثبت‌نام
+            </button>
+          </Link>
+        )}
       </section>
       <div className="menu">
         <ul className="menu-list">
