@@ -1,0 +1,26 @@
+.shopping-cart-link {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 4px 1px rgb(41, 41, 41);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 2px 4px;
+}
+
+.shopping-cart {
+    color: white;
+    transform: scaleX(-1);
+    font-size: 3.8rem;
+}
+
+@media screen and (min-width: 480px) {
+    .shopping-cart {
+        font-size: 3.6rem;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .shopping-cart {
+        font-size: 3.3rem;
+    }
+}

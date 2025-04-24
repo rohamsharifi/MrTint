@@ -6,13 +6,14 @@ nav {
 .nav-section {
     padding: 24px 0;
     display: flex;
+    align-items: stretch;
     justify-content: space-between;
-    align-items: center;
 }
 
 .ham-menu {
     display: flex;
     align-items: center;
+    height: 100%;
     margin-left: 15px;
     transition: width 1s;
 }
@@ -27,6 +28,7 @@ nav {
     margin-right: 24px;
     position: relative;
     width: 100%;
+    height: 100%;
 }
 
 .magnifying-glass {
@@ -41,7 +43,7 @@ nav {
 .search-input {
     box-shadow: 0 0 4px 1px rgb(41, 41, 41);
     font-size: 1.4rem;
-    height: auto;
+    height: 100%;
     padding: 8px 30px 8px 8px;
     width: 100%;
 }
@@ -55,132 +57,6 @@ nav {
     display: flex;
     align-items: stretch;
     height: 100%;
-}
-
-.signin-button {
-    font-size: 1.4rem;
-    background-color: var(--primary-color);
-    border-radius: 8px;
-    padding: 8px 18px;
-    color: white;
-    box-shadow: 0 0 4px 1px rgb(41, 41, 41);
-    display: inline;
-    margin-left: 12px;
-}
-
-.profile-section {
-    position: relative;
-    border-radius: 8px;
-    margin-left: 1rem;
-}
-
-.profile-section.active {
-    background-color: hsla(19, 42%, 44%, 0.7);
-}
-
-.profile-section:hover {
-    background-color: hsla(19, 42%, 44%, 0.7);
-}
-
-.user-icon-container {
-    cursor: pointer;
-    background-color: var(--primary-color);
-    padding-right: 4px;
-    box-shadow: 0 0 4px 1px rgb(41, 41, 41);
-    border-radius: 8px;
-    height: 100%;
-    align-items: center;
-}
-
-.user-icon {
-    color: white;
-    font-size: 3.4rem;
-    margin-left: -1.4rem;
-}
-
-.user-icon-arrow {
-    color: white;
-    font-size: 3rem;
-    transition: transform 0.4s ease;
-}
-
-.user-icon-arrow.active {
-    color: white;
-    transform: rotate(180deg);
-    margin-bottom: 5px;
-}
-
-.user-dropdown-menu {
-    background-color: #fff;
-    box-shadow: 0 1px 8px rgb(102, 102, 102);
-    list-style: none;
-    padding: 0;
-    position: absolute;
-    left: 0;
-    top: 3.4rem;
-    border-radius: 8px;
-    width: 22rem;
-}
-
-.user-dropdown-menu li {
-    font-size: 1.4rem;
-    position: relative;
-    padding: 0;
-}
-
-.user-menu-link {
-    padding: 16px 12px;
-    text-decoration: none;
-    color: rgb(37, 40, 44);
-    display: block;
-}
-
-.user-menu-icons {
-    vertical-align: middle;
-    font-size: 2.5rem;
-    margin-left: 1rem;
-    transform: scaleX(-1);
-}
-
-.user-dropdown-menu li:hover {
-    background-color: rgb(240, 240, 240)
-}
-
-.user-dropdown-menu li:first-child {
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
-}
-
-.user-dropdown-menu li:last-child {
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-}
-
-.user-dropdown-menu li:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    bottom: -1px;
-    right: 12px;
-    left: 12px;
-    height: 1px;
-    background-color: rgb(230, 230, 230);
-    transform: scaleY(1);
-}
-
-
-.shopping-cart-link {
-    background-color: var(--primary-color);
-    box-shadow: 0 0 4px 1px rgb(41, 41, 41);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    padding: 0 4px;
-}
-
-.shopping-cart {
-    color: white;
-    transform: scaleX(-1);
-    font-size: 4rem;
 }
 
 .menu {
@@ -226,38 +102,6 @@ nav {
     .bars {
         font-size: 2.4rem;
     }
-
-    .signin-button {
-        font-size: 1.2rem;
-    }
-
-    .profile-section {
-        margin-left: 1.5rem;
-    }
-
-    .user-icon {
-        font-size: 3.2rem;
-    }
-
-    .user-icon-arrow {
-        font-size: 2.8rem;
-    }
-
-    .user-dropdown-menu {
-        width: 20rem;
-    }
-
-    .user-dropdown-menu li {
-        font-size: 1.2rem;
-    }
-
-    .user-menu-icons {
-        font-size: 2.3rem;
-    }
-
-    .shopping-cart {
-        font-size: 3.8rem;
-    }
 }
 
 @media screen and (min-width: 640px) {
@@ -280,37 +124,6 @@ nav {
     .ham-menu {
         transition: none;
         width: 400px !important;
-    }
-
-    .signin-button {
-        display: inline !important;
-    }
-
-    .profile-section {
-        margin-left: 2rem;
-    }
-
-    .user-icon-container {
-        display: flex !important;
-    }
-
-    .user-icon {
-        display: inline !important;
-        margin-left: -1.2rem;
-        font-size: 3rem;
-    }
-
-    .user-icon-arrow {
-        display: inline !important;
-        font-size: 2.6rem;
-    }
-
-    .user-icon-arrow.active {
-        margin-bottom: 3px;
-    }
-
-    .shopping-cart {
-        font-size: 3.6rem;
     }
 
     .menu {

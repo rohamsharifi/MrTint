@@ -1,0 +1,25 @@
+.login-button-link {
+    text-decoration: none;
+}
+
+.login-button {
+    font-size: 1.4rem;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    padding: 8px 18px;
+    color: white;
+    box-shadow: 0 0 4px 1px rgb(41, 41, 41);
+    margin-left: 12px;
+}
+
+@media screen and (min-width: 480px) {
+    .login-button {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .login-button-link {
+        display: flex !important;
+    }
+}

@@ -1,0 +1,142 @@
+.profile-section {
+    position: relative;
+    border-radius: 8px;
+    margin-left: 1rem;
+}
+
+.user-icon-container {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    padding-right: 4px;
+    box-shadow: 0 0 4px 1px rgb(41, 41, 41);
+    border-radius: 8px;
+    height: 100%;
+    align-items: center;
+}
+
+.user-icon {
+    color: white;
+    font-size: 3.4rem;
+    margin-left: -1.4rem;
+}
+
+.user-icon-arrow {
+    color: white;
+    font-size: 3rem;
+    transition: transform 0.4s ease;
+}
+
+.user-icon-arrow.active {
+    color: white;
+    transform: rotate(180deg);
+    margin-bottom: 5px;
+}
+
+.user-dropdown-menu {
+    background-color: #fff;
+    box-shadow: 0 1px 8px rgb(102, 102, 102);
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    top: 3.4rem;
+    border-radius: 8px;
+    width: 22rem;
+}
+
+.user-dropdown-menu li {
+    font-size: 1.4rem;
+    position: relative;
+    padding: 0;
+}
+
+.user-menu-link {
+    font-family: nooraSemiBold;
+    padding: 16px 12px;
+    text-decoration: none;
+    color: rgb(37, 40, 44);
+    display: block;
+}
+
+.user-menu-icons {
+    vertical-align: middle;
+    font-size: 2.5rem;
+    margin-left: 1rem;
+    transform: scaleX(-1);
+}
+
+.user-dropdown-menu li:hover {
+    background-color: rgb(240, 240, 240)
+}
+
+.user-dropdown-menu li:first-child {
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.user-dropdown-menu li:last-child {
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.user-dropdown-menu li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    right: 12px;
+    left: 12px;
+    height: 1px;
+    background-color: rgb(230, 230, 230);
+    transform: scaleY(1);
+}
+
+@media screen and (min-width: 480px) {
+    .profile-section {
+        margin-left: 1.5rem;
+    }
+
+    .user-icon {
+        font-size: 3.2rem;
+    }
+
+    .user-icon-arrow {
+        font-size: 2.8rem;
+    }
+
+    .user-dropdown-menu {
+        width: 20rem;
+    }
+
+    .user-dropdown-menu li {
+        font-size: 1.2rem;
+    }
+
+    .user-menu-icons {
+        font-size: 2.3rem;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .profile-section {
+        margin-left: 2rem;
+    }
+
+    .user-icon-container {
+        display: flex !important;
+    }
+
+    .user-icon {
+        display: inline !important;
+        margin-left: -1.2rem;
+        font-size: 3rem;
+    }
+
+    .user-icon-arrow {
+        display: inline !important;
+        font-size: 2.6rem;
+    }
+
+    .user-icon-arrow.active {
+        margin-bottom: 3px;
+    }
+}
