@@ -5,7 +5,7 @@ const LoginButton = ({ buttonDisplay }) => {
     return (
         <Link to="/login" className="login-button-link" style={{ display: buttonDisplay }}>
             <button className="login-button">
-                ورود یا ثبت‌نام
+                ورود و ثبت‌نام
             </button>
         </Link>
     )

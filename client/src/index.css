@@ -65,6 +65,26 @@ input {
   color: var(--text-color);
 }
 
+p {
+  font-size: 1.4rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-family: nooraSemiBold;
+  color: var(--header-color);
+}
+
+@media screen and (min-width: 480px) {
+  p {
+    font-size: 1.2rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+}
+
 input::placeholder {
   color: rgb(100, 100, 100);
 }

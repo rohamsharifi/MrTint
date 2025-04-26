@@ -26,7 +26,7 @@ const Navbar = ({ handleOpenSidenav }) => {
   };
 
   const handleBlur = () => {
-    setDivWidth("200px");
+    setDivWidth("160px");
     setTimeout(() => setButtonDisplay("flex"), 540);
     setTimeout(() => setUserIconDisplay("flex"), 540);
   };
