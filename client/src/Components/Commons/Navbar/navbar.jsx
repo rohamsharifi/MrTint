@@ -55,7 +55,7 @@ const Navbar = ({ handleOpenSidenav }) => {
           </div>
         </div>
         <div className="cart-section">
-          {false ? (
+          {isLoggedIn ? (
             <UserDropdownMenu userIconDisplay={userIconDisplay} />
           ) : (
             <LoginButton buttonDisplay={buttonDisplay} />

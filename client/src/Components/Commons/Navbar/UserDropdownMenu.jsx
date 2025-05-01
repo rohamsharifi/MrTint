@@ -21,6 +21,11 @@ const UserDropDownMenu = ({ userIconDisplay }) => {
         };
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        window.location.reload();
+    }
+
     return (
         <div
             className="profile-section"
@@ -39,11 +44,11 @@ const UserDropDownMenu = ({ userIconDisplay }) => {
                             سفارش‌ها
                         </Link>
                     </li>
-                    <li>
-                        <Link to="exit" className="user-menu-link">
+                    <li onClick={handleLogout}>
+                        <button className="user-menu-link">
                             <CiLogout className="user-menu-icons" />
                             خروج از حساب کاربری
-                        </Link>
+                        </button>
                     </li>
                 </ul>
             )}

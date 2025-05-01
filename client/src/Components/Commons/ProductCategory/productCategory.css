@@ -45,7 +45,7 @@
 .category-description {
     font-size: 1.5rem;
     color: white;
-    background-color: hsla(202, 64%, 24%);
+    background-color: var(--secondary-color);
     margin-top: 0;
     padding: 8px 0;
     text-align: center;
