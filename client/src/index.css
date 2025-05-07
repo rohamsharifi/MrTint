@@ -9,7 +9,7 @@
   --secondary-color: hsl(202, 64%, 24%);
   --secondary-disable-color: rgb(0, 131, 192, 0.6);
   --error-color: rgb(207, 7, 7);
-  --header-color: rgb(32, 35, 39);
+  --header-color: rgb(60, 63, 66);
 }
 
 html {
@@ -66,22 +66,22 @@ input {
 }
 
 p {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-family: nooraSemiBold;
   color: var(--header-color);
 }
 
 @media screen and (min-width: 480px) {
   p {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 }
 

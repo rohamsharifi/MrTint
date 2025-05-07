@@ -3,9 +3,10 @@ import Header from "../Header/header";
 import Navbar from "../Navbar/navbar";
 import SideMenu from "../SideMenu/sideMenu";
 import ProductCategory from "../ProductCategory/productCategory";
+import FeatureCard from "../FeatureCards/FeatureCard";
+import CommonQuestions from "../CommonQuestions/CommonQuestions";
 
 import "./home.css";
-import FeatureCard from "../FeatureCards/FeatureCard";
 
 const Home = () => {
   let [opacity, SetOpacity] = useState("1");
@@ -32,6 +33,7 @@ const Home = () => {
         <Navbar handleOpenSidenav={handleOpenSidenav} />
         <ProductCategory />
         <FeatureCard />
+        <CommonQuestions />
       </div>
     </main>
   );
