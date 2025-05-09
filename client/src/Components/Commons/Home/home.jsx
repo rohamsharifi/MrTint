@@ -7,6 +7,7 @@ import FeatureCard from "../FeatureCards/FeatureCard";
 import CommonQuestions from "../CommonQuestions/CommonQuestions";
 
 import "./home.css";
+import Footer from "../Footer/Footer";
 
 const Home = () => {
   let [opacity, SetOpacity] = useState("1");
@@ -34,6 +35,7 @@ const Home = () => {
         <ProductCategory />
         <FeatureCard />
         <CommonQuestions />
+        <Footer />
       </div>
     </main>
   );

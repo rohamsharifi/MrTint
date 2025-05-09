@@ -29,16 +29,18 @@
 .answer-row {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.6s ease-in-out;
+    transition: all 0.4s ease;
     display: flex;
 }
 
 .answer-row.open {
     max-height: 15rem;
+    padding-bottom: 12px;
 }
 
 .answer-p {
     color: var(--text-color);
+    margin-top: 12px;
 }
 
 .question-div {

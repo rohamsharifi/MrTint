@@ -85,7 +85,7 @@ const CommonQuestions = () => {
                                 </div>
                             </div>
                             <div className="question-div">
-                                <h2 className='question-header'>{q.question}</h2>
+                                <h3 className='question-header'>{q.question}</h3>
                             </div>
                             <div className="icon-div">
                                 <div className={chevronClassname}>

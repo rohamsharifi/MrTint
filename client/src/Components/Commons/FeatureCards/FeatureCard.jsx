@@ -8,7 +8,7 @@ const FeatureCard = () => {
         <div className="card-container">
             <div className="card">
                 <CiMonitor className="card-icon" />
-                <h2 className="card-title">ساخت رنگ‌های کامپیوتری</h2>
+                <h3 className="card-title">ساخت رنگ‌های کامپیوتری</h3>
                 <p className="card-description">
                     رنگ‌های ساختمانی شما به صورت
                     کامپیوتری و با دقت بالا ساخته مي‌شوند.
@@ -19,7 +19,7 @@ const FeatureCard = () => {
             </div>
             <div className="card">
                 <AiOutlineScan className="card-icon" />
-                <h2 className="card-title">ساخت رنگ با اسکنر</h2>
+                <h3 className="card-title">ساخت رنگ با اسکنر</h3>
                 <p className="card-description">
                     رنگ ماشین شما ابتدا با دستگاه
                     اسکنر اسکن و رنگ آن به طور دقیق مشخص می‌شود.
