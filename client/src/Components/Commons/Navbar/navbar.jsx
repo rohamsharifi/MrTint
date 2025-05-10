@@ -65,7 +65,7 @@ const Navbar = ({ handleOpenSidenav }) => {
       </section>
       <div className="menu">
         <ul className="menu-list">
-          <Link className="menu-link">
+          <Link className="menu-link" to='/'>
             <li className="menu-item home-item">صفحه اصلی</li>
           </Link>
           <Link className="menu-link">
