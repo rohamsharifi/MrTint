@@ -1,9 +1,13 @@
+.feature-card-section {
+    margin: 100px 16px;
+}
+
 .card-container {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 0 16px 24px 16px;
-    margin: 100px 16px;
+    margin-top: 24px;
     border-radius: 12px;
     background: linear-gradient(180deg, hsl(202, 64%, 24%) 0%, hsl(202, 64%, 32%) 100%);
 }

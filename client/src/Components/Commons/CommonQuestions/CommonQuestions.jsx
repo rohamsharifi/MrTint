@@ -71,8 +71,9 @@ const CommonQuestions = () => {
 
     return (
         <section className="questions-section">
+            <h2 style={{ marginBottom: "24px" }}>سوالات متدوال</h2>
             {questions.map((q, i) => {
-                let containerClassname = `questions-container ${i === questions.length - 1 ? "last-child" : ""}`;
+                let containerClassname = `questions-container ${i === questions.length - 1 ? "last-child" : i === 0 ? "first-child" : ""}`;
                 let chevronClassname = `chevron-div ${q.isOpen ? "active" : ""}`;
                 let answerClassname = `answer-row ${q.isOpen ? "open" : ""}`;
 

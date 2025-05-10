@@ -1,17 +1,24 @@
 .questions-section {
     margin: 0 16px 100px 16px;
-    border: solid 1px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
 }
 
 .questions-container {
     display: flex;
     flex-direction: column;
+    border-right: solid 1px rgba(0, 0, 0, 0.2);
+    border-left: solid 1px rgba(0, 0, 0, 0.2);
     border-bottom: solid 1px rgba(0, 0, 0, 0.2);
 }
 
 .questions-container.last-child {
-    border-bottom: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.questions-container.first-child {
+    border-top: solid 1px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 .questions-row {

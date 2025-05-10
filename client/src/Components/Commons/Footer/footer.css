@@ -45,7 +45,7 @@
 
 .footer-see-more {
     color: var(--link-color);
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 }
 
 .see-more-chevron {
@@ -55,4 +55,63 @@
 
 .see-more-chevron.expanded {
     transform: rotate(90deg);
+}
+
+.useful-links-div {
+    margin-top: 1.6rem;
+}
+
+.useful-links {
+    display: inline;
+    font-size: 1.5rem;
+    color: var(--link-color);
+    padding: 4px 8px;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.useful-links:hover {
+    border: solid 1px var(--link-color);
+    background-color: rgba(0, 131, 192, 0.05);
+}
+
+.instagram-icon {
+    font-size: 4.4rem;
+    color: var(--text-color);
+}
+
+.whatsapp-icon {
+    font-size: 4.4rem;
+    color: var(--text-color);
+    margin-right: 12px;
+}
+
+@media screen and (min-width: 480px) {
+    .footer-see-more {
+        font-size: 1.4rem;
+    }
+
+    .useful-links {
+        font-size: 1.4rem;
+    }
+
+    .instagram-icon {
+        font-size: 4rem;
+    }
+
+    .whatsapp-icon {
+        font-size: 4rem;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .footer-child {
+        width: 46%;
+    }
+}
+
+@media screen and (min-width: 910px) {
+    .footer-child {
+        width: 23%;
+    }
 }
