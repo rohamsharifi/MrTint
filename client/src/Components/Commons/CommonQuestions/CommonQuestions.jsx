@@ -76,10 +76,11 @@ const CommonQuestions = () => {
                 let containerClassname = `questions-container ${i === questions.length - 1 ? "last-child" : i === 0 ? "first-child" : ""}`;
                 let chevronClassname = `chevron-div ${q.isOpen ? "active" : ""}`;
                 let answerClassname = `answer-row ${q.isOpen ? "open" : ""}`;
+                let questionClassname = `questions-row ${q.isOpen ? "active" : ""}`;
 
                 return (
                     <div key={i} className={containerClassname}>
-                        <div className="questions-row" onClick={() => handleOpenAnswer(i)}>
+                        <div className={questionClassname} onClick={() => handleOpenAnswer(i)}>
                             <div className="icon-div">
                                 <div className='question-mark-div'>
                                     <FaQuestion className='question-mark-icon' />
