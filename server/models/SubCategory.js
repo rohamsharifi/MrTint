@@ -14,24 +14,21 @@ const sequelize = new Sequelize(
     }
 );
 
-const User = sequelize.define("User", {
-    user_id: {
+const SubCategory = sequelize.define('SubCategory', {
+    ScId: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
         primaryKey: true,
+        autoIncrement: true,
         allowNull: false
     },
-    phone_number: {
-        type: DataTypes.STRING(11),
-        allowNull: false,
-    },
-    user_location: {
-        type: DataTypes.STRING,
+    ScName: {
+        type: DataTypes.STRING(31),
+        allowNull: false
     }
 },
     {
-        timestamps: false
+        timestamps: false,
     }
 );
 
-export default User;
+export default SubCategory;

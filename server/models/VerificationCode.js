@@ -14,19 +14,30 @@ const sequelize = new Sequelize(
     }
 );
 
-const User = sequelize.define("User", {
-    user_id: {
+const VerificationCode = sequelize.define("VerificationCode", {
+    code_id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
         primaryKey: true,
+        autoIncrement: true,
         allowNull: false
     },
     phone_number: {
         type: DataTypes.STRING(11),
         allowNull: false,
     },
-    user_location: {
+    code: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    expiresAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: () => new Date(Date.now() + 5 * 60 * 1000)
+    },
+    isUsed: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 },
     {
@@ -34,4 +45,4 @@ const User = sequelize.define("User", {
     }
 );
 
-export default User;
+export default VerificationCode;

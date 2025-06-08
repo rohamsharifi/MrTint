@@ -14,19 +14,16 @@ const sequelize = new Sequelize(
     }
 );
 
-const User = sequelize.define("User", {
-    user_id: {
+const MainCategory = sequelize.define('MainCategory', {
+    McId: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
         primaryKey: true,
+        autoIncrement: true,
         allowNull: false
     },
-    phone_number: {
-        type: DataTypes.STRING(11),
-        allowNull: false,
-    },
-    user_location: {
-        type: DataTypes.STRING,
+    McName: {
+        type: DataTypes.STRING(31),
+        allowNull: false
     }
 },
     {
@@ -34,4 +31,4 @@ const User = sequelize.define("User", {
     }
 );
 
-export default User;
+export default MainCategory;

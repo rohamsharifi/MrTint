@@ -1,8 +1,15 @@
-const { Sequelize, DataTypes, Op } = require("sequelize");
-const jwt = require("jsonwebtoken");
-const express = require('express');
-const dotenv = require("dotenv");
-const cors = require('cors');
+import { Sequelize, Op } from "sequelize";
+import jwt from "jsonwebtoken";
+import express from 'express';
+import dotenv from "dotenv";
+import cors from 'cors';
+
+// IMPORTING MODELS.
+import User from './Models/User.js'
+import VerificationCode from './Models/VerificationCode.js'
+import MainCatrgory from './Models/MainCategory.js'
+import SubCatrgory from './Models/SUbCategory.js'
+import MainCategory from "./Models/MainCategory.js";
 
 dotenv.config();
 
@@ -17,63 +24,6 @@ const sequelize = new Sequelize(
     }
 );
 
-const User = sequelize.define("User", {
-    user_id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false
-    },
-    phone_number: {
-        type: DataTypes.STRING(11),
-        unique: true,
-        allowNull: false
-    },
-    user_location: {
-        type: DataTypes.STRING,
-    }
-},
-    {
-        timestamps: false
-    }
-);
-
-User.sync({ alter: true });
-
-const VerificationCode = sequelize.define("VerificationCode", {
-    code_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
-    phone_number: {
-        type: DataTypes.STRING(11),
-        allowNull: false,
-    },
-    code: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    expiresAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: () => new Date(Date.now() + 5 * 60 * 1000)
-    },
-    isUsed: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
-    }
-},
-    {
-        timestamps: false
-    }
-);
-
-VerificationCode.sync({ alter: true });
-
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -83,7 +33,23 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// ASSOCIATIONS.
+MainCatrgory.hasMany(SubCatrgory, { foreignKey: 'McId' });
+SubCatrgory.belongsTo(MainCatrgory, { foreignKey: 'McId' });
 
+let mainCategory, subCategories;
+
+sequelize.sync({ alter: true }).then(() => {
+    return MainCategory.create({
+        McName: 'رنگ صنعتی'
+    });
+}).then((data) => {
+    console.log(data);
+}).catch((err) => {
+    console.log(err);
+});
+
+// ROUTING.
 app.post('/login', async (req, res) => {
     const { phone_number } = req.body;
     const userCodeExist = await VerificationCode.findOne({

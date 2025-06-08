@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 import "./productCategory.css";
@@ -17,7 +16,7 @@ const ProductCategory = () => {
         <div className='carousel'>
           <Link to="/categories/carpaint" className="category">
             <div className="category-div">
-              <img src={carImage} className="category-image car" />
+              <img src={carImage} alt="car paints" className="category-image car" />
             </div>
             <h3 className="category-description">رنگ‌های اتومبیلی</h3>
             <div className="category-buttons">
@@ -27,7 +26,7 @@ const ProductCategory = () => {
           </Link>
           <Link className="category">
             <div className="category-div">
-              <img src={wallImage} className="category-image house" />
+              <img src={wallImage} alt="building paints" className="category-image house" />
             </div>
             <h3 className="category-description">رنگ‌های ساختمانی</h3>
             <div className="category-buttons">
@@ -37,7 +36,7 @@ const ProductCategory = () => {
           </Link>
           <Link className="category">
             <div className="category-div">
-              <img src={woodImage} className="category-image wood" />
+              <img src={woodImage} alt="wood paints" className="category-image wood" />
             </div>
             <h3 className="category-description">رنگ چوب</h3>
             <div className="category-buttons">
@@ -47,7 +46,7 @@ const ProductCategory = () => {
           </Link>
           <Link className="category">
             <div className="category-div">
-              <img src={paintingToolImage} className="category-image tools" />
+              <img src={paintingToolImage} alt="painting tools" className="category-image tools" />
             </div>
             <h3 className="category-description">ابزار رنگ</h3>
             <div className="category-buttons">
