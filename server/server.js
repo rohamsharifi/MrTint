@@ -39,15 +39,18 @@ SubCatrgory.belongsTo(MainCatrgory, { foreignKey: 'McId' });
 
 let mainCategory, subCategories;
 
-sequelize.sync({ alter: true }).then(() => {
-    return MainCategory.create({
-        McName: 'رنگ صنعتی'
-    });
-}).then((data) => {
-    console.log(data);
-}).catch((err) => {
-    console.log(err);
-});
+// sequelize.sync({ alter: true }).then(() => {
+//     return MainCategory.findByPk(2).then((data) => {
+//         mainCategory = data;
+//         mainCategory.createSubCategory({
+//             ScName: 'رنگ فوری'
+//         })
+//     });
+// }).then((data) => {
+//     console.log(data);
+// }).catch((err) => {
+//     console.log(err);
+// });
 
 // ROUTING.
 app.post('/login', async (req, res) => {
@@ -105,6 +108,16 @@ app.post('/login/verification', async (req, res) => {
         }
     }
 });
+
+app.get('/api/subcategories', async (req, res) => {
+    try {
+        const subCategories = await SubCatrgory.findAll();
+        res.json(subCategories);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: 'Faild to fetch subCategories' });
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

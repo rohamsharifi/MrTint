@@ -35,13 +35,13 @@
 .user-dropdown-menu {
     background-color: #fff;
     box-shadow: 0 1px 8px rgb(102, 102, 102);
-    list-style: none;
+    border-radius: 8px;
     padding: 0;
     position: absolute;
     left: 0;
     top: 3.4rem;
-    border-radius: 8px;
     width: 22rem;
+    z-index: 1000;
 }
 
 .user-dropdown-menu li {
