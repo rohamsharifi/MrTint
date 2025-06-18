@@ -1,0 +1,4 @@
+.products-sec {
+    display: flex;
+    flex-wrap: wrap;
+}

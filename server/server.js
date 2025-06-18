@@ -7,9 +7,9 @@ import cors from 'cors';
 // IMPORTING MODELS.
 import User from './Models/User.js'
 import VerificationCode from './Models/VerificationCode.js'
-import MainCatrgory from './Models/MainCategory.js'
-import SubCatrgory from './Models/SUbCategory.js'
-import MainCategory from "./Models/MainCategory.js";
+import MainCategory from './Models/MainCategory.js'
+import SubCategory from './Models/SUbCategory.js'
+import Product from './Models/Product.js';
 
 dotenv.config();
 
@@ -34,23 +34,19 @@ app.use(cors({
 app.use(express.json());
 
 // ASSOCIATIONS.
-MainCatrgory.hasMany(SubCatrgory, { foreignKey: 'McId' });
-SubCatrgory.belongsTo(MainCatrgory, { foreignKey: 'McId' });
+MainCategory.hasMany(SubCategory, { foreignKey: 'McId' });
+SubCategory.belongsTo(MainCategory, { foreignKey: 'McId' });
 
-let mainCategory, subCategories;
+SubCategory.hasMany(Product, { foreignKey: 'ScId' });
+Product.belongsTo(SubCategory, { foreignKey: 'ScId' });
 
-// sequelize.sync({ alter: true }).then(() => {
-//     return MainCategory.findByPk(2).then((data) => {
-//         mainCategory = data;
-//         mainCategory.createSubCategory({
-//             ScName: 'رنگ فوری'
-//         })
-//     });
-// }).then((data) => {
-//     console.log(data);
-// }).catch((err) => {
-//     console.log(err);
-// });
+let subcategory, products;
+
+sequelize.sync({ alter: true }).then(() => {
+
+}).catch((err) => {
+    console.log(err);
+});
 
 // ROUTING.
 app.post('/login', async (req, res) => {
@@ -110,13 +106,32 @@ app.post('/login/verification', async (req, res) => {
 });
 
 app.get('/api/subcategories', async (req, res) => {
-    try {
-        const subCategories = await SubCatrgory.findAll();
-        res.json(subCategories);
-    } catch (err) {
+    SubCategory.findAll().then((data) => {
+        res.json(data);
+    }).catch((err) => {
         console.log(err);
         res.status(500).json({ error: 'Faild to fetch subCategories' });
-    }
+    })
+})
+
+app.get('/api/subcategory/products', async (req, res) => {
+    Product.findAll().then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: 'Faild to fetch products' });
+    })
+    // let products = [];
+    // for (let i = 0; i < subcategories.length; i++) {
+    //     const newProducts = await Product.findAll({ where: { ScId: subcategories[i].ScId } })
+    //     products.concat(newProducts);
+    // }
+    // try {
+    //     res.json(products);
+    // } catch (err) {
+    //     console.log(err);
+    //     res.status(500).json({ error: 'Faild to fetch subCategories' })
+    // }
 })
 
 app.listen(PORT, () => {

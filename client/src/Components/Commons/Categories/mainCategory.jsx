@@ -4,22 +4,21 @@ import axios from "axios";
 
 import Navbar from '../Navbar/navbar';
 import Header from '../Header/header';
-import FilterMenu from "./filterMenu";
+import Products from '../Products/products'
 
-import './paintingTools.css';
+import './mainCategory.css';
 import { FaChevronDown } from "react-icons/fa";
 
 const MainCategory = () => {
     const { maincategory } = useParams();
 
     const [subCategories, setSubCategories] = useState([]);
+    const [products, setProducts] = useState([]);
     let [isCategoryActive, setIsCategoryActive] = useState(false);
     let [isOrderActive, setIsOrderActive] = useState(false);
-    let [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const scMenuRef = useRef(null);
     const orderMenuRef = useRef(null);
-    const filterMenuRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -38,19 +37,6 @@ const MainCategory = () => {
         const handleClickOutside = (event) => {
             if (orderMenuRef.current && !orderMenuRef.current.contains(event.target)) {
                 setIsOrderActive(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (filterMenuRef.current && !filterMenuRef.current.contains(event.target)) {
-                setIsMenuOpen(false);
             }
         };
 
@@ -105,6 +91,27 @@ const MainCategory = () => {
 
     const data = mainCategories[maincategory];
 
+    useEffect(() => {
+        axios
+            .get('http://localhost:5000/api/subcategory/products')
+            .then(res => {
+                setProducts(res.data);
+            })
+            .catch(err => {
+                console.error('Error fetching subcategories:', err);
+            });
+    }, []);
+
+    const newProducts = [];
+    const newSubCategories = data[0];
+    for (let i = 0; i < data[0].length; i++) {
+        for (let j = 0; j < products.length; j++) {
+            if (products[j].ScId === newSubCategories[i].ScId) {
+                newProducts.push(products[j]);
+            }
+        }
+    }
+
     const orders = ['ارزان ترین', 'گران ترین', 'پرفروش ترین'];
 
     let iconClassname = `sc-dropdown-icon ${isCategoryActive ? 'active' : null}`;
@@ -113,64 +120,57 @@ const MainCategory = () => {
     let ulClassname = `tools-subcategories-ul ${isCategoryActive ? 'active' : null}`;
     let orderUlClassname = `tools-subcategories-ul order ${isOrderActive ? 'active' : null}`;
     let byOrderDivClassname = `byorder-div ${isOrderActive ? 'active' : null}`;
-    let filterMenuClass = `filter-menu-aside ${isMenuOpen ? 'open' : null}`;
-    let opacity = isMenuOpen ? '0.2' : '1';
 
     return (
-        <main>
-            <FilterMenu filterMenuClass={filterMenuClass} />
-            <div style={{ opacity: opacity }}>
-                <Header />
-                <Navbar />
-                <div className="tools-container">
-                    <div className="tools-top-menu">
+
+        <div>
+            <Header />
+            <Navbar />
+            <div className="main-category-container">
+                <section className="main-category-top-menu">
+                    <div
+                        onClick={() => setIsCategoryActive(!isCategoryActive)}
+                        ref={scMenuRef}
+                        className={subcategoryDivClassname}
+                    >
+                        <button className="tools-subcategories-button">
+                            دسته‌بندی {data[1]}
+                        </button>
+                        <FaChevronDown className={iconClassname} />
+                    </div>
+                    <ul className={ulClassname}>
+                        {data[0].map((s) => {
+                            return (
+                                <li key={s.ScId} className="tools-subcategories-li">
+                                    <div>{s.ScName}</div>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <div>
                         <div
-                            onClick={() => setIsCategoryActive(!isCategoryActive)}
-                            ref={scMenuRef}
-                            className={subcategoryDivClassname}
+                            className={byOrderDivClassname}
+                            onClick={() => setIsOrderActive(!isOrderActive)}
+                            ref={orderMenuRef}
                         >
-                            <button className="tools-subcategories-button">
-                                دسته‌بندی {data[1]}
-                            </button>
-                            <FaChevronDown className={iconClassname} />
+                            <button className="tools-byorder-button">ترتیب نمایش</button>
+                            <FaChevronDown className={iconClassnameOrder} />
                         </div>
-                        <ul className={ulClassname}>
-                            {data[0].map((s) => {
+                        <ul className={orderUlClassname}>
+                            {orders.map((order, index) => {
                                 return (
-                                    <li key={s.ScId} className="tools-subcategories-li">
-                                        <div>{s.ScName}</div>
+                                    <li key={index} className="tools-subcategories-li">
+                                        <div>{order}</div>
                                     </li>
                                 );
                             })}
                         </ul>
-                        <button
-                            className="maincategory-filters"
-                            onClick={() => setIsMenuOpen(true)}
-                            ref={filterMenuRef}
-                        >فیلترها</button>
-                        <div>
-                            <div
-                                className={byOrderDivClassname}
-                                onClick={() => setIsOrderActive(!isOrderActive)}
-                                ref={orderMenuRef}
-                            >
-                                <button className="tools-byorder-button">ترتیب نمایش</button>
-                                <FaChevronDown className={iconClassnameOrder} />
-                            </div>
-                            <ul className={orderUlClassname}>
-                                {orders.map((order, index) => {
-                                    return (
-                                        <li key={index} className="tools-subcategories-li">
-                                            <div>{order}</div>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </div>
                     </div>
-                </div>
+                </section>
+                <Products products={newProducts} />
             </div>
-        </main>
+        </div>
+
     );
 }
 export default MainCategory;
