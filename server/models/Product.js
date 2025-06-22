@@ -43,6 +43,9 @@ const Product = sequelize.define('Product', {
     soldCount: {
         type: DataTypes.INTEGER
     },
+    imageUrl: {
+        type: DataTypes.STRING
+    },
     ScId: {
         type: DataTypes.INTEGER
     },

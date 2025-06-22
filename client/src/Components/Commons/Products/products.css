@@ -1,4 +1,20 @@
 .products-sec {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 2rem;
+    border-radius: 12px;
+    background-color: #fff;
+}
+
+@media screen and (min-width: 780px) {
+    .products-sec {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 780px) {
+    .products-sec {
+        justify-content: start;
+    }
 }

@@ -1,11 +1,20 @@
+import { useState } from 'react';
 import Product from './product'
 
-const Products = ({ products }) => {
+import './products.css'
+
+const Products = ({ products, pagination, paginationRate }) => {
+
+    const start = (pagination - 1) * paginationRate;
+    const end = pagination * paginationRate;
+
+    const newProducts = products.slice(start, end);
+
     return (
         <section className='products-sec'>
-            {products.map((p) => {
+            {newProducts.map((p, index) => {
                 return (
-                    <Product product={p} />
+                    <Product product={p} index={index} length={newProducts.length} />
                 );
             })}
         </section>

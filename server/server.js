@@ -42,7 +42,7 @@ Product.belongsTo(SubCategory, { foreignKey: 'ScId' });
 
 let subcategory, products;
 
-sequelize.sync({ alter: true }).then(() => {
+Product.sync({ alter: true }).then(() => {
 
 }).catch((err) => {
     console.log(err);
@@ -121,17 +121,6 @@ app.get('/api/subcategory/products', async (req, res) => {
         console.log(err);
         res.status(500).json({ error: 'Faild to fetch products' });
     })
-    // let products = [];
-    // for (let i = 0; i < subcategories.length; i++) {
-    //     const newProducts = await Product.findAll({ where: { ScId: subcategories[i].ScId } })
-    //     products.concat(newProducts);
-    // }
-    // try {
-    //     res.json(products);
-    // } catch (err) {
-    //     console.log(err);
-    //     res.status(500).json({ error: 'Faild to fetch subCategories' })
-    // }
 })
 
 app.listen(PORT, () => {
