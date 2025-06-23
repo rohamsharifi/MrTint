@@ -17,11 +17,13 @@ const Product = ({ product, index, length }) => {
     }
 
     let productDivClass = `product-div ${index % 2 === 1 ? 'last-col' : ''}`;
+    productDivClass += `${index === 0 ? ' first-child' : ''}`;
     productDivClass += `${index === 1 ? ' second-child' : ''}`;
+    productDivClass += `${index === length - 1 ? ' last-child' : ''}`;
     productDivClass += `${index === length - 2 ? ' second-last-child' : ''}`;
+    productDivClass += `${index === length - 3 ? ' third-last-child' : ''}`;
     productDivClass += `${index === 2 ? ' third-child' : ''}`;
     productDivClass += `${index % 3 === 2 ? ' last-col-large' : ''}`
-    console.log(productDivClass)
 
     return (
         <div className={productDivClass}>

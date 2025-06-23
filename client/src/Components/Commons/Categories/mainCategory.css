@@ -2,50 +2,8 @@
     margin: 60px 16px;
 }
 
-.main-category-top-menu {
-    display: flex;
-    justify-content: start;
-    gap: 12px;
-}
-
-.subcategory-div {
-    display: flex;
-    align-items: center;
-    border-radius: 18px;
-    border: 1px solid rgb(209, 209, 209);
-    font-size: 1.2rem;
-    padding: 0.6rem 0.8rem;
-    gap: 0.2rem;
-    transition: background-color 0.4s ease;
-    cursor: pointer;
-}
-
 .subcategories-div {
     display: none;
-}
-
-.byorder-div {
-    display: flex;
-    align-items: center;
-    border-radius: 18px;
-    border: 1px solid rgb(209, 209, 209);
-    font-size: 1.2rem;
-    padding: 0.6rem 0.8rem;
-    gap: 0.2rem;
-    transition: background-color 0.4s ease;
-    cursor: pointer;
-}
-
-.byorder-div.active {
-    background-color: hsla(202, 64%, 93%);
-}
-
-.tools-subcategories-button {
-    color: var(--header-color);
-}
-
-.tools-byorder-button {
-    color: var(--header-color);
 }
 
 .maincategory-filters {
@@ -56,76 +14,6 @@
     padding: 0.6rem 1rem;
 }
 
-.subcategory-div.active {
-    background-color: hsla(202, 64%, 93%);
-}
-
-.tools-subcategories-ul {
-    position: absolute;
-    padding: 0;
-    margin-top: 4.2rem;
-    box-shadow: 0 1px 3px rgb(191, 191, 191);
-    border-radius: 12px;
-    overflow: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    transition: max-height 0.4s ease;
-    max-height: 0;
-    background-color: #fff;
-    z-index: 10;
-}
-
-.tools-subcategories-ul.order {
-    margin-right: -0.5rem;
-    margin-top: 0.6rem;
-}
-
-.tools-subcategories-ul.active {
-    max-height: 23rem;
-}
-
-.tools-subcategories-ul::-webkit-scrollbar {
-    display: none;
-}
-
-.tools-subcategories-li {
-    font-size: 1.3rem;
-    color: var(--header-color);
-    padding: 0 1.8rem;
-    cursor: pointer;
-}
-
-.tools-subcategories-li:hover {
-    background-color: rgb(248, 248, 248);
-}
-
-.tools-subcategories-li div {
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid rgb(220, 220, 220);
-    padding: 1.2rem 0.6rem;
-}
-
-.sc-dropdown-icon {
-    font-size: 1rem;
-    color: rgb(100, 100, 100);
-    transition: transform 0.4s ease;
-}
-
-.sc-dropdown-icon.active {
-    transform: rotate(180deg);
-}
-
-.sc-dropdown-icon-order {
-    font-size: 1rem;
-    color: rgb(100, 100, 100);
-    transition: transform 0.4s ease;
-}
-
-.sc-dropdown-icon-order.active {
-    transform: rotate(180deg);
-}
-
 .painting-tools-subcategories {
     padding: 0;
     background-color: #fff;
@@ -133,105 +21,14 @@
     font-size: 1.3rem;
 }
 
-.pagination-sec {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1.6rem;
-    gap: 0.2rem;
+.mc-checkbox-input {
+    box-shadow: none;
+    cursor: pointer;
 }
 
-.pagination-sec.none {
-    display: none;
-}
-
-.pagination-button {
-    padding: 0;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.6rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--link-color);
-    border-radius: 8px;
-}
-
-.pagination-button.first.active {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.second.active {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.third.active {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.fourth.active {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.last.active {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.second.none {
-    display: none;
-}
-
-.pagination-button.third.none {
-    display: none;
-}
-
-.pagination-button.fourth.none {
-    display: none;
-}
-
-.pagination-button:hover {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.previous {
-    color: white;
-    background-color: var(--secondary-color);
-    font-size: 2.4rem;
-    margin-left: 1rem;
-}
-
-.pagination-button.next {
-    background-color: var(--secondary-color);
-    color: white;
-    font-size: 2.4rem;
+.mc-checkbox-label {
     margin-right: 1rem;
-}
-
-.pagination-dots-first {
-    font-size: 3rem;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-}
-
-.pagination-dots-second {
-    font-size: 3rem;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-}
-
-.pagination-dots-first.none {
-    display: none;
-}
-
-.pagination-dots-second.none {
-    display: none;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 780px) {
