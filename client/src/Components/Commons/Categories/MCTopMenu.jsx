@@ -15,7 +15,7 @@ const MCTopMenu = ({ data, value, clickCheckbox }) => {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (scMenuRef.current && !scMenuRef.current.contains(event.target)) {
-                setTimeout(() => setSCListHeight('0'), 500);
+                setTimeout(() => setSCListHeight('0'), 180);
             }
         };
 

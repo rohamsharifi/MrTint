@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import tempImage from '../../../images/arttools.jpg'
 
 import './product.css';
 
 const Product = ({ product, index, length }) => {
-
     let [productCount, setProductCount] = useState(1);
+    const [isLoggedIn, setIsLoggedIn] = useState();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token);
+    }, []);
 
     const increaseProductCount = () => {
         setProductCount(productCount + 1);
@@ -35,6 +42,34 @@ const Product = ({ product, index, length }) => {
         if (productCount === '' || productCount === 0) setProductCount(1);
     }
 
+    const addToCart = (product) => {
+        const token = localStorage.getItem('token');
+        if (isLoggedIn) {
+            axios
+                .post('http://localhost:5000/api/cart/add', {
+                    productId: product,
+                    count: productCount
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+        } else {
+
+            const existingCart = JSON.parse(localStorage.getItem('guestCart')) || [];
+            const existingProductIndex = existingCart.findIndex(item => item.product === product);
+            console.log(existingProductIndex);
+
+            if (existingProductIndex === -1) {
+                existingCart.push({ product, productCount });
+            }
+
+            localStorage.setItem('guestCart', JSON.stringify(existingCart));
+
+            console.log('Guest cart updated:', existingCart);
+        }
+    }
+
     let productDivClass = `product-div ${index % 2 === 1 ? 'last-col' : ''}`;
     productDivClass += `${index === 0 ? ' first-child' : ''}`;
     productDivClass += `${index === 1 ? ' second-child' : ''}`;
@@ -59,7 +94,10 @@ const Product = ({ product, index, length }) => {
                 </div>
             </div>
             <div className='add-to-cart'>
-                <button className='add-to-cart-button'>
+                <button
+                    className='add-to-cart-button'
+                    onClick={() => addToCart(product.id)}
+                >
                     افزودن به سبد خرید
                 </button>
                 <div className='count-product-div'>

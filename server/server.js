@@ -12,6 +12,9 @@ import SubCategory from './Models/SUbCategory.js'
 import Product from './Models/Product.js';
 import CustomerProduct from "./Models/CustomerProduct.js";
 
+// IMPORTING ROUTES
+import cartRoutes from './Routes/cart.js';
+
 dotenv.config();
 
 const sequelize = new Sequelize(
@@ -43,9 +46,11 @@ Product.belongsTo(SubCategory, { foreignKey: 'ScId' });
 
 User.belongsToMany(Product, {
     through: CustomerProduct,
+    foreignKey: 'userId'
 });
 Product.belongsToMany(User, {
     through: CustomerProduct,
+    foreignKey: 'productId'
 });
 
 
@@ -128,7 +133,9 @@ app.get('/api/subcategory/products', async (req, res) => {
         console.log(err);
         res.status(500).json({ error: 'Faild to fetch products' });
     })
-})
+});
+
+app.use('/api/cart', cartRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
