@@ -2,6 +2,7 @@
   box-sizing: border-box;
   font-family: nooraRegular;
   direction: rtl;
+  user-select: none;
   /* --primary-color: hsl(19, 42%, 44%); */
   --primary-color: hsl(19, 43%, 33%);
   --link-color: rgb(0, 131, 192);

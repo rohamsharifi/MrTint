@@ -16,6 +16,25 @@ const Product = ({ product, index, length }) => {
             setProductCount(productCount - 1);
     }
 
+    const changeProductCount = (value) => {
+        let newValue = '';
+        for (let i = 0; i < value.length; i++) {
+            const code = value.charCodeAt(i);
+            if (code > 47 && code < 58) {
+                newValue += value[i];
+            }
+        }
+        if (newValue !== '') {
+            setProductCount(Number(newValue));
+        } else {
+            setProductCount('');
+        }
+    }
+
+    const blurProductCount = () => {
+        if (productCount === '' || productCount === 0) setProductCount(1);
+    }
+
     let productDivClass = `product-div ${index % 2 === 1 ? 'last-col' : ''}`;
     productDivClass += `${index === 0 ? ' first-child' : ''}`;
     productDivClass += `${index === 1 ? ' second-child' : ''}`;
@@ -55,6 +74,8 @@ const Product = ({ product, index, length }) => {
                         inputMode="numeric"
                         pattern="[0-9]*"
                         value={productCount}
+                        onChange={(e) => changeProductCount(e.target.value)}
+                        onBlur={blurProductCount}
                         className='count-product-input'
                     />
                     <button

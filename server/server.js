@@ -10,6 +10,7 @@ import VerificationCode from './Models/VerificationCode.js'
 import MainCategory from './Models/MainCategory.js'
 import SubCategory from './Models/SUbCategory.js'
 import Product from './Models/Product.js';
+import CustomerProduct from "./Models/CustomerProduct.js";
 
 dotenv.config();
 
@@ -40,9 +41,15 @@ SubCategory.belongsTo(MainCategory, { foreignKey: 'McId' });
 SubCategory.hasMany(Product, { foreignKey: 'ScId' });
 Product.belongsTo(SubCategory, { foreignKey: 'ScId' });
 
-let subcategory, products;
+User.belongsToMany(Product, {
+    through: CustomerProduct,
+});
+Product.belongsToMany(User, {
+    through: CustomerProduct,
+});
 
-Product.sync({ alter: true }).then(() => {
+
+CustomerProduct.sync({ alter: true }).then(() => {
 
 }).catch((err) => {
     console.log(err);

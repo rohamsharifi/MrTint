@@ -4,9 +4,10 @@ import { FaChevronDown } from "react-icons/fa";
 
 import './MCTopMenu.css';
 
-const MCTopMenu = ({ data, value }) => {
+const MCTopMenu = ({ data, value, clickCheckbox }) => {
     let [isCategoryActive, setIsCategoryActive] = useState(false);
     let [isOrderActive, setIsOrderActive] = useState(false);
+    let [SCListHeight, setSCListHeight] = useState('0');
 
     const scMenuRef = useRef(null);
     const orderMenuRef = useRef(null);
@@ -14,7 +15,7 @@ const MCTopMenu = ({ data, value }) => {
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (scMenuRef.current && !scMenuRef.current.contains(event.target)) {
-                setIsCategoryActive(false);
+                setTimeout(() => setSCListHeight('0'), 500);
             }
         };
 
@@ -37,19 +38,27 @@ const MCTopMenu = ({ data, value }) => {
         };
     }, []);
 
+    const changeListHeight = () => {
+        if (SCListHeight === '0') {
+            setSCListHeight('23rem');
+        } else {
+            setSCListHeight('0');
+        }
+    }
+
     const orders = ['مرتبط ترین', 'ارزان ترین', 'گران ترین', 'پرفروش ترین'];
 
-    let iconClassname = `sc-dropdown-icon ${isCategoryActive ? 'active' : null}`;
-    let subcategoryDivClassname = `subcategory-div ${isCategoryActive ? 'active' : null}`;
+    let iconClassname = `sc-dropdown-icon ${SCListHeight === '23rem' ? 'active' : null}`;
+    let subcategoryDivClassname = `subcategory-div ${SCListHeight === '23rem' ? 'active' : null}`;
     let iconClassnameOrder = `sc-dropdown-icon-order ${isOrderActive ? 'active' : null}`;
-    let ulClassname = `tools-subcategories-ul ${isCategoryActive ? 'active' : null}`;
+    let ulClassname = ` ${isCategoryActive ? 'active' : 'active'}`;
     let orderUlClassname = `tools-subcategories-ul order ${isOrderActive ? 'active' : null}`;
     let byOrderDivClassname = `byorder-div ${isOrderActive ? 'active' : null}`;
 
     return (
         <section className="main-category-top-menu">
             <div
-                onClick={() => setIsCategoryActive(!isCategoryActive)}
+                onClick={changeListHeight}
                 ref={scMenuRef}
                 className={subcategoryDivClassname}
             >
@@ -58,12 +67,13 @@ const MCTopMenu = ({ data, value }) => {
                 </button>
                 <FaChevronDown className={iconClassname} />
             </div>
-            <ul className={ulClassname}>
+            <ul className='tools-subcategories-ul' style={{ maxHeight: SCListHeight }}>
                 {data[0].map((s, index) => {
                     return (
                         <li
                             key={s.ScId}
                             className="tools-subcategories-li"
+                            onClick={() => clickCheckbox(index, s.ScName, s.ScId)}
                         >
                             <div>
                                 <input

@@ -64,10 +64,6 @@
     margin-top: 0.6rem;
 }
 
-.tools-subcategories-ul.active {
-    max-height: 23rem;
-}
-
 .tools-subcategories-ul::-webkit-scrollbar {
     display: none;
 }

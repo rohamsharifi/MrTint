@@ -110,7 +110,11 @@ const MainCategory = () => {
             <Navbar />
             <div className="main-category-container">
                 <div className='products-and-subcategories'>
-                    <MCTopMenu data={data} value={checkboxValue} />
+                    {checkboxLabel !== null &&
+                        <h2 className='subcategory-label'>
+                            جستجو در {checkboxLabel}
+                        </h2>}
+                    <MCTopMenu data={data} value={checkboxValue} clickCheckbox={clickCheckbox} />
                     <section className='subcategories-div'>
                         <div className='subcategory-list-head'>دسته‌بندی {data[1]}</div>
                         <ul className='subcategories-list'>
