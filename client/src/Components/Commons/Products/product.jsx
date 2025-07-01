@@ -8,6 +8,7 @@ import './product.css';
 const Product = ({ product, index, length }) => {
     let [productCount, setProductCount] = useState(1);
     const [isLoggedIn, setIsLoggedIn] = useState();
+    const [inventoryErr, setInventoryErr] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -15,12 +16,17 @@ const Product = ({ product, index, length }) => {
     }, []);
 
     const increaseProductCount = () => {
-        setProductCount(productCount + 1);
+        if (productCount < product.inventory)
+            setProductCount(productCount + 1);
+        else
+            setInventoryErr(true);
     }
 
     const decreaseProductCount = () => {
-        if (productCount > 1)
+        if (productCount > 1) {
             setProductCount(productCount - 1);
+            setInventoryErr(false);
+        }
     }
 
     const changeProductCount = (value) => {
@@ -31,8 +37,11 @@ const Product = ({ product, index, length }) => {
                 newValue += value[i];
             }
         }
+
+        const number = Number(newValue);
+
         if (newValue !== '') {
-            setProductCount(Number(newValue));
+            setProductCount(number);
         } else {
             setProductCount('');
         }
@@ -40,6 +49,10 @@ const Product = ({ product, index, length }) => {
 
     const blurProductCount = () => {
         if (productCount === '' || productCount === 0) setProductCount(1);
+        if (productCount > product.inventory) {
+            setProductCount(product.inventory);
+            setInventoryErr(true);
+        }
     }
 
     const addToCart = (product) => {
@@ -55,7 +68,6 @@ const Product = ({ product, index, length }) => {
                     }
                 })
         } else {
-
             const existingCart = JSON.parse(localStorage.getItem('guestCart')) || [];
             const existingProductIndex = existingCart.findIndex(item => item.product === product);
             console.log(existingProductIndex);
@@ -77,7 +89,10 @@ const Product = ({ product, index, length }) => {
     productDivClass += `${index === length - 2 ? ' second-last-child' : ''}`;
     productDivClass += `${index === length - 3 ? ' third-last-child' : ''}`;
     productDivClass += `${index === 2 ? ' third-child' : ''}`;
-    productDivClass += `${index % 3 === 2 ? ' last-col-large' : ''}`
+    productDivClass += `${index % 3 === 2 ? ' last-col-large' : ''}`;
+
+    let minusClass = `count-product-button decrease ${productCount === 1 ? 'disabled' : ''}`;
+    let plusClass = `count-product-button increase ${productCount >= product.inventory ? 'disabled' : ''}`;
 
     return (
         <div className={productDivClass}>
@@ -93,37 +108,52 @@ const Product = ({ product, index, length }) => {
                     <img src={tempImage} alt={product.keyWord} className='product-image-img' />
                 </div>
             </div>
-            <div className='add-to-cart'>
-                <button
-                    className='add-to-cart-button'
-                    onClick={() => addToCart(product.id)}
-                >
-                    افزودن به سبد خرید
-                </button>
-                <div className='count-product-div'>
-                    <button
-                        className='count-product-button increase'
-                        onClick={increaseProductCount}
-                    >
-                        +
-                    </button>
-                    <input
-                        type="tel"
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        value={productCount}
-                        onChange={(e) => changeProductCount(e.target.value)}
-                        onBlur={blurProductCount}
-                        className='count-product-input'
-                    />
-                    <button
-                        className='count-product-button decrease'
-                        onClick={decreaseProductCount}
-                    >
-                        -
-                    </button>
+            {
+                product.inventory > 0 ? (
+
+                    <div className='add-to-cart'>
+                        <button
+                            className='add-to-cart-button'
+                            onClick={() => addToCart(product.id)}
+                        >
+                            افزودن به سبد خرید
+                        </button>
+                        <div className='count-product-div'>
+                            <button
+                                className={plusClass}
+                                onClick={increaseProductCount}
+                            >
+                                +
+                            </button>
+                            <input
+                                type="tel"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                value={productCount}
+                                onChange={(e) => changeProductCount(e.target.value)}
+                                onBlur={blurProductCount}
+                                className='count-product-input'
+                            />
+                            <button
+                                className={minusClass}
+                                onClick={decreaseProductCount}
+                            >
+                                -
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className='unavailable-div'>
+                        <p className='unavailable-txt'>ناموجود</p>
+                    </div>
+                )
+            }
+            {
+                inventoryErr &&
+                <div className='inventory-err-div'>
+                    <p className='inventory-err-txt'>موجودی فروشگاه {product.inventory} عدد می‌باشد.</p>
                 </div>
-            </div>
+            }
         </div>
     );
 }
