@@ -7,6 +7,7 @@ import "./shopping-cart-button.css";
 
 const ShoppingCartButton = () => {
     const [count, setCount] = useState();
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!!token) {

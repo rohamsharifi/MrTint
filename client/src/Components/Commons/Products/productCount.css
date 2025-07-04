@@ -1,0 +1,48 @@
+.count-product-div {
+    width: 15rem;
+    height: 4rem;
+    display: flex;
+}
+
+.count-product-input {
+    box-shadow: none;
+    height: 100%;
+    width: 50%;
+    border-radius: 0;
+    border-top: 1px solid rgb(209, 209, 209);
+    border-bottom: 1px solid rgb(209, 209, 209);
+    text-align: center;
+    caret-color: var(--link-color);
+    font-size: 1.8rem;
+}
+
+.count-product-button {
+    background-color: white;
+    color: rgb(93, 98, 102);
+    font-size: 2.4rem;
+    width: 25%;
+    border-top: 1px solid rgb(209, 209, 209);
+    border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.count-product-button.increase {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-right: 1px solid rgb(209, 209, 209);
+}
+
+.count-product-button.decrease {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    border-left: 1px solid rgb(209, 209, 209);
+}
+
+.count-product-button.decrease.disabled {
+    color: rgba(93, 98, 102, 0.5);
+    cursor: auto;
+}
+
+.count-product-button.increase.disabled {
+    color: rgba(93, 98, 102, 0.5);
+    cursor: auto;
+}

@@ -1,10 +1,17 @@
-const CartProducts = ({ products }) => {
+import CartProduct from "./CartProduct";
+
+import './cartProducts.css';
+
+const CartProducts = ({ products, productCounts, setCartProducts }) => {
     return (
         <section className='cart-products-sec'>
-            {products.map((p) => {
-                console.log(p.name);
+            {products.map((p, index) => {
                 return (
-                    <div>{p.name}</div>
+                    <CartProduct
+                        product={p}
+                        count={productCounts[index]}
+                        setCartProducts={setCartProducts}
+                    />
                 )
             })}
         </section>

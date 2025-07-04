@@ -1,0 +1,61 @@
+.aside-total-price-sec {
+    display: none;
+}
+
+@media screen and (min-width: 780px) {
+    .aside-total-price-sec {
+        display: block;
+        border-radius: 12px;
+        text-align: center;
+        width: 50%;
+        max-width: 34rem;
+        margin-bottom: 20rem;
+        margin-top: 4rem;
+        margin-left: 1.6rem;
+    }
+
+    .aside-container {
+        background-color: #fff;
+        box-shadow: 0 0 4px rgb(200, 200, 200);
+        border-radius: 12px;
+        padding: 0.6rem 1.6rem 2rem 1.6rem;
+        position: sticky;
+        top: 1rem;
+    }
+
+    .payment-details-div {
+        border-bottom: 1px solid rgb(190, 190, 190);
+    }
+
+    .payment-details-head {
+        color: rgb(85, 88, 92);
+        font-size: 1.5rem;
+        font-family: nooraSemiBold;
+        line-height: 1rem;
+    }
+
+    .payment-details-body div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .payment-details-body .text {
+        font-size: 1.3rem;
+    }
+
+    .payment-details-body .number {
+        font-size: 1.6rem;
+    }
+
+    .order-completion-btn-aside {
+        width: 100%;
+        max-width: 32rem;
+        padding: 0;
+        margin-top: 3.2rem;
+    }
+
+    .btn-front.order-aside {
+        font-size: 1.3rem;
+    }
+}

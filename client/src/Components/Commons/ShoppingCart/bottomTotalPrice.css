@@ -1,0 +1,35 @@
+.bottom-total-price-sec {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    padding: 1rem 1.6rem;
+    border-top: 1px solid rgb(190, 190, 190);
+    margin-right: 0;
+    z-index: 1000;
+}
+
+.order-completion-btn {
+    width: 50%;
+    max-width: 26rem;
+    padding: 0;
+}
+
+.btn-front.order {
+    font-size: 1.3rem;
+}
+
+@media screen and (min-width: 480px) {
+    .btn-front.order {
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (min-width: 780px) {
+    .bottom-total-price-sec {
+        display: none;
+    }
+}
