@@ -1,6 +1,11 @@
+import { useCart } from '../../../Contexts/CartContext';
+
 import './asideTotalPrice.css';
 
-const AsideTotalPrice = ({ price, count }) => {
+const AsideTotalPrice = () => {
+    const { totalPrice, cartProducts } = useCart();
+    const count = cartProducts.length;
+
     return (
         <section className='aside-total-price-sec'>
             <div className='aside-container'>
@@ -14,7 +19,7 @@ const AsideTotalPrice = ({ price, count }) => {
                     </div>
                     <div>
                         <p className='text' style={{ lineHeight: '0' }}>مجموع قیمت :</p>
-                        <p className='number' style={{ lineHeight: '0' }}>{price}</p>
+                        <p className='number' style={{ lineHeight: '0' }}>{totalPrice}</p>
                     </div>
                 </div>
                 <button

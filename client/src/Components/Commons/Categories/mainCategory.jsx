@@ -19,7 +19,7 @@ const MainCategory = () => {
     const [subcategoryId, setSubcategoryId] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/subcategories')
+        axios.get(`http://localhost:5000/api/subcategories/${maincategory}`)
             .then(res => {
                 setSubCategories(res.data);
             })
@@ -28,68 +28,33 @@ const MainCategory = () => {
             });
     }, []);
 
-    const toolSubCategories = [];
-    const carSubCategories = [];
-    const woodSubCategories = [];
-    const houseSubCategories = [];
-    const industrialSubCategories = [];
-
-    subCategories.map((s) => {
-        switch (s.McId) {
-            case 1:
-                toolSubCategories.push(s);
-                break;
-            case 2:
-                carSubCategories.push(s);
-                break;
-            case 3:
-                woodSubCategories.push(s);
-                break;
-            case 4:
-                houseSubCategories.push(s);
-                break;
-            default:
-                industrialSubCategories.push(s);
-        }
-    });
-
     const mainCategories = {
-        paintingTools: [toolSubCategories, 'ابزارها'],
-        carPaint: [carSubCategories, 'رنگ اتومبیلی'],
-        woodPaint: [woodSubCategories, 'رنگ چوب'],
-        housePaint: [houseSubCategories, 'رنگ ساختمانی'],
-        industrialPaint: [industrialSubCategories, 'رنگ صنعتی']
+        painting_tools: 'ابزارها',
+        car_paint: 'رنگ اتومبیلی',
+        wood_paint: 'رنگ چوب',
+        house_paint: 'رنگ ساختمانی',
+        industrial_paint: 'رنگ صنعتی'
     };
 
     const data = mainCategories[maincategory];
 
     useEffect(() => {
         axios
-            .get('http://localhost:5000/api/subcategory/products')
+            .get(`http://localhost:5000/api/subcategories/${maincategory}/products`)
             .then(res => {
-                setProducts(res.data);
+                setProducts(res.data.products);
             })
             .catch(err => {
                 console.error('Error fetching subcategories:', err);
             });
     }, []);
 
-    const newProducts = [];
-    const newSubCategories = data[0];
-    for (let i = 0; i < data[0].length; i++) {
-        for (let j = 0; j < products.length; j++) {
-            if (products[j].ScId === newSubCategories[i].ScId) {
-                newProducts.push(products[j]);
-            }
-        }
-    }
-
     let filteredProducts = [];
 
     if (checkboxLabel === null) {
-        filteredProducts = newProducts;
+        filteredProducts = products;
     } else {
-        filteredProducts = newProducts.filter((p) => p.ScId === subcategoryId);
+        filteredProducts = products.filter((p) => p.ScId === subcategoryId);
     }
 
     const clickCheckbox = (index, label, id) => {
@@ -114,11 +79,16 @@ const MainCategory = () => {
                         <h2 className='subcategory-label'>
                             جستجو در {checkboxLabel}
                         </h2>}
-                    <MCTopMenu data={data} value={checkboxValue} clickCheckbox={clickCheckbox} />
+                    <MCTopMenu
+                        data={data}
+                        subCategories={subCategories}
+                        value={checkboxValue}
+                        clickCheckbox={clickCheckbox}
+                    />
                     <section className='subcategories-div'>
-                        <div className='subcategory-list-head'>دسته‌بندی {data[1]}</div>
+                        <div className='subcategory-list-head'>دسته‌بندی {data}</div>
                         <ul className='subcategories-list'>
-                            {data[0].map((s, index) => {
+                            {subCategories.map((s, index) => {
                                 const liClass = `tools-subcategories-li ${index === checkboxValue ? 'active' : ''}`;
                                 return (
                                     <li

@@ -1,11 +1,14 @@
+import { useCart } from '../../../Contexts/CartContext';
 import './bottomTotalPrice.css';
 
-const BottomTotalPrice = ({ price }) => {
+const BottomTotalPrice = () => {
+    const { totalPrice } = useCart();
+
     return (
         <section className='bottom-total-price-sec'>
             <div className='total-price-div'>
                 <p>مجموع قیمت :</p>
-                <p>{price} تومان</p>
+                <p>{totalPrice} تومان</p>
             </div>
             <button
                 type="submit"

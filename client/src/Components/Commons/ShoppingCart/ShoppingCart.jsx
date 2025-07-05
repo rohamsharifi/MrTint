@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
+import { useCart } from '../../../Contexts/CartContext';
 
 import Navbar from '../Navbar/navbar';
 import SideMenu from '../SideMenu/sideMenu';
@@ -12,8 +12,8 @@ import FullCart from './fullCart';
 const ShoppingCart = () => {
     let [opacity, SetOpacity] = useState("1");
     let [sidenavRight, setSidenavRight] = useState("-220px");
-    const [cartProducts, setCartProducts] = useState([]);
-    const [productCounts, setProductCounts] = useState([]);
+
+    const { cartProducts, isLoading } = useCart();
 
     const handleCloseSidenav = () => {
         setSidenavRight("-220px");
@@ -25,33 +25,6 @@ const ShoppingCart = () => {
         SetOpacity("0.2");
     };
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (!!token) {
-            axios.post('http://localhost:5000/api/cart/get-products', {}, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then(res => {
-                setCartProducts(res.data.products);
-                const newProductCounts = res.data.products.map(p => (p.customerproduct.productCount));
-                setProductCounts(newProductCounts);
-            }).catch(err => {
-                console.error('Error fetching products:', err);
-            });
-        } else {
-            const products = JSON.parse(localStorage.getItem('guestCart')) || [];
-            const productIds = products.map((p) => (p.product));
-            axios.post('http://localhost:5000/api/cart/get-guest-products', {
-                productIds: productIds
-            }).then(res => {
-                setCartProducts(res.data.products);
-            }).catch(err => {
-                console.error('Error fetching products:', err);
-            });
-        }
-    }, []);
-
     return (
         <div>
             <SideMenu
@@ -60,14 +33,13 @@ const ShoppingCart = () => {
             />
             <div style={{ opacity: opacity, backgroundColor: '#f0f0f5' }}>
                 <Navbar handleOpenSidenav={handleOpenSidenav} />
-                {cartProducts.length === 0 ? (
-                    <EmptyCart />
-                ) : <FullCart
-                    products={cartProducts}
-                    productCounts={productCounts}
-                    setCartProducts={setCartProducts}
-                />
-                }
+
+                {isLoading ? (
+                    <h1>Loading...</h1>
+                ) : (
+                    cartProducts.length > 0 ? <FullCart /> : <EmptyCart />
+                )}
+
                 <Footer />
             </div>
         </div>

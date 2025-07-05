@@ -4,7 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 
 import './MCTopMenu.css';
 
-const MCTopMenu = ({ data, value, clickCheckbox }) => {
+const MCTopMenu = ({ data, subCategories, value, clickCheckbox }) => {
     let [isCategoryActive, setIsCategoryActive] = useState(false);
     let [isOrderActive, setIsOrderActive] = useState(false);
     let [SCListHeight, setSCListHeight] = useState('0');
@@ -63,12 +63,12 @@ const MCTopMenu = ({ data, value, clickCheckbox }) => {
                 className={subcategoryDivClassname}
             >
                 <button className="tools-subcategories-button">
-                    دسته‌بندی {data[1]}
+                    دسته‌بندی {data}
                 </button>
                 <FaChevronDown className={iconClassname} />
             </div>
             <ul className='tools-subcategories-ul' style={{ maxHeight: SCListHeight }}>
-                {data[0].map((s, index) => {
+                {subCategories.map((s, index) => {
                     return (
                         <li
                             key={s.ScId}

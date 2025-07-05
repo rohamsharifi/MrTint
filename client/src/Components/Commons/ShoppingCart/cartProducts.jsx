@@ -1,16 +1,18 @@
 import CartProduct from "./CartProduct";
+import { useCart } from "../../../Contexts/CartContext";
 
 import './cartProducts.css';
 
-const CartProducts = ({ products, productCounts, setCartProducts }) => {
+const CartProducts = () => {
+    const { cartProducts, productCounts } = useCart();
+
     return (
         <section className='cart-products-sec'>
-            {products.map((p, index) => {
+            {cartProducts.map((p, index) => {
                 return (
                     <CartProduct
                         product={p}
                         count={productCounts[index]}
-                        setCartProducts={setCartProducts}
                     />
                 )
             })}

@@ -14,26 +14,18 @@ router.post('/add', authenticateToken, async (req, res) => {
         const { productId, count } = req.body;
         const phoneNumber = req.user.phone_number;
 
-        let product, user;
-        Product.findOne({
-            where: { id: productId }
-        }).then((data) => {
-            product = data;
-            User.findOne({
-                where: { phone_number: phoneNumber }
-            }).then((data) => {
-                user = data;
-                user.addProduct(product, {
-                    through: { productCount: count }
-                }).then((data) => {
-                    console.log(data);
-                })
-            })
-        }).catch((err) => console.log(err));
+        const user = await User.findOne({ where: { phone_number: phoneNumber } });
 
-        res.status(200).json({ message: `Product ${productId} x${count} added for ${phoneNumber}` });
-    } catch (error) {
-        console.error(error);
+        const product = await Product.findOne({ where: { id: productId } });
+
+        await user.addProduct(product, {
+            through: { productCount: count }
+        })
+
+        res.status(201).json({ message: `product ${productId} added to cart.` })
+
+    } catch (err) {
+        console.log('Add to cart error:', err);
         res.status(500).json({ message: 'Server error' });
     }
 });
@@ -45,10 +37,10 @@ router.post('/count', authenticateToken, async (req, res) => {
         where: { phone_number: phoneNumber }
     }).then((data) => {
         userId = data.user_id;
-        CustomerProduct.findAndCountAll({
+        CustomerProduct.count({
             where: { userId }
         }).then((data) => {
-            res.status(200).json({ count: data.count });
+            res.status(200).json({ count: data });
         })
     }).catch((err) => {
         console.log(err);

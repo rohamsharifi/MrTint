@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useCart } from '../../../Contexts/CartContext';
 
 import tempImage from '../../../images/arttools.jpg'
 
@@ -11,16 +12,18 @@ const Product = ({ product, index, length }) => {
     const [isLoggedIn, setIsLoggedIn] = useState();
     const [inventoryErr, setInventoryErr] = useState(false);
 
+    const { fetchCartCount } = useCart();
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         setIsLoggedIn(!!token);
     }, []);
 
-    const addToCart = (product) => {
+    const addToCart = async (product) => {
         const token = localStorage.getItem('token');
         if (isLoggedIn) {
-            axios
-                .post('http://localhost:5000/api/cart/add', {
+            try {
+                const res = await axios.post('http://localhost:5000/api/cart/add', {
                     productId: product,
                     count: productCount
                 }, {
@@ -28,18 +31,22 @@ const Product = ({ product, index, length }) => {
                         Authorization: `Bearer ${token}`
                     }
                 })
+                console.log(res.data.message);
+            } catch (err) {
+                console.log('Error updating cart:', err);
+            }
+
+            fetchCartCount();
         } else {
             const existingCart = JSON.parse(localStorage.getItem('guestCart')) || [];
             const existingProductIndex = existingCart.findIndex(item => item.product === product);
-            console.log(existingProductIndex);
 
             if (existingProductIndex === -1) {
                 existingCart.push({ product, productCount });
             }
 
             localStorage.setItem('guestCart', JSON.stringify(existingCart));
-
-            console.log('Guest cart updated:', existingCart);
+            fetchCartCount();
         }
     }
 

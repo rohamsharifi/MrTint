@@ -11,11 +11,11 @@ import "./productCategory.css";
 const ProductCategory = () => {
 
   const categoryCards = [
-    { image: paintingToolImage, title: 'ابزار رنگ', link: '/category/paintingTools' },
-    { image: carImage, title: 'رنگ اتومبیلی', link: '/category/carPaint' },
-    { image: woodImage, title: 'رنگ چوب', link: '/category/woodPaint' },
-    { image: wallImage, title: 'رنگ ساختمانی', link: '/category/housePaint' },
-    { image: gearImage, title: 'رنگ صنعتی', link: '/category/industrialPaint' },
+    { image: paintingToolImage, title: 'ابزار رنگ', link: '/category/painting_tools' },
+    { image: carImage, title: 'رنگ اتومبیلی', link: '/category/car_paint' },
+    { image: woodImage, title: 'رنگ چوب', link: '/category/wood_paint' },
+    { image: wallImage, title: 'رنگ ساختمانی', link: '/category/house_paint' },
+    { image: gearImage, title: 'رنگ صنعتی', link: '/category/industrial_paint' },
   ]
   return (
     <section className="product-category">

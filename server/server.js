@@ -8,12 +8,13 @@ import cors from 'cors';
 import User from './Models/User.js'
 import VerificationCode from './Models/VerificationCode.js'
 import MainCategory from './Models/MainCategory.js'
-import SubCategory from './Models/SUbCategory.js'
+import SubCategory from './Models/SubCategory.js'
 import Product from './Models/Product.js';
 import CustomerProduct from "./Models/CustomerProduct.js";
 
 // IMPORTING ROUTES
 import cartRoutes from './Routes/cart.js';
+import subcategoryRoutes from './Routes/subcategories.js';
 
 dotenv.config();
 
@@ -117,24 +118,10 @@ app.post('/login/verification', async (req, res) => {
     }
 });
 
-app.get('/api/subcategories', async (req, res) => {
-    SubCategory.findAll().then((data) => {
-        res.json(data);
-    }).catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: 'Faild to fetch subCategories' });
-    })
-})
 
-app.get('/api/subcategory/products', async (req, res) => {
-    Product.findAll().then((data) => {
-        res.json(data);
-    }).catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: 'Faild to fetch products' });
-    })
-});
+// ROUTES
 
+app.use('/api/subcategories', subcategoryRoutes);
 app.use('/api/cart', cartRoutes);
 
 app.listen(PORT, () => {
