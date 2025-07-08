@@ -8,6 +8,7 @@ import CommonQuestions from "../CommonQuestions/CommonQuestions";
 
 import "./home.css";
 import Footer from "../Footer/Footer";
+import MrTintIntro from "../MrTintIntro/mrTintIntro";
 
 const Home = () => {
   let [opacity, SetOpacity] = useState("1");
@@ -32,6 +33,7 @@ const Home = () => {
       <div className="home-page" style={{ opacity: opacity }}>
         <Header />
         <Navbar handleOpenSidenav={handleOpenSidenav} />
+        <MrTintIntro />
         <ProductCategory />
         <FeatureCard />
         <CommonQuestions />

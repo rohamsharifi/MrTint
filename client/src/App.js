@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./Components/Commons/Home/home";
 import Signup from "./Components/Commons/Signin/signup";
-import MainCategory from "./Components/Commons/Categories/mainCategory";
+import MainCategoryPage from "./Components/Commons/Categories/mainCategoryPage";
 import ShoppingCart from "./Components/Commons/ShoppingCart/ShoppingCart";
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
             <Route exact path='/' element={<Home />} />
             <Route exact path='/login' element={<Signup />} />
             <Route exact path='/shopping-cart' element={<ShoppingCart />} />
-            <Route exact path='/category/:maincategory' element={<MainCategory />} />
+            <Route exact path='/category/:maincategory' element={<MainCategoryPage />} />
           </Routes>
         </div>
       </Router>

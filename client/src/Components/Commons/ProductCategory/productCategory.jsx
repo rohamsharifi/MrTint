@@ -20,7 +20,7 @@ const ProductCategory = () => {
   return (
     <section className="product-category">
       <div className="category-head-div">
-        <h2 className="category-head">دسته‌بندی محصولات</h2>
+        <h2 className="category-head">دسته‌بندی&nbsp; رنگ&nbsp; و &nbsp;ابزار</h2>
       </div>
       <div className="categories">
         <div className='carousel'>
