@@ -4,11 +4,15 @@ import Product from './product'
 import Pagination from '../Pagination/pagination';
 
 import './products.css'
+import { useProduct } from '../../../Contexts/ProductContext';
 
-const Products = ({ products, label }) => {
+const Products = () => {
     let [pagination, setPagination] = useState(1);
     const [paginationRate] = useState(6);
     const [orderIndex, setOrderIndex] = useState(1);
+
+    const { products } = useProduct();
+    const { checkboxLabel } = useProduct();
 
     const start = (pagination - 1) * paginationRate;
     const end = pagination * paginationRate;
@@ -22,7 +26,9 @@ const Products = ({ products, label }) => {
 
     return (
         <section className='products-sec'>
-            {label !== null && <h2 className='subcategory-label-medium'>جستجو در {label}</h2>}
+            {checkboxLabel !== null &&
+                <h2 className='subcategory-label-medium'>جستجو در {checkboxLabel}</h2>
+            }
             <div className='byorder-div-medium'>
                 <p>ترتیب نمایش:</p>
                 <ul className='byorder-list-medium'>

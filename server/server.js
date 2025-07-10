@@ -14,7 +14,7 @@ import CustomerProduct from "./Models/CustomerProduct.js";
 
 // IMPORTING ROUTES
 import cartRoutes from './Routes/cart.js';
-import subcategoryRoutes from './Routes/subcategories.js';
+import mainCategoryRoutes from './Routes/subcategories.js';
 
 dotenv.config();
 
@@ -121,7 +121,7 @@ app.post('/login/verification', async (req, res) => {
 
 // ROUTES
 
-app.use('/api/subcategories', subcategoryRoutes);
+app.use('/api/main-category', mainCategoryRoutes);
 app.use('/api/cart', cartRoutes);
 
 app.listen(PORT, () => {

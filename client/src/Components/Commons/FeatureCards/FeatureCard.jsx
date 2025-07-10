@@ -6,7 +6,7 @@ import "./feature-card.css";
 const FeatureCard = () => {
     return (
         <section className="feature-card-section">
-            <h2>نکات مثبت مسترتینت</h2>
+            <h2>ساخت &nbsp;و &nbsp;ترکیب &nbsp;رنگ &nbsp;کامپیوتری</h2>
             <div className="card-container">
                 <div className="card">
                     <CiMonitor className="card-icon" />
@@ -21,12 +21,12 @@ const FeatureCard = () => {
                 </div>
                 <div className="card">
                     <AiOutlineScan className="card-icon" />
-                    <h3 className="card-title">ساخت رنگ با اسکنر</h3>
+                    <h2 className="card-title">ساخت رنگ ماشین خارجی با اسکنر</h2>
                     <p className="card-description">
-                        رنگ ماشین شما ابتدا با دستگاه
-                        اسکنر اسکن و رنگ آن به طور دقیق مشخص می‌شود.
-                        سپس فرمول رنگ آن با دقت بالا توسط کامپیوتر تولید
-                        و بعد رنگ شما با رنگ میپا آلمان ساخته می‌شود.
+                        رنگ ماشین های خارجی با استفاده از دستگاه اسکنر آلمانی
+                        ساخته می‌شود. ابتدا رنگ ماشین اسکن می‌شود و فرمول دقیق آن
+                        بدست می‌آید. سپس رنگ آن به طور دقیق و با رنگ میپا آلمان
+                        ساخته می‌شود.
                     </p>
                 </div>
             </div>

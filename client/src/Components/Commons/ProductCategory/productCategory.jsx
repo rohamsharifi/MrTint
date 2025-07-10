@@ -34,6 +34,11 @@ const ProductCategory = () => {
           <div className="extra-div">6</div>
         </div>
       </div>
+      <p className='category-more-info-note'>
+        برای انتخاب بهترین محصول برای کار خود و مشاهده
+        نکات و راهنمایی‌های قبل خرید، روی دکمه {'<'} اطلاعات
+        بیشتر {'>'} هر قسمت کلیک کنید.
+      </p>
     </section>
   );
 };

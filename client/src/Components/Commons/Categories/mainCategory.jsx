@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useProduct } from "../../../Contexts/ProductContext";
 
 import Products from '../Products/products';
@@ -7,7 +6,7 @@ import MCTopMenu from "./MCTopMenu";
 import './mainCategory.css';
 
 const MainCategory = ({ data }) => {
-    const { subCategories, checkboxLabel, checkboxValue, setCheckboxLabel, setSubcategoryId, setCheckboxValue, filteredProducts } = useProduct();
+    const { subCategories, checkboxLabel, checkboxValue, setCheckboxLabel, setSubcategoryId, setCheckboxValue } = useProduct();
 
     const clickCheckbox = (index, label, id) => {
         if (index === checkboxValue) {
@@ -63,10 +62,7 @@ const MainCategory = ({ data }) => {
                         })}
                     </ul>
                 </section>
-                <Products
-                    products={filteredProducts}
-                    label={checkboxLabel}
-                />
+                <Products />
             </div>
         </div>
     );

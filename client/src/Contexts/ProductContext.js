@@ -10,7 +10,6 @@ export const ProductProvider = ({ maincategory, children }) => {
     // STATES
     const [subCategories, setSubCategories] = useState([]);
     const [products, setProducts] = useState([]);
-    let [filteredProducts, setFilteredProducts] = useState([]);
     const [checkboxValue, setCheckboxValue] = useState(null);
     const [checkboxLabel, setCheckboxLabel] = useState(null);
     const [subcategoryId, setSubcategoryId] = useState(null);
@@ -18,7 +17,7 @@ export const ProductProvider = ({ maincategory, children }) => {
     // FUNCTIONS
     const fetchSubCategories = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/subcategories/${maincategory}`)
+            const res = await axios.get(`http://localhost:5000/api/main-category/${maincategory}`)
             setSubCategories(res.data);
         } catch (err) {
             console.error('Error fetching subcategories:', err);
@@ -26,24 +25,21 @@ export const ProductProvider = ({ maincategory, children }) => {
     };
 
     const fetchMainCategoryProducts = async () => {
-        try {
-            const res = await axios.get(`http://localhost:5000/api/subcategories/${maincategory}/products`)
-            setProducts(res.data.products);
-        } catch (err) {
-            console.error('Error fetching subcategories:', err);
-        };
-    }
-
-    const handleFilterProducts = () => {
-        let filtered = [];
-
         if (checkboxLabel === null) {
-            filteredProducts = products;
+            try {
+                const res = await axios.get(`http://localhost:5000/api/main-category/${maincategory}/all-products`);
+                setProducts(res.data.products);
+            } catch (err) {
+                console.error('Error fetching subcategories:', err);
+            };
         } else {
-            filteredProducts = products.filter((p) => p.ScId === subcategoryId);
+            try {
+                const res = await axios.get(`http://localhost:5000/api/main-category/${maincategory}/${checkboxLabel}`);
+                setProducts(res.data.products);
+            } catch (err) {
+                console.error('Error fetching subcategories:', err);
+            };
         }
-
-        setFilteredProducts(filtered);
     }
 
     // RENDER
@@ -54,7 +50,6 @@ export const ProductProvider = ({ maincategory, children }) => {
     useEffect(() => {
         const fetchAll = async () => {
             await fetchMainCategoryProducts();
-            handleFilterProducts();
         };
 
         fetchAll();
@@ -70,8 +65,7 @@ export const ProductProvider = ({ maincategory, children }) => {
                 subcategoryId,
                 setSubcategoryId,
                 checkboxValue,
-                setCheckboxValue,
-                filteredProducts
+                setCheckboxValue
             }
         }>
             {children}

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import wallPainting from '../../../images/wall_painting.jpg';
 
 import './mrTintIntro.css';
@@ -18,7 +20,9 @@ const MrTintIntro = () => {
                         ( اتومبیلی، ساختمانی، صنعتی، چوب و ... ) همچنین انواع ابزارآلات
                         مانند سنباده، پیستوله، غلطک و ... است که می‌توانید در دسته‌بندی
                         زیر آنها را مشاهده و به صورت آنلاین یا حضوری خریداری کنید.
-                        برای مشاهده نشانی و راه‌های ارتباطی با ما روی لینک تماس با ما کلیک کنید.
+                        برای مشاهده نشانی و راه‌های ارتباطی با ما روی لینک
+                        &nbsp;<Link className='contact-us-link'>تماس با ما</Link>&nbsp;
+                        کلیک کنید.
                     </p>
                 </div>
                 <div className='mrtint-intro-body-image'>
