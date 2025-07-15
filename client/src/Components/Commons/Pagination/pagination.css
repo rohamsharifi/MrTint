@@ -7,95 +7,58 @@
     width: 100%;
 }
 
-.pagination-sec.none {
-    display: none;
+.pag-btns {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
 }
 
-.pagination-button {
-    padding: 0;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.6rem;
-    border-radius: 50%;
+.pag-btn {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1.5rem;
     color: var(--link-color);
     border-radius: 8px;
 }
 
-.pagination-button.first.active {
+.pag-btn.active {
     border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
+    background-color: rgba(0, 131, 192, 0.085);
 }
 
-.pagination-button.second.active {
+.pag-btn:hover {
     border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
 }
 
-.pagination-button.third.active {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.fourth.active {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.last.active {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.second.none {
-    display: none;
-}
-
-.pagination-button.third.none {
-    display: none;
-}
-
-.pagination-button.fourth.none {
-    display: none;
-}
-
-.pagination-button:hover {
-    border: 1px solid var(--link-color);
-    background-color: rgba(0, 131, 192, 0.1);
-}
-
-.pagination-button.previous {
-    color: white;
+.pag-arrow-btn {
     background-color: var(--secondary-color);
-    font-size: 2.4rem;
-    margin-left: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
 }
 
-.pagination-button.next {
-    background-color: var(--secondary-color);
+.pag-arrow-icon {
     color: white;
     font-size: 2.4rem;
-    margin-right: 1rem;
 }
 
-.pagination-dots-first {
-    font-size: 3rem;
+.pag-btns-big {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.pag-dots {
+    font-size: 2.4rem;
     color: var(--text-color);
-    margin-bottom: 1rem;
 }
 
-.pagination-dots-second {
-    font-size: 3rem;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-}
-
-.pagination-dots-first.none {
-    display: none;
-}
-
-.pagination-dots-second.none {
+.pag-dots.none {
     display: none;
 }

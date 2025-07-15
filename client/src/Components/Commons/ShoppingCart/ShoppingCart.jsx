@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '../../../Contexts/CartContext';
 
 import Navbar from '../Navbar/navbar';
@@ -13,7 +13,14 @@ const ShoppingCart = () => {
     let [opacity, SetOpacity] = useState("1");
     let [sidenavRight, setSidenavRight] = useState("-220px");
 
-    const { cartProducts, isLoading } = useCart();
+    const {
+        cartProducts,
+        isLoading,
+        fetchCartCount,
+        fetchCartProducts,
+        setIsLoading,
+        calculateTotalPrice
+    } = useCart();
 
     const handleCloseSidenav = () => {
         setSidenavRight("-220px");
@@ -24,6 +31,22 @@ const ShoppingCart = () => {
         setSidenavRight("0");
         SetOpacity("0.2");
     };
+
+    useEffect(() => {
+        const fetchAll = async () => {
+            await fetchCartCount();
+            await fetchCartProducts();
+            setIsLoading(false);
+        };
+
+        fetchAll();
+    }, []);
+
+    useEffect(() => {
+        if (cartProducts.length > 0) {
+            calculateTotalPrice();
+        }
+    }, [cartProducts]);
 
     return (
         <div>

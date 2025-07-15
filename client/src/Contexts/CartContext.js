@@ -34,7 +34,7 @@ export const CartProvider = ({ children }) => {
 
     const fetchCartProducts = async () => {
         const token = localStorage.getItem('token');
-        if (!!token) {
+        if (token) {
             try {
                 const res = await axios.post('http://localhost:5000/api/cart/get-products', {}, {
                     headers: {
@@ -74,23 +74,6 @@ export const CartProvider = ({ children }) => {
         setTotalPrice(price);
     }
 
-    // RENDER
-    useEffect(() => {
-        const fetchAll = async () => {
-            await fetchCartCount();
-            await fetchCartProducts();
-            setIsLoading(false);
-        };
-
-        fetchAll();
-    }, [cartProducts]);
-
-    useEffect(() => {
-        if (cartProducts.length > 0) {
-            calculateTotalPrice();
-        }
-    }, [cartProducts]);
-
     return (
         <CartContext.Provider value={
             {
@@ -105,7 +88,8 @@ export const CartProvider = ({ children }) => {
                 totalPrice,
                 setTotalPrice,
                 calculateTotalPrice,
-                isLoading
+                isLoading,
+                setIsLoading
             }
         }>
             {children}

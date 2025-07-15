@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 
 const ProductContext = createContext();
@@ -14,6 +14,10 @@ export const ProductProvider = ({ maincategory, children }) => {
     const [checkboxLabel, setCheckboxLabel] = useState(null);
     const [subcategoryId, setSubcategoryId] = useState(null);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [limit] = useState(3);
+    const [totalPages, setTotalPages] = useState();
+
     // FUNCTIONS
     const fetchSubCategories = async () => {
         try {
@@ -25,35 +29,16 @@ export const ProductProvider = ({ maincategory, children }) => {
     };
 
     const fetchMainCategoryProducts = async () => {
-        if (checkboxLabel === null) {
-            try {
-                const res = await axios.get(`http://localhost:5000/api/main-category/${maincategory}/all-products`);
-                setProducts(res.data.products);
-            } catch (err) {
-                console.error('Error fetching subcategories:', err);
-            };
-        } else {
-            try {
-                const res = await axios.get(`http://localhost:5000/api/main-category/${maincategory}/${checkboxLabel}`);
-                setProducts(res.data.products);
-            } catch (err) {
-                console.error('Error fetching subcategories:', err);
-            };
-        }
-    }
-
-    // RENDER
-    useEffect(() => {
-        fetchSubCategories();
-    }, [maincategory]);
-
-    useEffect(() => {
-        const fetchAll = async () => {
-            await fetchMainCategoryProducts();
+        try {
+            const res = await axios.get(`http://localhost:5000/api/main-category/${maincategory}/products`, {
+                params: { currentPage, limit, checkboxLabel }
+            });
+            setProducts(res.data.products);
+            setTotalPages(res.data.totalPages);
+        } catch (err) {
+            console.error('Error fetching subcategories:', err);
         };
-
-        fetchAll();
-    }, [checkboxLabel]);
+    }
 
     return (
         <ProductContext.Provider value={
@@ -65,7 +50,12 @@ export const ProductProvider = ({ maincategory, children }) => {
                 subcategoryId,
                 setSubcategoryId,
                 checkboxValue,
-                setCheckboxValue
+                setCheckboxValue,
+                fetchSubCategories,
+                fetchMainCategoryProducts,
+                totalPages,
+                setCurrentPage,
+                currentPage
             }
         }>
             {children}

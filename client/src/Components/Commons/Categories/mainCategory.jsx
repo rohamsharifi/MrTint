@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useProduct } from "../../../Contexts/ProductContext";
 
 import Products from '../Products/products';
@@ -5,8 +6,18 @@ import MCTopMenu from "./MCTopMenu";
 
 import './mainCategory.css';
 
-const MainCategory = ({ data }) => {
-    const { subCategories, checkboxLabel, checkboxValue, setCheckboxLabel, setSubcategoryId, setCheckboxValue } = useProduct();
+const MainCategory = ({ data, maincategory }) => {
+    const { subCategories, checkboxLabel, checkboxValue, setCheckboxLabel, setSubcategoryId, setCheckboxValue, fetchSubCategories, fetchMainCategoryProducts, currentPage } = useProduct();
+
+    useEffect(() => {
+        const fetchAll = async () => {
+            await fetchMainCategoryProducts();
+            await fetchSubCategories();
+        }
+
+        fetchAll();
+    }, [maincategory, checkboxLabel, currentPage]);
+
 
     const clickCheckbox = (index, label, id) => {
         if (index === checkboxValue) {
@@ -49,6 +60,7 @@ const MainCategory = ({ data }) => {
                                             type='checkbox'
                                             className='mc-checkbox-input'
                                             checked={index === checkboxValue}
+                                            onChange={() => { }}
                                         />
                                         <label
                                             htmlFor=''

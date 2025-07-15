@@ -80,6 +80,7 @@ const MCTopMenu = ({ data, subCategories, value, clickCheckbox }) => {
                                     type='checkbox'
                                     className='mc-checkbox-input'
                                     checked={index === value}
+                                    onChange={() => { }}
                                 />
                                 <label
                                     htmlFor=''

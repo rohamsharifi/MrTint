@@ -7,17 +7,10 @@ import './products.css'
 import { useProduct } from '../../../Contexts/ProductContext';
 
 const Products = () => {
-    let [pagination, setPagination] = useState(1);
-    const [paginationRate] = useState(6);
     const [orderIndex, setOrderIndex] = useState(1);
 
     const { products } = useProduct();
     const { checkboxLabel } = useProduct();
-
-    const start = (pagination - 1) * paginationRate;
-    const end = pagination * paginationRate;
-
-    const newProducts = products.slice(start, end);
 
     let firstLiClass = `byorder-li-medium ${orderIndex === 1 ? 'active' : ''}`;
     let secondLiClass = `byorder-li-medium ${orderIndex === 2 ? 'active' : ''}`;
@@ -50,17 +43,12 @@ const Products = () => {
                     >پرفروش ترین</li>
                 </ul>
             </div>
-            {newProducts.map((p, index) => {
+            {products.map((p, index) => {
                 return (
-                    <Product product={p} index={index} length={newProducts.length} />
+                    <Product product={p} index={index} />
                 );
             })}
-            <Pagination
-                pagination={pagination}
-                rate={paginationRate}
-                setPagination={setPagination}
-                length={products.length}
-            />
+            <Pagination />
         </section>
     );
 }

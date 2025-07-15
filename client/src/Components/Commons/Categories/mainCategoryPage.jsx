@@ -9,6 +9,7 @@ import { ProductProvider } from "../../../Contexts/ProductContext";
 
 const MainCategoryPage = () => {
     const { maincategory } = useParams();
+    console.log(maincategory);
 
     const mainCategories = {
         painting_tools: 'ابزارها',
@@ -26,7 +27,7 @@ const MainCategoryPage = () => {
             <Navbar />
 
             <ProductProvider maincategory={maincategory}>
-                <MainCategory data={data} />
+                <MainCategory data={data} maincategory={maincategory} />
             </ProductProvider>
         </div>
 

@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CiShoppingCart } from "react-icons/ci";
 import { useCart } from "../../../Contexts/CartContext";
