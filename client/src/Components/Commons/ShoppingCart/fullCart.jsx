@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import CartProducts from './cartProducts';
 import AsideTotalPrice from './asideTotalPrice';
 import BottomTotalPrice from './BottomTotalPrice';

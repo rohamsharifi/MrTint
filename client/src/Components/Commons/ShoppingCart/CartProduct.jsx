@@ -3,7 +3,6 @@ import { useCart } from '../../../Contexts/CartContext';
 import axios from 'axios';
 
 import ProductCount from '../Products/productCount';
-import tempImage from '../../../images/arttools.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -44,7 +43,7 @@ const CartProduct = ({ product, count }) => {
         <section className='cart-product-sec'>
             <div className='cart-product-main-info'>
                 <div className='cart-product-image-div'>
-                    <img src={tempImage} alt="سلام" className='cart-product-image-img' />
+                    <img src={product.imageUrl} alt="سلام" className='cart-product-image-img' />
                 </div>
                 <div className='cart-product-info'>
                     <p className='cart-product-name'>{product.name}</p>

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+
 import Header from "../Header/header";
 import Navbar from "../Navbar/navbar";
 import SideMenu from "../SideMenu/sideMenu";
@@ -26,6 +28,15 @@ const Home = () => {
 
   return (
     <main>
+      <Helmet>
+        <title>فروشگاه اینترنتی خرید انواع رنگ | ارسال فوری</title>
+        <meta
+          name="description"
+          content="بزرگترین فروشگاه خرید انواع رنگ اتومبیلی، ساختمانی، چوب، صنعتی و ملزومات رنگ سنباده، .تینر، بتونه و ... با قیمت عالی و ارسال فوری به سراسر کشور."
+        />
+      </Helmet>
+
+
       <SideMenu
         sidenavRight={sidenavRight}
         handleCloseSidenav={handleCloseSidenav}

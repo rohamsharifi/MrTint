@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./Components/Commons/Home/home";

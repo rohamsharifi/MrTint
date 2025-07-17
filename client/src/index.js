@@ -3,10 +3,13 @@ import App from "./App";
 import { CartProvider } from './Contexts/CartContext';
 
 import "./index.css";
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <CartProvider >
-        <App />
-    </CartProvider>
+    <HelmetProvider>
+        <CartProvider >
+            <App />
+        </CartProvider>
+    </HelmetProvider>
 );

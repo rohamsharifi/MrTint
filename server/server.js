@@ -14,7 +14,7 @@ import CustomerProduct from "./Models/CustomerProduct.js";
 
 // IMPORTING ROUTES
 import cartRoutes from './Routes/cart.js';
-import mainCategoryRoutes from './Routes/subcategories.js';
+import mainCategoryRoutes from './Routes/maincategory.js';
 
 dotenv.config();
 
@@ -54,12 +54,15 @@ Product.belongsToMany(User, {
     foreignKey: 'productId'
 });
 
+Product.sync({ alter: true }).then(() => {
+    console.log('Table updated!')
+}).catch((err) => console.log(err));
 
-CustomerProduct.sync({ alter: true }).then(() => {
+Product.update(
+    { imageUrl: 'http://localhost:5000/uploads/arttools.webp' },
+    { where: { id: 1 } }
+).then(data => console.log(data)).catch(err => console.log(err));
 
-}).catch((err) => {
-    console.log(err);
-});
 
 // ROUTING.
 app.post('/login', async (req, res) => {
@@ -121,6 +124,7 @@ app.post('/login/verification', async (req, res) => {
 
 // ROUTES
 
+app.use('/uploads', express.static('uploads'));
 app.use('/api/main-category', mainCategoryRoutes);
 app.use('/api/cart', cartRoutes);
 

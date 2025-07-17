@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCart } from '../../../Contexts/CartContext';
 
-import tempImage from '../../../images/arttools.jpg'
-
 import './product.css';
 import ProductCount from './productCount';
 
@@ -63,14 +61,22 @@ const Product = ({ product, index, length }) => {
         <div className={productDivClass}>
             <div className='product-main-info'>
                 <div className='product-image-div-medium'>
-                    <img src={tempImage} alt={product.keyWord} className='product-image-img-medium' />
+                    <img
+                        src={product.imageUrl}
+                        alt={product.keyWord}
+                        className='product-image-img-medium'
+                    />
                 </div>
                 <div className='title-and-price'>
                     <p className='product-name'>{product.name}</p>
                     <p className='product-price'>{`قیمت : ${product.price} تومان`}</p>
                 </div>
                 <div className='product-image-div'>
-                    <img src={tempImage} alt={product.keyWord} className='product-image-img' />
+                    <img
+                        src={product.imageUrl}
+                        alt={product.keyWord}
+                        className='product-image-img'
+                    />
                 </div>
             </div>
             {
