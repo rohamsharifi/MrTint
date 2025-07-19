@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+
 import axios from 'axios';
+import ProductCount from './productCount';
 import { useCart } from '../../../Contexts/CartContext';
+import { toast } from 'react-toastify';
 
 import './product.css';
-import ProductCount from './productCount';
 
 const Product = ({ product, index, length }) => {
     let [productCount, setProductCount] = useState(1);
@@ -15,6 +17,7 @@ const Product = ({ product, index, length }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         setIsLoggedIn(!!token);
+        fetchCartCount();
     }, []);
 
     const addToCart = async (product) => {
@@ -30,6 +33,7 @@ const Product = ({ product, index, length }) => {
                     }
                 })
                 console.log(res.data.message);
+                toast.success('کالا به سبد خرید اضافه شد!');
             } catch (err) {
                 console.log('Error updating cart:', err);
             }
@@ -41,6 +45,7 @@ const Product = ({ product, index, length }) => {
 
             if (existingProductIndex === -1) {
                 existingCart.push({ product, productCount });
+                toast.success('کالا به سبد خرید اضافه شد!');
             }
 
             localStorage.setItem('guestCart', JSON.stringify(existingCart));

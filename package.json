@@ -1,8 +1,9 @@
 {
   "dependencies": {
     "multer": "^2.0.1",
+    "react": "^19.1.0",
     "react-countdown": "^2.3.5",
-    "react-helmet-async": "^2.0.5",
+    "react-dom": "^19.1.0",
     "redis": "^4.7.0"
   }
 }

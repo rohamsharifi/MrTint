@@ -36,7 +36,6 @@ const Home = () => {
         />
       </Helmet>
 
-
       <SideMenu
         sidenavRight={sidenavRight}
         handleCloseSidenav={handleCloseSidenav}

@@ -58,11 +58,6 @@ Product.sync({ alter: true }).then(() => {
     console.log('Table updated!')
 }).catch((err) => console.log(err));
 
-Product.update(
-    { imageUrl: 'http://localhost:5000/uploads/arttools.webp' },
-    { where: { id: 1 } }
-).then(data => console.log(data)).catch(err => console.log(err));
-
 
 // ROUTING.
 app.post('/login', async (req, res) => {
